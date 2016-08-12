@@ -80,7 +80,7 @@ By default, the text of the checkbox reads "Transparent", but you can change tha
 
 This is what a colour input with transparency enabled looks like
 
-[![allowTransparent demo](inst/img/allowTransparent.png)
+![allowTransparent demo](inst/img/allowTransparent.png)
 
 ### How the chosen colour is shown inside the input
 
@@ -88,7 +88,7 @@ By default, the colour input's background will match the selected colour and the
 
 Here is what a colour input with each of the possible values for `showColour` looks like
 
-[![showColour demo](inst/img/showColour.png)
+![showColour demo](inst/img/showColour.png)
 
 ### Updating a colourInput
 
@@ -105,7 +105,7 @@ This feature is available in `shinyjs` v0.0.8.0, which is currently only on GitH
 
 If you want to only allow the user to select a colour from a specific list of colours, rather than any possible HEX colour, you can use the `palette = "limited"` parameter.  By default, the limited palette will contain 40 common colours, but you can supply your own list of colours using the `allowedCols` parameter. Here is an image of the default limited colour palette.
 
-[![colourInput demo](inst/img/limited-palette.png)
+![colourInput demo](inst/img/limited-palette.png)
 
 ### Flexible colour specification
 

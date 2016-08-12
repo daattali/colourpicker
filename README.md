@@ -1,6 +1,11 @@
 colourpicker - A Colour Picker Widget for Shiny Apps, RStudio, R-markdown, and 'htmlwidgets'
 ============================================================================================
 
+[![Build
+status](https://travis-ci.org/daattali/colourpicker.svg?branch=master)](https://travis-ci.org/daattali/colourpicker)
+[![CRAN
+version](http://www.r-pkg.org/badges/version/colourpicker)](https://cran.r-project.org/package=colourpicker)
+
 > *Copyright 2016 [Dean Attali](http://deanattali.com). Licensed under
 > the MIT license.*
 
@@ -115,7 +120,7 @@ still be `transparent` since that's the actual colour name in R.
 
 This is what a colour input with transparency enabled looks like
 
-\[![allowTransparent demo](inst/img/allowTransparent.png)
+![allowTransparent demo](inst/img/allowTransparent.png)
 
 ### How the chosen colour is shown inside the input
 
@@ -128,7 +133,7 @@ background colour.
 Here is what a colour input with each of the possible values for
 `showColour` looks like
 
-\[![showColour demo](inst/img/showColour.png)
+![showColour demo](inst/img/showColour.png)
 
 ### Updating a colourInput
 
@@ -153,7 +158,7 @@ contain 40 common colours, but you can supply your own list of colours
 using the `allowedCols` parameter. Here is an image of the default
 limited colour palette.
 
-\[![colourInput demo](inst/img/limited-palette.png)
+![colourInput demo](inst/img/limited-palette.png)
 
 ### Flexible colour specification
 
