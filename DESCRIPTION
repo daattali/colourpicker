@@ -1,0 +1,29 @@
+Package: colourpicker
+Type: Package
+Title: A Colour Picker Widget for Shiny Apps, RStudio, R-markdown, and 'htmlwidgets'
+Version: 0.1
+Authors@R: person("Dean", "Attali", email = "daattali@gmail.com",
+    role = c("aut", "cre"))
+Description: A colour picker that can be used as an input in Shiny apps
+    or R-markdown documents. A colour picker RStudio addin is provided to let
+    you select colours for use in your R code. The colour picker is also
+    availble as an 'htmlwidgets' widget.
+URL: https://github.com/daattali/colourpicker
+BugReports: https://github.com/daattali/colourpicker/issues
+Depends:
+    R (>= 3.1.0)
+Imports:
+    htmltools,
+    htmlwidgets (>= 0.7),
+    miniUI (>= 0.1.1),
+    shiny (>= 0.11.1),
+    shinyjs
+Suggests:
+    knitr (>= 1.7),
+    rmarkdown,
+    rstudioapi (>= 0.5)
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+VignetteBuilder: knitr
+RoxygenNote: 5.0.1
