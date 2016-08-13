@@ -16,3 +16,6 @@ One NOTE about the invalid CRAN URL of the package (the URL will be valid after 
 
 ### Reviewer comments
 
+2016-08-13 Kurt Hornik
+
+Thanks, on CRAN now
