@@ -86,8 +86,9 @@ colourPickerGadget <- function(numCols = 1) {
           div(
             id = "anycolarea",
             br(),
-            shinyjs::colourInput("anyColInput", "Select any colour",
-                                 showColour = "both", value = "white")
+            colourpicker::colourInput(
+              "anyColInput", "Select any colour", showColour = "both",
+              value = "white")
           )
         )
       ),
@@ -100,8 +101,9 @@ colourPickerGadget <- function(numCols = 1) {
           fluidRow(
             column(
               6,
-              shinyjs::colourInput("rclosecolInput", "Show R colours similar to this colour",
-                                   showColour = "both", value = "orange")
+              colourpicker::colourInput(
+                "rclosecolInput","Show R colours similar to this colour",
+                showColour = "both", value = "orange")
             ),
             column(
               6,
@@ -181,7 +183,7 @@ colourPickerGadget <- function(numCols = 1) {
       if (values$selectedNum > length(values$selectedCols)) {
         values$selectedNum <- length(values$selectedCols)
       }
-      shinyjs::updateColourInput(session, "anyColInput",
+      colourpicker::updateColourInput(session, "anyColInput",
                                  value = values$selectedCols[values$selectedNum])
     })
 
@@ -208,7 +210,7 @@ colourPickerGadget <- function(numCols = 1) {
     # Receive event from JS: a different colour number was selected
     observeEvent(input$jsColNum, {
       values$selectedNum <- input$jsColNum
-      shinyjs::updateColourInput(session, "anyColInput",
+      colourpicker::updateColourInput(session, "anyColInput",
                                  value = values$selectedCols[values$selectedNum])
     })
 
@@ -223,7 +225,7 @@ colourPickerGadget <- function(numCols = 1) {
     # twice, it will register the second time as well
     observeEvent(input$jsCol, {
       values$selectedCols[values$selectedNum] <- input$jsCol[1]
-      shinyjs::updateColourInput(session, "anyColInput", value = input$jsCol[1])
+      colourpicker::updateColourInput(session, "anyColInput", value = input$jsCol[1])
     })
 
     # Render all the R colours
