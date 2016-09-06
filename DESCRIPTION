@@ -1,7 +1,7 @@
 Package: colourpicker
 Type: Package
 Title: A Colour Picker Widget for Shiny Apps, RStudio, R-markdown, and 'htmlwidgets'
-Version: 0.1.1
+Version: 0.2
 Authors@R: person("Dean", "Attali", email = "daattali@gmail.com",
     role = c("aut", "cre"))
 Description: A colour picker that can be used as an input in Shiny apps

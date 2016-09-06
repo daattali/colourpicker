@@ -1,3 +1,9 @@
+# colourpicker 0.2
+
+2016-09-06
+
+- Fix vignette source to have an output (CRAN reminded me to do this) 
+
 # colourpicker 0.1.1
 
 2016-08-15
