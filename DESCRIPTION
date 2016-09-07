@@ -7,7 +7,7 @@ Authors@R: person("Dean", "Attali", email = "daattali@gmail.com",
 Description: A colour picker that can be used as an input in Shiny apps
     or R-markdown documents. A colour picker RStudio addin is provided to let
     you select colours for use in your R code. The colour picker is also
-    availble as an 'htmlwidgets' widget.
+    available as an 'htmlwidgets' widget.
 URL: https://github.com/daattali/colourpicker
 BugReports: https://github.com/daattali/colourpicker/issues
 Depends:
