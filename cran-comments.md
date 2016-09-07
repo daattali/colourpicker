@@ -38,3 +38,25 @@ Added an output to vignette source (as requested by Kurt Hornik)
 
 ### Reviewer comments
 
+2016-09-06 Duncan Murdoch
+
+```
+I see
+
+Possibly mis-spelled words in DESCRIPTION:
+  RStudio (3:47, 9:46)
+  addin (9:54)
+  availble (11:5)
+
+and the last of those looks real... Please fix and resubmit.
+```
+
+## Round 2
+
+### Submission comments
+
+2016-09-06
+
+Fixed typo in DESCRIPTION
+
+### Reviewer comments
