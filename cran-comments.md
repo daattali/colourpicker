@@ -60,3 +60,7 @@ and the last of those looks real... Please fix and resubmit.
 Fixed typo in DESCRIPTION
 
 ### Reviewer comments
+
+2016-09-06 Kurt Hornik
+
+Thanks, on CRAN now
