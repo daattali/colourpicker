@@ -281,12 +281,16 @@ colourPickerGadget <- function(numCols = 1) {
 #' @export
 #' @import shiny
 #' @import miniUI
-plotHelper <- function(numCols = 1) {
+plotHelper <- function(numCols = 1, initCols = c(), initCode = NULL) {
 
   library(ggplot2)
 
-  code <- "ggplot(mtcars, aes(mpg, wt, col = as.factor(cyl))) + geom_point() +
-  scale_colour_manual(values = .cpcols())"
+  if (is.null(initCode)) {
+    code <- "ggplot(mtcars, aes(mpg, wt, col = as.factor(cyl))) + geom_point() +
+      scale_colour_manual(values = .cpcols())"
+  } else {
+    code <- paste(deparse(substitute(initCode)), collapse = " ")
+  }
 
   resourcePath <- system.file("gadgets", "colourpicker", package = "colourpicker")
   shiny::addResourcePath("cpg", resourcePath)
@@ -338,9 +342,9 @@ plotHelper <- function(numCols = 1) {
           div(
             id = "codeArea",
             br(),
-            "Enter valid R code for a plot. Use the variable name '_cpcols'",
+            "Enter valid R code for a plot. Use the variable name '_cpcols'", br(),
             "wherever you want to use the selected list of colours.",
-            textAreaInput("code", NULL, code, width = "100%", cols=150, rows = 15)
+            textAreaInput("code", NULL, code, cols = 70, rows = 15)
           )
         )
       ),
@@ -408,7 +412,12 @@ plotHelper <- function(numCols = 1) {
       selectedNum = NULL
     )
 
-    values$selectedCols <- rep("#FFFFFF", numCols)
+    if (length(initCols) > 0) {
+      values$selectedCols <- initCols
+    } else {
+      values$selectedCols <- rep("#FFFFFF", numCols)
+    }
+
     values$selectedNum <- 1
 
     .cpcols <- reactive({
@@ -436,7 +445,7 @@ plotHelper <- function(numCols = 1) {
         cols <- unlist(cols)
       }
 
-      stopApp(cols)
+      stopApp(dput(cols))
     })
 
     # Add another colour to select
@@ -550,6 +559,6 @@ plotHelper <- function(numCols = 1) {
     })
   }
 
-  viewer <- shiny::dialogViewer("Colour Picker", width = 1400, height = 700)
-  shiny::runGadget(shiny::shinyApp(ui, server), viewer = viewer, stopOnCancel = FALSE)
+  viewer <- shiny::dialogViewer("Plot Helper", width = 1400, height = 700)
+  shiny::runGadget(shiny::shinyApp(ui, server), viewer = shiny::paneViewer(), stopOnCancel = FALSE)
 }
