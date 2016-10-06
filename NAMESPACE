@@ -3,6 +3,7 @@
 export(colourInput)
 export(colourPicker)
 export(colourWidget)
+export(plotHelper)
 export(runExample)
 export(updateColourInput)
 import(htmlwidgets)
