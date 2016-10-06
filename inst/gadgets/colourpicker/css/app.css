@@ -8,6 +8,10 @@ body {
   z-index: 2;
   top: 170px;
 }
+#code {
+  width: auto;
+  max-width: auto;
+}
 #author {
   font-size: 0.8em;
 }
@@ -91,11 +95,10 @@ body {
 /* Tab 1 - any colour */
 
 #anycolarea {
-  text-align: center;
+  text-align: left;
 }
 #anycolarea .shiny-input-container {
   text-align: left;
-  margin: 0 auto;
 }
 
 /* R colours in tab 2 & 3 */
