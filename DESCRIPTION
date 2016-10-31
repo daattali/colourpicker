@@ -13,6 +13,7 @@ BugReports: https://github.com/daattali/colourpicker/issues
 Depends:
     R (>= 3.1.0)
 Imports:
+    ggplot2,
     htmltools,
     htmlwidgets (>= 0.7),
     miniUI (>= 0.1.1),

@@ -1,15 +1,20 @@
 #' @export
 #' @import shiny
 #' @import miniUI
-plotHelper <- function(numCols = 1, initCols = c(), initCode = NULL) {
+plotHelper <- function(numCols = 1, cols = c(), code = NULL) {
 
-  library(ggplot2)
+  ggdetach <- FALSE
 
-  if (is.null(initCode)) {
-    code <- "ggplot(mtcars, aes(mpg, wt, col = as.factor(cyl))) + geom_point() +
-    scale_colour_manual(values = CPCOLS())"
+  if (is.null(code)) {
+    code <- "ggplot(mtcars, aes(mpg, wt, col = as.factor(cyl))) +
+      geom_point() +
+      scale_colour_manual(values = CPCOLS)"
+    if (!"ggplot2" %in% .packages()) {
+      ggdetach <- TRUE
+      code <- paste0("library(ggplot2)\n\n", code)
+    }
   } else {
-    code <- paste(deparse(substitute(initCode)), collapse = " ")
+    code <- paste(deparse(substitute(code)), collapse = " ")
   }
 
   resourcePath <- system.file("gadgets", "colourpicker", package = "colourpicker")
@@ -38,7 +43,7 @@ plotHelper <- function(numCols = 1, initCols = c(), initCode = NULL) {
       id = "header-section",
       div(
         id = "header-title",
-        "Selected colours"
+        "Selected colours (available in your code as \"CPCOLS\")"
       ),
       div(
         id = "selected-cols-row",style="",
@@ -68,7 +73,7 @@ plotHelper <- function(numCols = 1, initCols = c(), initCode = NULL) {
           div(
             id = "codeArea",
             br(),
-            "Enter valid R code for a plot. Use the variable name 'CPCOLS()", br(),
+            "Enter valid R code for a plot. Use the variable name 'CPCOLS'", br(),
             "wherever you want to use the selected list of colours.",
             textAreaInput("code", NULL, code, cols = 70, rows = 15)
           )
@@ -132,22 +137,28 @@ plotHelper <- function(numCols = 1, initCols = c(), initCode = NULL) {
   )
 
   server <- function(input, output, session) {
+    session$onSessionEnded(function() {
+      if (ggdetach) {
+        detach("package:ggplot2", unload = TRUE)
+      }
+    })
+
     values <- reactiveValues(
       selectedCols = NULL,
       selectedNum = NULL
     )
 
-    if (length(initCols) > 0) {
-      values$selectedCols <- initCols
+    if (length(cols) > 0) {
+      values$selectedCols <- cols
       colourpicker::updateColourInput(session, "anyColInput",
-                                      value = initCols[1])
+                                      value = cols[1])
     } else {
       values$selectedCols <- rep("white", numCols)
     }
 
     values$selectedNum <- 1
 
-    CPCOLS <- reactive({
+    cpcols <- reactive({
       values$selectedCols
     })
 
@@ -254,7 +265,9 @@ plotHelper <- function(numCols = 1, initCols = c(), initCode = NULL) {
 
 
     output$plot <- renderPlot({
-      eval(parse(text = input$code))
+      code <- input$code
+      code <- paste0("CPCOLS <- cpcols();", code)
+      eval(parse(text = code))
     })
 
     # After the user chooses a colour, show all the similar R colours
@@ -286,6 +299,5 @@ plotHelper <- function(numCols = 1, initCols = c(), initCode = NULL) {
     })
   }
 
-  viewer <- shiny::dialogViewer("Plot Colour Helper", width = 1400, height = 700)
   shiny::runGadget(shiny::shinyApp(ui, server), viewer = shiny::paneViewer(), stopOnCancel = FALSE)
 }
