@@ -17,6 +17,10 @@ shinyjs.init = function() {
 
   $(document).keypress(function(event) {
     if (event.which == 13) {
+      // Ignore enter presses inside a textarea
+      if (event.target.tagName.toLowerCase() === "textarea") {
+        return;
+      }
       $("#done").click();
     }
   });
