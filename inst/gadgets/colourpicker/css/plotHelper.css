@@ -1,0 +1,19 @@
+.gadget-tabs-content-container {
+  background: #fcfcfc;
+  width: 50%;
+  border-right: 1px solid #eee;
+}
+.gadget-tabs-container {
+  z-index: 2;
+}
+#plot {
+  position: absolute;
+  right: 0;
+  z-index: 1;
+  top: 170px;
+  width: 50%;
+}
+#code {
+  width: auto;
+  max-width: auto;
+}
