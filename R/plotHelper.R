@@ -1,36 +1,15 @@
-#' Colour picker gadget
-#'
-#' This gadget lets you choose colours easily. You can select multiple colours,
-#' and you can either choose any RGB colour, or browse through R colours.
-#'
-#' @param numCols The number of colours to select when the gadget launches (you
-#' can add and remove more colours from the app itself too)
-#' @note This gadget returns a vector of colours that can be assigned to a variable.
-#' If instead you want to get a text representation of the colours that can
-#' embedded into code, use the addin from the RStudio Addins menu.
-#' @return Vector of selected colours
 #' @export
-#' @examples
-#' if (interactive()) {
-#'   cols <- colourPicker(3)
-#' }
-colourPicker <- function(numCols = 1) {
-  colourPickerGadget(numCols)
-}
-
-colourPickerAddin <- function() {
-  col <- colourPickerGadget()
-  text <- paste0("c(\"", paste(col, collapse = "\", \""), "\")")
-  rstudioapi::insertText(text = text)
-}
-
-
 #' @import shiny
 #' @import miniUI
-colourPickerGadget <- function(numCols = 1) {
-  if (!requireNamespace("rstudioapi", quietly = TRUE)) {
-    stop("You must have RStudio v0.99.878 or newer to use the colour picker",
-         call. = FALSE)
+plotHelper <- function(numCols = 1, initCols = c(), initCode = NULL) {
+
+  library(ggplot2)
+
+  if (is.null(initCode)) {
+    code <- "ggplot(mtcars, aes(mpg, wt, col = as.factor(cyl))) + geom_point() +
+    scale_colour_manual(values = CPCOLS())"
+  } else {
+    code <- paste(deparse(substitute(initCode)), collapse = " ")
   }
 
   resourcePath <- system.file("gadgets", "colourpicker", package = "colourpicker")
@@ -42,13 +21,17 @@ colourPickerGadget <- function(numCols = 1) {
       script = file.path(resourcePath, "js", "shinyjs-funcs.js"),
       functions = c()
     ),
-    tags$head(includeCSS(file.path(resourcePath, "css", "app.css"))),
-
-    gadgetTitleBar(
-      span(strong("Colour Picker"),
-           span(id = "author", "By",
-                a(href = "http://deanattali.com", "Dean Attali")))
+    tags$head(
+      includeCSS(file.path(resourcePath, "css", "app.css")),
+      includeCSS(file.path(resourcePath, "css", "plotHelper.css"))
     ),
+
+    gadgetTitleBar(span(strong("Plot Colour Helper"),
+                        span(id = "author", "By",
+                             a(href = "http://deanattali.com", "Dean Attali")))
+    ),
+
+    plotOutput("plot", width = "50%"),
 
     # Header section - shows the selected colours
     div(
@@ -78,6 +61,20 @@ colourPickerGadget <- function(numCols = 1) {
 
     miniTabstripPanel(
 
+      miniTabPanel(
+        "Plot code",
+        icon = icon("code"),
+        miniContentPanel(
+          div(
+            id = "codeArea",
+            br(),
+            "Enter valid R code for a plot. Use the variable name 'CPCOLS()", br(),
+            "wherever you want to use the selected list of colours.",
+            textAreaInput("code", NULL, code, cols = 70, rows = 15)
+          )
+        )
+      ),
+
       # Tab 1 - choose any colour
       miniTabPanel(
         "Any colour",
@@ -87,8 +84,7 @@ colourPickerGadget <- function(numCols = 1) {
             id = "anycolarea",
             br(),
             colourpicker::colourInput(
-              "anyColInput", "Select any colour", showColour = "both",
-              value = "white")
+              "anyColInput", "Select any colour", showColour = "both")
           )
         )
       ),
@@ -141,8 +137,19 @@ colourPickerGadget <- function(numCols = 1) {
       selectedNum = NULL
     )
 
-    values$selectedCols <- rep("#FFFFFF", numCols)
+    if (length(initCols) > 0) {
+      values$selectedCols <- initCols
+      colourpicker::updateColourInput(session, "anyColInput",
+                                      value = initCols[1])
+    } else {
+      values$selectedCols <- rep("white", numCols)
+    }
+
     values$selectedNum <- 1
+
+    CPCOLS <- reactive({
+      values$selectedCols
+    })
 
     # User canceled
     observeEvent(input$cancel, {
@@ -165,7 +172,7 @@ colourPickerGadget <- function(numCols = 1) {
         cols <- unlist(cols)
       }
 
-      stopApp(cols)
+      stopApp(dput(cols))
     })
 
     # Add another colour to select
@@ -184,7 +191,7 @@ colourPickerGadget <- function(numCols = 1) {
         values$selectedNum <- length(values$selectedCols)
       }
       colourpicker::updateColourInput(session, "anyColInput",
-                                 value = values$selectedCols[values$selectedNum])
+                                      value = values$selectedCols[values$selectedNum])
     })
 
     # Render the chosen colours
@@ -211,7 +218,7 @@ colourPickerGadget <- function(numCols = 1) {
     observeEvent(input$jsColNum, {
       values$selectedNum <- input$jsColNum
       colourpicker::updateColourInput(session, "anyColInput",
-                                 value = values$selectedCols[values$selectedNum])
+                                      value = values$selectedCols[values$selectedNum])
     })
 
     # A colour from the "any colour" input is chosen
@@ -245,6 +252,11 @@ colourPickerGadget <- function(numCols = 1) {
       )
     })
 
+
+    output$plot <- renderPlot({
+      eval(parse(text = input$code))
+    })
+
     # After the user chooses a colour, show all the similar R colours
     output$rclosecolsSection <- renderUI({
       rcols <- closestColHex(input$rclosecolInput, n = input$numSimilar)
@@ -274,6 +286,6 @@ colourPickerGadget <- function(numCols = 1) {
     })
   }
 
-  viewer <- shiny::dialogViewer("Colour Picker", width = 800, height = 700)
-  shiny::runGadget(shiny::shinyApp(ui, server), viewer = viewer, stopOnCancel = FALSE)
+  viewer <- shiny::dialogViewer("Plot Colour Helper", width = 1400, height = 700)
+  shiny::runGadget(shiny::shinyApp(ui, server), viewer = shiny::paneViewer(), stopOnCancel = FALSE)
 }
