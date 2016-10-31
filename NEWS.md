@@ -1,3 +1,9 @@
+# colourpicker 0.2.1
+
+2016-10-31
+
+- Slight changes to colour picker gadget UI
+
 # colourpicker 0.2
 
 2016-09-06

@@ -9,8 +9,7 @@ body {
 #header-section {
   background: #fff;
   border-bottom: 1px solid #eee;
-  padding: 10px 10px 20px;
-  overflow-x: overlay;
+  padding: 10px;
 }
 #header-title {
   margin-bottom: 5px;
@@ -24,7 +23,6 @@ body {
 
 #selected-cols-row {
   position: relative;
-  white-space: nowrap;
   -webkit-user-select: none;
   -moz-user-select: none;
   -khtml-user-select: none;
@@ -43,6 +41,7 @@ body {
   height: 35px;
   line-height: 35px;
   text-align: center;
+  margin: 3px 0;
 }
 #removeColBtn {
   margin-right: 10px;
