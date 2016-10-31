@@ -13,7 +13,6 @@
   top: 170px;
   width: 50%;
 }
-#code {
-  width: auto;
-  max-width: auto;
+#codeArea .shiny-input-container {
+  width: 100%;
 }

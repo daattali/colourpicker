@@ -1,20 +1,35 @@
 #' @export
 #' @import shiny
 #' @import miniUI
-plotHelper <- function(numCols = 1, cols = c(), code = NULL) {
+plotHelper <- function(numCols, cols, code) {
 
+  # Whether or not we attached ggplot2 and hence need to detach it at the end
   ggdetach <- FALSE
 
-  if (is.null(code)) {
-    code <- "ggplot(mtcars, aes(mpg, wt, col = as.factor(cyl))) +
-      geom_point() +
+  # Use default code if none was given
+  if (missing(code)) {
+    code <- "ggplot(iris, aes(Sepal.Length, Petal.Length)) +
+      geom_point(aes(col = Species)) +
       scale_colour_manual(values = CPCOLS)"
     if (!"ggplot2" %in% .packages()) {
       ggdetach <- TRUE
       code <- paste0("library(ggplot2)\n\n", code)
     }
+
+    # If no arguments were given, default to three colours
+    if (missing(numCols) && missing(cols)) {
+      cols <- c("white", "blue", "red")
+    }
+  } else if (is.character(code)) {
+    code <- code
   } else {
     code <- paste(deparse(substitute(code)), collapse = " ")
+  }
+  if (missing(numCols)) {
+    numCols <- 3
+  }
+  if (missing(cols)) {
+    cols <- c()
   }
 
   resourcePath <- system.file("gadgets", "colourpicker", package = "colourpicker")
@@ -75,7 +90,7 @@ plotHelper <- function(numCols = 1, cols = c(), code = NULL) {
             br(),
             "Enter valid R code for a plot. Use the variable name 'CPCOLS'", br(),
             "wherever you want to use the selected list of colours.",
-            textAreaInput("code", NULL, code, cols = 70, rows = 15)
+            textAreaInput("code", NULL, code, rows = 8)
           )
         )
       ),
