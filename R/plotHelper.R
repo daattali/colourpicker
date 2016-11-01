@@ -20,7 +20,7 @@ plotHelper <- function(code, colours) {
 
     # If no arguments were given, default to three colours
     if (missing(colours)) {
-      colours <- c("white", "blue", "red")
+      colours <- c("green", "blue", "red")
     }
   }
   # If code was given, parse it and save it
@@ -127,8 +127,7 @@ plotHelper <- function(code, colours) {
           div(
             id = "anycolarea",
             br(),
-            colourpicker::colourInput(
-              "anyColInput", "Select any colour", showColour = "both")
+            uiOutput("anyColInputPlaceholder")
           )
         )
       ),
@@ -176,6 +175,8 @@ plotHelper <- function(code, colours) {
   )
 
   server <- function(input, output, session) {
+
+    # If we attached ggplot2, detach it
     session$onSessionEnded(function() {
       if (ggdetach) {
         detach("package:ggplot2", unload = TRUE)
@@ -183,15 +184,15 @@ plotHelper <- function(code, colours) {
     })
 
     values <- reactiveValues(
-      selectedCols = NULL,
-      selectedNum = NULL
+      selectedCols = colours,
+      selectedNum = 1
     )
 
-    values$selectedCols <- colours
-    colourpicker::updateColourInput(session, "anyColInput",
-                                    value = colours[1])
-
-    values$selectedNum <- 1
+    # Initialize the main colour picker to the first colour in the list
+    output$anyColInputPlaceholder <- renderUI({
+      colourpicker::colourInput(
+        "anyColInput", "Select any colour", colours[1], showColour = "both")
+    })
 
     cpcols <- reactive({
       values$selectedCols
