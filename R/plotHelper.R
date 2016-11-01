@@ -75,7 +75,15 @@ plotHelper <- function(code, colours) {
                              a(href = "http://deanattali.com", "Dean Attali")))
     ),
 
-    plotOutput("plot", width = "50%"),
+    div(id = "plotArea",
+        shinyjs::hidden(
+          div(id = "plotErrorOut",
+            strong("Error with the plot:"),
+            textOutput("plotError")
+          )
+        ),
+        plotOutput("plot", width = "100%")
+    ),
 
     # Header section - shows the selected colours
     div(
@@ -186,7 +194,8 @@ plotHelper <- function(code, colours) {
     values <- reactiveValues(
       selectedCols = colours,
       selectedNum = 1,
-      colUpdateSrc = 0
+      colUpdateSrc = 0,
+      plotError = NULL
     )
 
     # Initialize the main colour picker to the first colour in the list
@@ -332,11 +341,24 @@ plotHelper <- function(code, colours) {
       )
     })
 
-
     output$plot <- renderPlot({
-      code <- input$code
-      code <- paste0("CPCOLS <- cpcols();", code)
-      eval(parse(text = code))
+      tryCatch({
+        shinyjs::hide('plotErrorOut')
+        code <- input$code
+        code <- paste0("CPCOLS <- cpcols();", code)
+        p <- eval(parse(text = code))
+
+        # If it's a ggplot2 plot, we need to explicitly print it to see if there
+        # are errors
+        if (ggplot2::is.ggplot(p)) {
+          print(p)
+        } else {
+          p
+        }
+      }, error = function(err) {
+        values$plotError <- err$message
+        shinyjs::show('plotErrorOut')
+      })
     })
 
     # After the user chooses a colour, show all the similar R colours
@@ -365,6 +387,10 @@ plotHelper <- function(code, colours) {
           )
         )
       )
+    })
+
+    output$plotError <- renderText({
+      values$plotError
     })
   }
 

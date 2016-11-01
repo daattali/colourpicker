@@ -6,13 +6,21 @@
 .gadget-tabs-container {
   z-index: 2;
 }
-#plot {
+#plotArea {
+  background: #FFFFFF;
   position: absolute;
   right: 0;
   z-index: 1;
-  top: 170px;
+  top: 165px;
   width: 50%;
 }
 #codeArea .shiny-input-container {
   width: 100%;
+}
+#plotErrorOut {
+  padding: 10px;
+  color: red;
+}
+#plotError {
+  margin-left: 15px;
 }
