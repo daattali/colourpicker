@@ -276,7 +276,11 @@ plotHelper <- function(code, colours) {
 
     # Receive event from JS: a different colour number was selected
     observeEvent(input$jsColNum, {
-      values$selectedNum <- input$jsColNum[1]
+      newNum <- input$jsColNum[1]
+      if (newNum < 1 || newNum > length(values$selectedCols)) {
+        return()
+      }
+      values$selectedNum <- newNum
     })
 
     # A colour from the "any colour" input is chosen
