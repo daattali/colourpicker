@@ -185,7 +185,8 @@ plotHelper <- function(code, colours) {
 
     values <- reactiveValues(
       selectedCols = colours,
-      selectedNum = 1
+      selectedNum = 1,
+      colUpdateSrc = NULL
     )
 
     # Initialize the main colour picker to the first colour in the list
@@ -193,6 +194,7 @@ plotHelper <- function(code, colours) {
       colourpicker::colourInput(
         "anyColInput", "Select any colour", colours[1], showColour = "both")
     })
+    outputOptions(output, "anyColInputPlaceholder", suspendWhenHidden = FALSE)
 
     cpcols <- reactive({
       values$selectedCols
@@ -237,8 +239,6 @@ plotHelper <- function(code, colours) {
       if (values$selectedNum > length(values$selectedCols)) {
         values$selectedNum <- length(values$selectedCols)
       }
-      colourpicker::updateColourInput(session, "anyColInput",
-                                      value = values$selectedCols[values$selectedNum])
     })
 
     # Render the chosen colours
@@ -264,12 +264,16 @@ plotHelper <- function(code, colours) {
     # Receive event from JS: a different colour number was selected
     observeEvent(input$jsColNum, {
       values$selectedNum <- input$jsColNum
-      colourpicker::updateColourInput(session, "anyColInput",
-                                      value = values$selectedCols[values$selectedNum])
     })
 
     # A colour from the "any colour" input is chosen
     observeEvent(input$anyColInput, {
+      if (is.null(values$colUpdateSrc)) {
+        values$colUpdateSrc <- 1
+      } else if (values$colUpdateSrc == 2) {
+        values$colUpdateSrc <- NULL
+        return()
+      }
       values$selectedCols[values$selectedNum] <- input$anyColInput
     })
 
@@ -279,7 +283,17 @@ plotHelper <- function(code, colours) {
     # twice, it will register the second time as well
     observeEvent(input$jsCol, {
       values$selectedCols[values$selectedNum] <- input$jsCol[1]
-      colourpicker::updateColourInput(session, "anyColInput", value = input$jsCol[1])
+    })
+
+    observeEvent(list(values$selectedCols, values$selectedNum), {
+      if (is.null(values$colUpdateSrc)) {
+        values$colUpdateSrc <- 2
+      } else if (values$colUpdateSrc == 1) {
+        values$colUpdateSrc <- NULL
+        return()
+      }
+      colourpicker::updateColourInput(
+        session, "anyColInput", value = values$selectedCols[values$selectedNum])
     })
 
     # Render all the R colours
