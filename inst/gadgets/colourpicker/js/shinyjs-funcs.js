@@ -15,7 +15,22 @@ shinyjs.init = function() {
     }
   });
 
+  $(document).mousedown(function(event) {
+    // Close the keyboard shortcuts modal
+    if ($("body").hasClass('modal-open')) {
+      Shiny.onInputChange("hideShortcuts", Math.random());
+      return;
+    }
+  });
+
+
   $(document).keydown(function(event) {
+    // Close the keyboard shortcuts modal
+    if ($("body").hasClass('modal-open')) {
+      Shiny.onInputChange("hideShortcuts", Math.random());
+      return;
+    }
+
     // Ignore key presses inside input fields
     if ($(event.target).closest(".shiny-input-container").length > 0) {
       return;

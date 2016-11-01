@@ -112,7 +112,8 @@ plotHelper <- function(code, colours) {
         "returnTypeName",
         "Return colour name (eg. \"white\") instead of HEX value (eg. #FFFFFF) when possible",
         width = "100%"
-      )
+      ),
+      actionLink("showShortcuts", "Show keyboard shortcuts")
     ),
 
     miniTabstripPanel(
@@ -234,6 +235,7 @@ plotHelper <- function(code, colours) {
         cols <- unlist(cols)
       }
 
+      assign("CPCOLS", cols, envir = .GlobalEnv)
       stopApp(dput(cols))
     })
 
@@ -285,7 +287,7 @@ plotHelper <- function(code, colours) {
 
     # A colour from the "any colour" input is chosen
     observeEvent(input$anyColInput, {
-      if(values$colUpdateSrc == 1) {
+      if (values$colUpdateSrc == 1) {
         values$colUpdateSrc <- 0
         return()
       }
@@ -307,7 +309,7 @@ plotHelper <- function(code, colours) {
 
     # Update the colour input to the currently selected colour
     observeEvent(list(values$selectedCols, values$selectedNum), {
-      if(values$colUpdateSrc == 2) {
+      if (values$colUpdateSrc == 2) {
         values$colUpdateSrc <- 0
         return()
       }
@@ -315,7 +317,7 @@ plotHelper <- function(code, colours) {
       # Make sure we don't get into a loop of the selected colour and the
       # colour input updating each other
       newCol <- values$selectedCols[values$selectedNum]
-      if(!is.null(input$anyColInput) && input$anyColInput == newCol) {
+      if (!is.null(input$anyColInput) && input$anyColInput == newCol) {
         values$colUpdateSrc <- 0
       }
       colourpicker::updateColourInput(session, "anyColInput", value = newCol)
@@ -349,26 +351,6 @@ plotHelper <- function(code, colours) {
       )
     })
 
-    output$plot <- renderPlot({
-      tryCatch({
-        shinyjs::hide('plotErrorOut')
-        code <- input$code
-        code <- paste0("CPCOLS <- cpcols();", code)
-        p <- eval(parse(text = code))
-
-        # If it's a ggplot2 plot, we need to explicitly print it to see if there
-        # are errors
-        if (ggplot2::is.ggplot(p)) {
-          print(p)
-        } else {
-          p
-        }
-      }, error = function(err) {
-        values$plotError <- err$message
-        shinyjs::show('plotErrorOut')
-      })
-    })
-
     # After the user chooses a colour, show all the similar R colours
     output$rclosecolsSection <- renderUI({
       rcols <- closestColHex(input$rclosecolInput, n = input$numSimilar)
@@ -397,8 +379,93 @@ plotHelper <- function(code, colours) {
       )
     })
 
+    output$plot <- renderPlot({
+      tryCatch({
+        shinyjs::hide('plotErrorOut')
+        code <- input$code
+        code <- paste0("CPCOLS <- cpcols();", code)
+        p <- eval(parse(text = code))
+
+        # If it's a ggplot2 plot, we need to explicitly print it to see if there
+        # are errors
+        if (ggplot2::is.ggplot(p)) {
+          print(p)
+        } else {
+          p
+        }
+      }, error = function(err) {
+        values$plotError <- err$message
+        shinyjs::show('plotErrorOut')
+      })
+    })
+
     output$plotError <- renderText({
       values$plotError
+    })
+
+    observeEvent(input$showShortcuts, {
+      showModal(modalDialog(
+        easyClose = FALSE,
+        title = "Keyboard shortcuts",
+        div(
+          class = "ksh",
+          span(
+            class = "ksh-left",
+            span(class = "ksh-key", HTML("&larr;")),
+            "/",
+            span(class = "ksh-key", HTML("&rarr;"))
+          ),
+          span(class = "ksh-right", "Select previous/next colour")
+        ),
+        div(
+          class = "ksh",
+          span(
+            class = "ksh-left",
+            span(class = "ksh-key", "1"),
+            "-",
+            span(class = "ksh-key", "9")
+          ),
+          span(class = "ksh-right", "Select colour 1-9")
+        ),
+        div(
+          class = "ksh",
+          span(
+            class = "ksh-left",
+            span(class = "ksh-key", HTML("&nbsp;&nbsp;Spacebar&nbsp;&nbsp;"))
+          ),
+          span(class = "ksh-right", "Add another colour")
+        ),
+        div(
+          class = "ksh",
+          span(
+            class = "ksh-left",
+            span(class = "ksh-key", "Delete")
+          ),
+          span(class = "ksh-right", "Remove selected colour")
+        ),
+        div(
+          class = "ksh",
+          span(
+            class = "ksh-left",
+            span(class = "ksh-key", "Enter")
+          ),
+          span(class = "ksh-right", "Done")
+        ),
+        div(
+          class = "ksh",
+          span(
+            class = "ksh-left",
+            span(class = "ksh-key", "Esc")
+          ),
+          span(class = "ksh-right", "Cancel")
+        ),
+        footer = "Press any key to dismiss"
+      ))
+    })
+
+    # Close the keyboard shortcuts modal
+    observeEvent(input$hideShortcuts, {
+      removeModal()
     })
   }
 
