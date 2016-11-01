@@ -186,7 +186,7 @@ plotHelper <- function(code, colours) {
     values <- reactiveValues(
       selectedCols = colours,
       selectedNum = 1,
-      colUpdateSrc = NULL
+      colUpdateSrc = 0
     )
 
     # Initialize the main colour picker to the first colour in the list
@@ -263,18 +263,21 @@ plotHelper <- function(code, colours) {
 
     # Receive event from JS: a different colour number was selected
     observeEvent(input$jsColNum, {
-      values$selectedNum <- input$jsColNum
+      values$selectedNum <- input$jsColNum[1]
     })
 
     # A colour from the "any colour" input is chosen
     observeEvent(input$anyColInput, {
-      if (is.null(values$colUpdateSrc)) {
-        values$colUpdateSrc <- 1
-      } else if (values$colUpdateSrc == 2) {
-        values$colUpdateSrc <- NULL
+      if(values$colUpdateSrc == 1) {
+        values$colUpdateSrc <- 0
         return()
       }
+      # Make sure we don't get into a loop of the selected colour and the
+      # colour input updating each other
+      values$colUpdateSrc <- 2
+
       values$selectedCols[values$selectedNum] <- input$anyColInput
+
     })
 
     # Receive event from JS: an R colour was selected from one of the two tabs
@@ -285,15 +288,31 @@ plotHelper <- function(code, colours) {
       values$selectedCols[values$selectedNum] <- input$jsCol[1]
     })
 
+    # Update the colour input to the currently selected colour
     observeEvent(list(values$selectedCols, values$selectedNum), {
-      if (is.null(values$colUpdateSrc)) {
-        values$colUpdateSrc <- 2
-      } else if (values$colUpdateSrc == 1) {
-        values$colUpdateSrc <- NULL
+      if(values$colUpdateSrc == 2) {
+        values$colUpdateSrc <- 0
         return()
       }
-      colourpicker::updateColourInput(
-        session, "anyColInput", value = values$selectedCols[values$selectedNum])
+      values$colUpdateSrc <- 1
+      # Make sure we don't get into a loop of the selected colour and the
+      # colour input updating each other
+      newCol <- values$selectedCols[values$selectedNum]
+      if(!is.null(input$anyColInput) && input$anyColInput == newCol) {
+        values$colUpdateSrc <- 0
+      }
+      colourpicker::updateColourInput(session, "anyColInput", value = newCol)
+    })
+
+    # Receive event from JS: navigate to the colour to the left/right
+    observeEvent(input$jsColNav, {
+      newNum <- values$selectedNum + input$jsColNav[1]
+      if (newNum == 0) {
+        newNum <- length(values$selectedCols)
+      } else if (newNum == length(values$selectedCols) + 1) {
+        newNum <- 1
+      }
+      values$selectedNum <- newNum
     })
 
     # Render all the R colours
