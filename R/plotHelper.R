@@ -1,7 +1,7 @@
 #' @export
 #' @import shiny
 #' @import miniUI
-plotHelper <- function(numCols, cols, code) {
+plotHelper <- function(code, colours) {
 
   # Whether or not we attached ggplot2 and hence need to detach it at the end
   ggdetach <- FALSE
@@ -11,26 +11,50 @@ plotHelper <- function(numCols, cols, code) {
     code <- "ggplot(iris, aes(Sepal.Length, Petal.Length)) +
       geom_point(aes(col = Species)) +
       scale_colour_manual(values = CPCOLS)"
+
+    # Load ggplot2 if it isn't attached
     if (!"ggplot2" %in% .packages()) {
       ggdetach <- TRUE
       code <- paste0("library(ggplot2)\n\n", code)
     }
 
     # If no arguments were given, default to three colours
-    if (missing(numCols) && missing(cols)) {
-      cols <- c("white", "blue", "red")
+    if (missing(colours)) {
+      colours <- c("white", "blue", "red")
     }
-  } else if (is.character(code)) {
-    code <- code
-  } else {
-    code <- paste(deparse(substitute(code)), collapse = " ")
   }
-  if (missing(numCols)) {
-    numCols <- 3
+  # If code was given, parse it and save it
+  else {
+    if (!is.character(code)) {
+      code <- paste(deparse(substitute(code)), collapse = " ")
+    }
+
+    # If no colours were given, try to guess how many colours are needed by
+    # building a ggplot2 plot and seeing if an error about missing colours is
+    # thrown
+    if (missing(colours)) {
+      colours <- "white"
+      tempcode <- paste0("CPCOLS <- colours;", code)
+      tryCatch({
+        p <- eval(parse(text = tempcode))
+        if (ggplot2::is.ggplot(p)) {
+          ggplot2::ggplot_build(p)
+        }
+      }, error = function(err) {
+        mainEnv <- parent.env(environment())
+        regex <- "Insufficient values in manual scale\\. ([0-9]+) needed.*"
+        if (grepl(regex, err$message)) {
+          assign("colours", as.numeric(sub(regex, "\\1", err$message)),
+                 envir = mainEnv)
+        }
+      })
+    }
   }
-  if (missing(cols)) {
-    cols <- c()
+
+  if (is.numeric(colours)) {
+    colours <- rep("white", colours)
   }
+  colours <- unlist(lapply(colours, col2hex))
 
   resourcePath <- system.file("gadgets", "colourpicker", package = "colourpicker")
   shiny::addResourcePath("cpg", resourcePath)
@@ -163,13 +187,9 @@ plotHelper <- function(numCols, cols, code) {
       selectedNum = NULL
     )
 
-    if (length(cols) > 0) {
-      values$selectedCols <- cols
-      colourpicker::updateColourInput(session, "anyColInput",
-                                      value = cols[1])
-    } else {
-      values$selectedCols <- rep("white", numCols)
-    }
+    values$selectedCols <- colours
+    colourpicker::updateColourInput(session, "anyColInput",
+                                    value = colours[1])
 
     values$selectedNum <- 1
 

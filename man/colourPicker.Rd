@@ -4,7 +4,7 @@
 \alias{colourPicker}
 \title{Colour picker gadget}
 \usage{
-colourPicker(numCols = 1)
+colourPicker(numCols = 3)
 }
 \arguments{
 \item{numCols}{The number of colours to select when the gadget launches (you
@@ -24,7 +24,7 @@ embedded into code, use the addin from the RStudio Addins menu.
 }
 \examples{
 if (interactive()) {
-  cols <- colourPicker(3)
+  cols <- colourPicker(5)
 }
 }
 
