@@ -6,8 +6,10 @@
 .gadget-tabs-container {
   z-index: 2;
 }
-#plotArea {
+.gadget-container {
   background: #FFFFFF;
+}
+#plotArea {
   position: absolute;
   right: 0;
   z-index: 1;
@@ -23,4 +25,18 @@
 }
 #plotError {
   margin-left: 15px;
+}
+#plot-container {
+  position: relative;
+}
+#plot-spinner {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: -1;
+  margin-top: -33px;  /* half of the spinner's height */
+  margin-left: -33px; /* half of the spinner's width */
+}
+#plot.recalculating {
+  z-index: -2;
 }

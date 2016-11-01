@@ -82,7 +82,11 @@ plotHelper <- function(code, colours) {
             textOutput("plotError")
           )
         ),
-        plotOutput("plot", width = "100%")
+        div(id = "plot-container",
+            tags$img(src = file.path("cpg", "img", "ajax-loader.gif"),
+                     id = "plot-spinner"),
+            plotOutput("plot", width = "100%")
+        )
     ),
 
     # Header section - shows the selected colours
