@@ -1,3 +1,8 @@
+# TODO
+# documentation
+# addin vs gadget
+# add features to colourPicker gadget
+
 #' @export
 #' @import shiny
 #' @import miniUI
@@ -94,7 +99,7 @@ plotHelper <- function(code, colours) {
       id = "header-section",
       div(
         id = "header-title",
-        "Selected colours (available in your code as \"CPCOLS\")"
+        "Selected colours - Use", tags$code("CPCOLS"), "to access this list"
       ),
       div(
         id = "selected-cols-row",style="",
@@ -124,9 +129,9 @@ plotHelper <- function(code, colours) {
         miniContentPanel(
           div(
             id = "codeArea",
-            br(),
-            "Enter valid R code for a plot. Use the variable name 'CPCOLS'", br(),
-            "wherever you want to use the selected list of colours.",
+            strong("R code for a plot"), br(),
+            "Use the variable", tags$code("CPCOLS"), "to refer to the",
+            "list of selected colours.",
             textAreaInput("code", NULL, code, rows = 8)
           )
         )
@@ -449,7 +454,8 @@ plotHelper <- function(code, colours) {
             class = "ksh-left",
             span(class = "ksh-key", "Enter")
           ),
-          span(class = "ksh-right", "Done")
+          span(class = "ksh-right",
+               HTML("Done (the colour list will be assigned to <code>CPCOLS</code>)"))
         ),
         div(
           class = "ksh",
@@ -457,7 +463,7 @@ plotHelper <- function(code, colours) {
             class = "ksh-left",
             span(class = "ksh-key", "Esc")
           ),
-          span(class = "ksh-right", "Cancel")
+          span(class = "ksh-right", "Close the colour helper")
         ),
         footer = "Press any key to dismiss"
       ))
