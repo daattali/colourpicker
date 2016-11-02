@@ -475,5 +475,5 @@ plotHelper <- function(code, colours) {
     })
   }
 
-  shiny::runGadget(shiny::shinyApp(ui, server), viewer = shiny::paneViewer(), stopOnCancel = FALSE)
+  shiny::runGadget(shiny::shinyApp(ui, server), viewer = shiny::browserViewer(), stopOnCancel = FALSE)
 }
