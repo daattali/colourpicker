@@ -9,15 +9,21 @@
 .gadget-container {
   background: #FFFFFF;
 }
+#codeArea {
+  font-size: 16px;
+}
+#codeArea .shiny-input-container {
+  width: 100%;
+}
+#code {
+  margin-top: 10px;
+}
 #plotArea {
   position: absolute;
   right: 0;
   z-index: 1;
   top: 185px;
   width: 50%;
-}
-#codeArea .shiny-input-container {
-  width: 100%;
 }
 #plotErrorOut {
   padding: 10px;
