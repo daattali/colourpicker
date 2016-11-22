@@ -1,3 +1,8 @@
+Name: Plot Colour Helper
+Description: Interactively pick colours to use in your plot.
+Binding: plotHelperAddin
+Interactive: true
+
 Name: Colour Picker
 Description: Lets you easily select colours.
 Binding: colourPickerAddin

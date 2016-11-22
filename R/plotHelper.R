@@ -69,7 +69,7 @@ plotHelper <- function(code, colours) {
     shinyjs::useShinyjs(),
     shinyjs::extendShinyjs(
       script = file.path(resourcePath, "js", "shinyjs-funcs.js"),
-      functions = c()
+      functions = c("closeWindow")
     ),
     tags$head(
       includeCSS(file.path(resourcePath, "css", "app.css")),
@@ -200,6 +200,7 @@ plotHelper <- function(code, colours) {
       if (ggdetach) {
         detach("package:ggplot2", unload = TRUE)
       }
+      stopApp()
     })
 
     values <- reactiveValues(
@@ -222,6 +223,7 @@ plotHelper <- function(code, colours) {
 
     # User canceled
     observeEvent(input$cancel, {
+      shinyjs::js$closeWindow()
       stopApp(stop("User canceled colour selection", call. = FALSE))
     })
 
@@ -242,6 +244,7 @@ plotHelper <- function(code, colours) {
       }
 
       assign("CPCOLS", cols, envir = .GlobalEnv)
+      shinyjs::js$closeWindow()
       stopApp(dput(cols))
     })
 
@@ -492,4 +495,11 @@ plotHelper <- function(code, colours) {
 
   shiny::runGadget(shiny::shinyApp(ui, server), viewer = shiny::browserViewer(),
                    stopOnCancel = FALSE)
+}
+
+# TODO select the plot that's highlighted
+plotHelperAddin <- function() {
+  col <- plotHelper()
+  text <- paste0("c(\"", paste(col, collapse = "\", \""), "\")")
+  rstudioapi::insertText(text = text)
 }

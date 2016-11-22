@@ -67,3 +67,7 @@ shinyjs.init = function() {
     }
   });
 };
+
+shinyjs.closeWindow = function() {
+  window.close();
+}
