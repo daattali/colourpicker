@@ -61,7 +61,8 @@ plotHelper <- function(code, colours) {
   }
   colours <- unlist(lapply(colours, col2hex))
 
-  resourcePath <- system.file("gadgets", "colourpicker", package = "colourpicker")
+  resourcePath <- system.file("gadgets", "colourpicker",
+                              package = "colourpicker")
   shiny::addResourcePath("cpg", resourcePath)
 
   ui <- miniPage(
@@ -102,7 +103,7 @@ plotHelper <- function(code, colours) {
         "Selected colours - Use", tags$code("CPCOLS"), "to access this list"
       ),
       div(
-        id = "selected-cols-row",style="",
+        id = "selected-cols-row",
         div(id = "addColBtn",
             icon("plus"),
             title = "Add another colour"
@@ -301,7 +302,6 @@ plotHelper <- function(code, colours) {
       values$colUpdateSrc <- 2
 
       values$selectedCols[values$selectedNum] <- input$anyColInput
-
     })
 
     # Receive event from JS: an R colour was selected from one of the two tabs
@@ -408,7 +408,22 @@ plotHelper <- function(code, colours) {
       values$plotError
     })
 
+    # Show the keyboard shortcuts
     observeEvent(input$showShortcuts, {
+      # If it's an old shiny version that doesn't support modals, use an alert
+      if (packageVersion("shiny") < "0.14") {
+        shinyjs::alert(paste(
+          sep = "\n",
+          "Left/Right Arrows          Select previous/next colour",
+          "Numbers 1-9          Select colour 1-9",
+          "Spacebar          Add another colour",
+          "Delete          Remove selected colour",
+          "Enter          Done (the colour list will be assigned to CPCOLS)",
+          "Esc          Close the colour helper"
+        ))
+        return()
+      }
+
       showModal(modalDialog(
         easyClose = FALSE,
         title = "Keyboard shortcuts",
@@ -475,5 +490,6 @@ plotHelper <- function(code, colours) {
     })
   }
 
-  shiny::runGadget(shiny::shinyApp(ui, server), viewer = shiny::browserViewer(), stopOnCancel = FALSE)
+  shiny::runGadget(shiny::shinyApp(ui, server), viewer = shiny::browserViewer(),
+                   stopOnCancel = FALSE)
 }

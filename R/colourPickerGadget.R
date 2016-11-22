@@ -33,7 +33,8 @@ colourPickerGadget <- function(numCols = 3) {
          call. = FALSE)
   }
 
-  resourcePath <- system.file("gadgets", "colourpicker", package = "colourpicker")
+  resourcePath <- system.file("gadgets", "colourpicker",
+                              package = "colourpicker")
   shiny::addResourcePath("cpg", resourcePath)
 
   ui <- miniPage(
@@ -58,7 +59,7 @@ colourPickerGadget <- function(numCols = 3) {
         "Selected colours"
       ),
       div(
-        id = "selected-cols-row",style="",
+        id = "selected-cols-row",
         div(id = "addColBtn",
             icon("plus"),
             title = "Add another colour"
@@ -73,7 +74,8 @@ colourPickerGadget <- function(numCols = 3) {
         "returnTypeName",
         "Return colour name (eg. \"white\") instead of HEX value (eg. #FFFFFF) when possible",
         width = "100%"
-      )
+      ),
+      actionLink("showShortcuts", "Show keyboard shortcuts")
     ),
 
     miniTabstripPanel(
@@ -137,12 +139,10 @@ colourPickerGadget <- function(numCols = 3) {
 
   server <- function(input, output, session) {
     values <- reactiveValues(
-      selectedCols = NULL,
-      selectedNum = NULL
+      selectedCols = rep("#FFFFFF", numCols),
+      selectedNum = 1,
+      colUpdateSrc = 0
     )
-
-    values$selectedCols <- rep("#FFFFFF", numCols)
-    values$selectedNum <- 1
 
     # User canceled
     observeEvent(input$cancel, {
@@ -183,8 +183,6 @@ colourPickerGadget <- function(numCols = 3) {
       if (values$selectedNum > length(values$selectedCols)) {
         values$selectedNum <- length(values$selectedCols)
       }
-      colourpicker::updateColourInput(session, "anyColInput",
-                                 value = values$selectedCols[values$selectedNum])
     })
 
     # Render the chosen colours
@@ -209,13 +207,23 @@ colourPickerGadget <- function(numCols = 3) {
 
     # Receive event from JS: a different colour number was selected
     observeEvent(input$jsColNum, {
-      values$selectedNum <- input$jsColNum
-      colourpicker::updateColourInput(session, "anyColInput",
-                                 value = values$selectedCols[values$selectedNum])
+      newNum <- input$jsColNum[1]
+      if (newNum < 1 || newNum > length(values$selectedCols)) {
+        return()
+      }
+      values$selectedNum <- newNum
     })
 
     # A colour from the "any colour" input is chosen
     observeEvent(input$anyColInput, {
+      if (values$colUpdateSrc == 1) {
+        values$colUpdateSrc <- 0
+        return()
+      }
+      # Make sure we don't get into a loop of the selected colour and the
+      # colour input updating each other
+      values$colUpdateSrc <- 2
+
       values$selectedCols[values$selectedNum] <- input$anyColInput
     })
 
@@ -225,7 +233,33 @@ colourPickerGadget <- function(numCols = 3) {
     # twice, it will register the second time as well
     observeEvent(input$jsCol, {
       values$selectedCols[values$selectedNum] <- input$jsCol[1]
-      colourpicker::updateColourInput(session, "anyColInput", value = input$jsCol[1])
+    })
+
+    # Update the colour input to the currently selected colour
+    observeEvent(list(values$selectedCols, values$selectedNum), {
+      if (values$colUpdateSrc == 2) {
+        values$colUpdateSrc <- 0
+        return()
+      }
+      values$colUpdateSrc <- 1
+      # Make sure we don't get into a loop of the selected colour and the
+      # colour input updating each other
+      newCol <- values$selectedCols[values$selectedNum]
+      if (!is.null(input$anyColInput) && input$anyColInput == newCol) {
+        values$colUpdateSrc <- 0
+      }
+      colourpicker::updateColourInput(session, "anyColInput", value = newCol)
+    })
+
+    # Receive event from JS: navigate to the colour to the left/right
+    observeEvent(input$jsColNav, {
+      newNum <- values$selectedNum + input$jsColNav[1]
+      if (newNum == 0) {
+        newNum <- length(values$selectedCols)
+      } else if (newNum == length(values$selectedCols) + 1) {
+        newNum <- 1
+      }
+      values$selectedNum <- newNum
     })
 
     # Render all the R colours
@@ -272,8 +306,90 @@ colourPickerGadget <- function(numCols = 3) {
         )
       )
     })
+
+    # Show the keyboard shortcuts
+    observeEvent(input$showShortcuts, {
+      # If it's an old shiny version that doesn't support modals, use an alert
+      if (packageVersion("shiny") < "0.14") {
+        shinyjs::alert(paste(
+          sep = "\n",
+          "Left/Right Arrows          Select previous/next colour",
+          "Numbers 1-9          Select colour 1-9",
+          "Spacebar          Add another colour",
+          "Delete          Remove selected colour",
+          "Enter          Done (the colour list will be assigned to CPCOLS)",
+          "Esc          Close the colour helper"
+        ))
+        return()
+      }
+
+      showModal(modalDialog(
+        easyClose = FALSE,
+        title = "Keyboard shortcuts",
+        div(
+          class = "ksh",
+          span(
+            class = "ksh-left",
+            span(class = "ksh-key", HTML("&larr;")),
+            "/",
+            span(class = "ksh-key", HTML("&rarr;"))
+          ),
+          span(class = "ksh-right", "Select previous/next colour")
+        ),
+        div(
+          class = "ksh",
+          span(
+            class = "ksh-left",
+            span(class = "ksh-key", "1"),
+            "-",
+            span(class = "ksh-key", "9")
+          ),
+          span(class = "ksh-right", "Select colour 1-9")
+        ),
+        div(
+          class = "ksh",
+          span(
+            class = "ksh-left",
+            span(class = "ksh-key", HTML("&nbsp;&nbsp;Spacebar&nbsp;&nbsp;"))
+          ),
+          span(class = "ksh-right", "Add another colour")
+        ),
+        div(
+          class = "ksh",
+          span(
+            class = "ksh-left",
+            span(class = "ksh-key", "Delete")
+          ),
+          span(class = "ksh-right", "Remove selected colour")
+        ),
+        div(
+          class = "ksh",
+          span(
+            class = "ksh-left",
+            span(class = "ksh-key", "Enter")
+          ),
+          span(class = "ksh-right",
+               HTML("Done (the colour list will be assigned to <code>CPCOLS</code>)"))
+        ),
+        div(
+          class = "ksh",
+          span(
+            class = "ksh-left",
+            span(class = "ksh-key", "Esc")
+          ),
+          span(class = "ksh-right", "Close the colour helper")
+        ),
+        footer = "Press any key to dismiss"
+      ))
+    })
+
+    # Close the keyboard shortcuts modal
+    observeEvent(input$hideShortcuts, {
+      removeModal()
+    })
   }
 
   viewer <- shiny::dialogViewer("Colour Picker", width = 800, height = 700)
-  shiny::runGadget(shiny::shinyApp(ui, server), viewer = viewer, stopOnCancel = FALSE)
+  shiny::runGadget(shiny::shinyApp(ui, server), viewer = viewer,
+                   stopOnCancel = FALSE)
 }
