@@ -1,18 +1,25 @@
-# TODO
-# documentation
-# addin vs gadget
-# add features to colourPicker gadget
+plotHelperAddin <- function() {
+  context <- rstudioapi::getActiveDocumentContext()
+  text <- context$selection[[1]]$text
 
-#' @export
+  code <- plotHelper(text, returnCode = TRUE)
+  rstudioapi::insertText(text = code, id = context$id)
+}
+
 #' @import shiny
 #' @import miniUI
-plotHelper <- function(code, colours) {
+#' @export
+plotHelper <- function(code, colours, returnCode = FALSE) {
+  if (!requireNamespace("rstudioapi", quietly = TRUE)) {
+    stop("You must have RStudio v0.99.878 or newer to use the plot helper",
+         call. = FALSE)
+  }
 
   # Whether or not we attached ggplot2 and hence need to detach it at the end
   ggdetach <- FALSE
 
   # Use default code if none was given
-  if (missing(code)) {
+  if (missing(code) || trimws(code) == "") {
     code <- "ggplot(iris, aes(Sepal.Length, Petal.Length)) +
       geom_point(aes(col = Species)) +
       scale_colour_manual(values = CPCOLS)"
@@ -55,6 +62,10 @@ plotHelper <- function(code, colours) {
       })
     }
   }
+
+  # If the user selected the code that was inserted from the addin, remove the
+  # CPCOLS first line
+  code <- sub("^(\\s*CPCOLS <-.*\n\n)", code, replacement = "", perl = TRUE)
 
   if (is.numeric(colours)) {
     colours <- rep("white", colours)
@@ -133,7 +144,7 @@ plotHelper <- function(code, colours) {
             strong("R code for a plot"), br(),
             "Use the variable", tags$code("CPCOLS"), "to refer to the",
             "list of selected colours.",
-            textAreaInput("code", NULL, code, rows = 8)
+            textAreaInput("code", NULL, code, rows = 15)
           )
         )
       ),
@@ -245,7 +256,19 @@ plotHelper <- function(code, colours) {
 
       assign("CPCOLS", cols, envir = .GlobalEnv)
       shinyjs::js$closeWindow()
-      stopApp(dput(cols))
+
+      # If this was called as a gadget, return the colours as a vector
+      if (!returnCode) {
+        stopApp(cols)
+      }
+      # If this was called as an addin, return the code with the colours in it
+      else {
+        code <- paste0(
+          "CPCOLS <- ", paste(capture.output(dput(cols)), collapse = ""),
+          "\n\n", input$code
+        )
+        stopApp(code)
+      }
     })
 
     # Add another colour to select
@@ -493,13 +516,6 @@ plotHelper <- function(code, colours) {
     })
   }
 
-  shiny::runGadget(shiny::shinyApp(ui, server), viewer = shiny::browserViewer(),
-                   stopOnCancel = FALSE)
-}
-
-# TODO select the plot that's highlighted
-plotHelperAddin <- function() {
-  col <- plotHelper()
-  text <- paste0("c(\"", paste(col, collapse = "\", \""), "\")")
-  rstudioapi::insertText(text = text)
+  shiny::runGadget(shiny::shinyApp(ui, server),
+                   viewer = shiny::browserViewer(), stopOnCancel = FALSE)
 }
