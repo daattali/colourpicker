@@ -1,14 +1,45 @@
-plotHelperAddin <- function() {
-  context <- rstudioapi::getActiveDocumentContext()
-  text <- context$selection[[1]]$text
+# features:
+# keyboard shortcuts
+# gadget vs addin
+# colour list or number of colours
+# code as text or as code
+# if no plot is selected, default to mtcars
+# create CPCOLS in the globaenv
+# if you select all the code generated with CPCOLS, it gets excluded from the addin
+# the addin tries to be smart and initialize with the correct number of colours
 
-  code <- plotHelper(text, returnCode = TRUE)
-  rstudioapi::insertText(text = code, id = context$id)
-}
-
+#' Plot colour helper
+#'
+#' Allows you to interactively pick combinations of colours, to help you choose
+#' colours to use in your plots. The plot updates in real-time as you pick
+#' the colours. If you often find yourself spending a lot of time re-creating
+#' the same plot over and over with different colours to try to find the best
+#' colours, then the Plot Colout Helper can help you immensely.\cr\cr
+#'
+#' In order to pick colours to use in your plot, you need to use the variable
+#' \code{CPCOLS} in your plot code as the vector of colours. See the example
+#' below.
+#'
+#' When this function is called using \code{plotHelper()}, the chosen colours
+#' are returned as a vector of colours. When this is run as an RStudio addin
+#' (through the \emph{Addins} menu), the resulting code that includes the colour
+#' vector gets inserted into the R document. In both cases, a variable named
+#' \code{CPCOLS} will be added to the global environment, and will contain
+#' the values of all the selected colours.
 #' @import shiny
 #' @import miniUI
 #' @export
+#' @examples
+#' if (interactive()) {
+#'   cols <- plotHelper()
+#'   cols <- plotHelper(colours = c("red", "blue"))
+#'   cols <- plotHelper(colours = 5)
+#'
+#'   library(ggplot2)
+#'   cols <- plotHelper(ggplot(mtcars, aes(mpg,wt)) +
+#'                      geom_point(aes(col = as.factor(cyl)))+
+#'                      scale_colour_manual(values = CPCOLS))
+#' }
 plotHelper <- function(code, colours, returnCode = FALSE) {
   if (!requireNamespace("rstudioapi", quietly = TRUE)) {
     stop("You must have RStudio v0.99.878 or newer to use the plot helper",
@@ -518,4 +549,12 @@ plotHelper <- function(code, colours, returnCode = FALSE) {
 
   shiny::runGadget(shiny::shinyApp(ui, server),
                    viewer = shiny::browserViewer(), stopOnCancel = FALSE)
+}
+
+plotHelperAddin <- function() {
+  context <- rstudioapi::getActiveDocumentContext()
+  text <- context$selection[[1]]$text
+
+  code <- plotHelper(text, returnCode = TRUE)
+  rstudioapi::insertText(text = code, id = context$id)
 }

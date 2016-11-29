@@ -5,9 +5,9 @@
 #'
 #' @param numCols The number of colours to select when the gadget launches (you
 #' can add and remove more colours from the app itself too)
-#' @note This gadget returns a vector of colours that can be assigned to a variable.
-#' If instead you want to get a text representation of the colours that can
-#' embedded into code, use the addin from the RStudio Addins menu.
+#' @note This gadget returns a vector of colours that can be assigned to
+#' a variable. If instead you want to get a text representation of the colours
+#' that can embedded into code, use the addin from the RStudio Addins menu.
 #' @return Vector of selected colours
 #' @export
 #' @examples

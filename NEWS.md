@@ -1,3 +1,5 @@
+# colourpicker 0.2.2
+
 # colourpicker 0.2.1
 
 2016-10-31
