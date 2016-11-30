@@ -6,7 +6,57 @@
 \usage{
 plotHelper(code, colours, returnCode = FALSE)
 }
+\arguments{
+\item{code}{Code for a plot. You can use the variable \code{CPCOLS} in this
+code to refer to the colours that you will pick. If you do not provide any
+code, the plot helper will initialize with sample code. The code can be
+provided as text or as R code.}
+
+\item{colours}{A vector of colours to use as the initial colours in the app.
+If you provide an integer instead of a vector of colours, the app will load
+with that number of colours, and default colours will be used initially.
+If you do not provide this parameter, the app will attempt to guess how many
+colours are needed in the \code{code} and initialize that many colours.}
+
+\item{returnCode}{If \code{TRUE}, return the plot code and the \code{CPCOLS}
+variable as text. If \code{FALSE} (default), return the vector of selected
+colours.}
+}
+\value{
+When this function is called using \code{plotHelper()}, the chosen
+colours are returned as a vector of colours. When this is run as an RStudio
+addin (through the \emph{Addins} menu), the resulting code that includes the
+colour vector gets inserted into the R document. As a side effect,
+\code{CPCOLS} gets assigned in the global environment to the value of the
+selected colours.
+}
 \description{
-Plot colour helper
+Allows you to interactively pick combinations of colours, for helping you
+choose colours to use in your plots. The plot updates in real-time as you
+pick colours.\cr\cr
+If you often find yourself spending a lot of time re-creating
+the same plot over and over with different colours to try to find the best
+colours, then the Plot Colour Helper can help you immensely.\cr\cr
+The colours you pick will be available as a variable called \code{CPCOLS},
+so you can use \code{CPCOLS} in your plot code. See the example below.
+}
+\details{
+There are many keyboard shortcuts to help you be more efficient. For example,
+pressing \emph{spacebar} adds a new colour, \emph{left}/\emph{right} keys
+let you navigate between the selected colours, \emph{1-9} let you select any
+of the first 9 colours. For a full list of keyboard shortcuts, click on
+\emph{Show keyboard shortcuts}.
+}
+\examples{
+if (interactive()) {
+  cols <- plotHelper()
+  cols <- plotHelper(colours = c("red", "blue"))
+  cols <- plotHelper(colours = 5)
+
+  library(ggplot2)
+  cols <- plotHelper(ggplot(mtcars, aes(mpg,wt)) +
+                     geom_point(aes(col = as.factor(cyl)))+
+                     scale_colour_manual(values = CPCOLS))
+}
 }
 
