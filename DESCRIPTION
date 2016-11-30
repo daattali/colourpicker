@@ -1,6 +1,6 @@
 Package: colourpicker
 Type: Package
-Title: A Colour Picker Widget and Plot 
+Title: A Colour Picker Widget and Plot Colour Helper Tool
 Version: 0.2.1.900
 Authors@R: person("Dean", "Attali", email = "daattali@gmail.com",
     role = c("aut", "cre"))

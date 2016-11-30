@@ -20,10 +20,10 @@
 #' code to refer to the colours that you will pick. If you do not provide any
 #' code, the plot helper will initialize with sample code. The code can be
 #' provided as text or as R code.
-#' @param colours A vector of colours to use as the initial colours in the app.
-#' If you provide an integer instead of a vector of colours, the app will load
+#' @param colours A vector of colours to use as the initial colours in the tool.
+#' If you provide an integer instead of a vector of colours, the tool will load
 #' with that number of colours, and default colours will be used initially.
-#' If you do not provide this parameter, the app will attempt to guess how many
+#' If you do not provide this parameter, the tool will attempt to guess how many
 #' colours are needed in the \code{code} and initialize that many colours.
 #' @param returnCode If \code{TRUE}, return the plot code and the \code{CPCOLS}
 #' variable as text. If \code{FALSE} (default), return the vector of selected

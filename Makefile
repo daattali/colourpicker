@@ -4,19 +4,19 @@
 all: README.md
 
 clean:
-	Rscript -e 'suppressWarnings(file.remove("README.md", "vignettes/overview.md"))'
+	Rscript -e 'suppressWarnings(file.remove("README.md", "vignettes/colourpicker.md"))'
 
 .PHONY: all clean
 .DELETE_ON_ERROR:
 .SECONDARY:
 
-README.md : vignettes/overview.Rmd
-#	echo "Rendering the overview vignette"
-	Rscript -e 'rmarkdown::render("vignettes/overview.Rmd", output_format = "md_document")'
+README.md : vignettes/colourpicker.Rmd
+#	echo "Rendering the colourpicker vignette"
+	Rscript -e 'rmarkdown::render("vignettes/colourpicker.Rmd", output_format = "md_document")'
 #	echo "Correcting image paths"
-#	sed -i -- 's,../inst,inst,g' vignettes/overview.md
-	Rscript -e 'file <- gsub("\\.\\./inst", "inst", readLines("vignettes/overview.md")); writeLines(file, "vignettes/overview.md")'
+#	sed -i -- 's,../inst,inst,g' vignettes/colourpicker.md
+	Rscript -e 'file <- gsub("\\.\\./inst", "inst", readLines("vignettes/colourpicker.md")); writeLines(file, "vignettes/colourpicker.md")'
 #	echo "Copying output to README.md"
-#	cp vignettes/overview.md README.md
-	Rscript -e 'file.copy("vignettes/overview.md", "README.md", overwrite = TRUE)'
-	Rscript -e 'suppressWarnings(file.remove("vignettes/overview.md"))'
+#	cp vignettes/colourpicker.md README.md
+	Rscript -e 'file.copy("vignettes/colourpicker.md", "README.md", overwrite = TRUE)'
+	Rscript -e 'suppressWarnings(file.remove("vignettes/colourpicker.md"))'
