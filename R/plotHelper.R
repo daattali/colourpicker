@@ -10,12 +10,12 @@
 
 #' Plot colour helper
 #'
-#' Allows you to interactively pick combinations of colours, to help you choose
-#' colours to use in your plots. The plot updates in real-time as you pick
-#' the colours. If you often find yourself spending a lot of time re-creating
+#' Allows you to interactively pick combinations of colours, for helping you
+#' choose colours to use in your plots. The plot updates in real-time as you
+#' pick colours.\cr\cr
+#' If you often find yourself spending a lot of time re-creating
 #' the same plot over and over with different colours to try to find the best
-#' colours, then the Plot Colout Helper can help you immensely.\cr\cr
-#'
+#' colours, then the Plot Colour Helper can help you immensely.\cr\cr
 #' In order to pick colours to use in your plot, you need to use the variable
 #' \code{CPCOLS} in your plot code as the vector of colours. See the example
 #' below.
@@ -60,10 +60,8 @@ plotHelper <- function(code, colours, returnCode = FALSE) {
       ggdetach <- TRUE
       code <- paste0("library(ggplot2)\n\n", code)
     }
-
-    # If no arguments were given, default to three colours
     if (missing(colours)) {
-      colours <- c("green", "blue", "red")
+      colours <- 3
     }
   }
   # If code was given, parse it and save it
@@ -83,6 +81,7 @@ plotHelper <- function(code, colours, returnCode = FALSE) {
         if (ggplot2::is.ggplot(p)) {
           ggplot2::ggplot_build(p)
         }
+        colours <- 1
       }, error = function(err) {
         mainEnv <- parent.env(environment())
         regex <- "Insufficient values in manual scale\\. ([0-9]+) needed.*"
@@ -98,10 +97,13 @@ plotHelper <- function(code, colours, returnCode = FALSE) {
   # CPCOLS first line
   code <- sub("^(\\s*CPCOLS <-.*\n\n)", code, replacement = "", perl = TRUE)
 
+  # If a number of colours was specified, give them default colours
   if (is.numeric(colours)) {
-    colours <- rep("white", colours)
+    palette <- c("#1f78b4","#33a02c","#e31a1c","#ff7f00","#6a3d9a","#b15928",
+                 "#a6cee3","#b2df8a","#fb9a99","#fdbf6f","#cab2d6","#ffff99")
+    colours <- rep_len(palette, colours)
   }
-  colours <- unlist(lapply(colours, col2hex))
+  colours <- formatHEX(colours)
 
   resourcePath <- system.file("gadgets", "colourpicker",
                               package = "colourpicker")
