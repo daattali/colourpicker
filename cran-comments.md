@@ -82,3 +82,24 @@ No errors, warnings, or notes
 
 ### Reviewer comments
 
+2016-12-05 Uwe Ligges
+
+```
+Thanks, can you please write add-in  and single quote software names such as 'RStudio' and 'Rmarkdown'.
+
+Please fix and resubmit.
+
+Best,
+Uwe Ligges
+```
+
+## Round 2
+
+### Submission comments
+
+2016-12-05
+
+Placed single quotes around rmarkdown and rstudio. Lower-cased "Addin" to "addin", but didn't hyphenate it because the official RStudio addins website and the IDE do not hyphenate it.
+
+### Reviewer comments
+
