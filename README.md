@@ -33,9 +33,9 @@ Table of contents
 Demos
 </h2>
 As mentioned above, the most useful functions are `colourInput()` and
-`plotHelper()`. [Click here](http://daattali.com/shiny/colourInput/) to
-view a live interactive demo the colour input. The GIF below shows what
-the Plot Colour Helper looks like.
+`plotHelper()`. - [Click here](http://daattali.com/shiny/colourInput/)
+to view a live interactive demo the colour input. - The GIF below shows
+what the Plot Colour Helper looks like.
 
 ![Plot Colour Helper demo](inst/img/plothelper-demo.gif)
 
