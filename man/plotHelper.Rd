@@ -37,8 +37,9 @@ pick colours.\cr\cr
 If you often find yourself spending a lot of time re-creating
 the same plot over and over with different colours to try to find the best
 colours, then the Plot Colour Helper can help you immensely.\cr\cr
-The colours you pick will be available as a variable called \code{CPCOLS},
-so you can use \code{CPCOLS} in your plot code. See the example below.
+\strong{Important:} The colours you pick will be available as a variable
+called \code{CPCOLS}, so you can use \code{CPCOLS} in your plot code. See the
+example below.
 }
 \details{
 There are many keyboard shortcuts to help you be more efficient. For example,

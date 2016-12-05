@@ -228,23 +228,34 @@ Features of `plotHelper()`
 ### Addin vs gadget
 
 The Plot Colour Helper is available as both a gadget and an RStudio
-addin. This means that it can be either invoked through the *Addins*
-menu, or as a function (`plotHelper()`). There is a small difference
-between the two: invoking the addin via `plotHelper()` will merely
-return the final colour list as a vector, while using the *Addins* menu
-will result in the entire plot code and colour list getting inserted
-into the document.
+addin. This means that it can be invoked in one of two ways:
 
-### Initial plot code can be either text or code
+-   Highlight code for a plot and select the addin through the *Addins*
+    menu, or
+-   Call the `plotHelper(code)` function with plot code as the
+    first parameter.
 
-If you use the `plotHelper()` function, the first parameter is the code
-for a plot. This code can either be in the form of text, or it can be
-real code. For example, both of the following are valid:
+There is a small difference between the two: invoking the addin via
+`plotHelper()` will merely return the final colour list as a vector,
+while using the *Addins* menu will result in the entire plot code and
+colour list getting inserted into the document.
 
-    plotHelper( ggplot(mtcars, aes(mpg, wt)) + geom_point(col = CPCOLS) )
-    plotHelper("ggplot(mtcars, aes(mpg, wt)) + geom_point(col = CPCOLS)")
+### Most important to understand: Use `CPCOLS` in your plot code
 
-### Default plot if no code provided
+The Plot Colour Helper lets you run code for a plot, and select a list
+of colours. But how does the list of colours get linked to the plot? The
+colour list is available as a variable called `CPCOLS`. This means that
+in order to refer to the colour list, you need to use that variable in
+your plot code. You can even refer to it more than once if you want to
+select colours for multiple purposes in the plot:
+
+    plotHelper(ggplot(iris, aes(Sepal.Length, Petal.Length)) +
+        geom_point(aes(col = Species)) +
+        scale_colour_manual(values = CPCOLS[1:3]) +
+        theme(panel.background = element_rect(CPCOLS[4])),
+        colours = 4)
+
+### Default plot if no code is provided
 
 To more easily access the tool, you can call `plotHelper()` with no
 parameters or select the addin without highlighting any code. In that
@@ -259,17 +270,18 @@ You can always change the plot code from within the tool.
 ### Initial list of colours
 
 You can set the initial colour list by providing a vector of colours as
-the `colours` parameter of `plotHelper()` (eg. \`plotHelper(code,
-colours = c("red", "\#123ABC"))).
+the `colours` parameter to `plotHelper()` (eg.
+`plotHelper(colours = c("red", "#123ABC"))`).
 
 Alternatively, if you don't want to initialize to any particular set of
 colours, but you want to initialize with a specific number of colours in
 the list, you can provide an integer as the `colours` parameter (eg.
-\`plotHelper(code, colours = 2)).
+`plotHelper(colours = 2)`).
 
-If the colour list is not provided, then a default palette of colours
+If the colour values are not provided, then a default palette of colours
 will be used for the initial colours. This palette has 12 colours, and
-if there are more than 12 colours to support then they will repeat.
+if there are more than 12 colours to support then they will get
+recycled.
 
 ### Plot Colour Helper tries to guess how many colours are needed
 
@@ -277,14 +289,14 @@ If you don't provide the `colours` parameter, or if you invoke the tool
 as an addin, it will attempt to guess how many colours are needed. For
 example, using the following plot code
 
-    ggplot(mtcars, aes(wt,mpg)) +
+    ggplot(mtcars, aes(wt, mpg)) +
         geom_point(aes(col = as.factor(am))) +
         scale_colour_manual(values = CPCOLS)
 
 will initialize the tool with 2 colours (because there are 2 `am`
 levels), while the following code
 
-    ggplot(mtcars, aes(wt,mpg)) +
+    ggplot(mtcars, aes(wt, mpg)) +
         geom_point(aes(col = as.factor(cyl))) +
         scale_colour_manual(values = CPCOLS)
 
@@ -300,12 +312,14 @@ on *Show keyboard shortcuts*.
 
 ### Return value of Plot Colour Helper
 
-When the tool is run as an addin, the code along with the final colour
-list get inserted into the currently selected RStudio document (either
-the Source panel or the Console panel).
+When the tool is run as an addin, the final colour list and the code get
+inserted into the currently selected RStudio document (either the Source
+panel or the Console panel).
 
 If the tool is called with `plotHelper()`, then the return value is
-simply the vector of selected colours.
+simply the vector of selected colours. You can assign it into a variable
+directly - running `cols <- plotHelper()` will assign the selected
+colours into `cols`.
 
 Since the plot code requires you to use the variable name `CPCOLS`,
 after closing the plot helper tool, a variable named `CPCOLS` will be
