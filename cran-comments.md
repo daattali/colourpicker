@@ -103,3 +103,6 @@ Placed single quotes around rmarkdown and rstudio. Lower-cased "Addin" to "addin
 
 ### Reviewer comments
 
+2016-12-05 Uwe Ligges
+
+Thanks, on CRAN now.
