@@ -37,6 +37,7 @@ The most common uses of `colourpicker` are to use the `colourInput()` function t
 <h2 id="demos">Demos</h2>
 
 As mentioned above, the most useful functions are `colourInput()` and `plotHelper()`.
+
   - [Click here](http://daattali.com/shiny/colourInput/) to view a live
 interactive demo the colour input.
   - The GIF below shows what the Plot Colour Helper looks like.
