@@ -310,7 +310,7 @@ colourPickerGadget <- function(numCols = 3) {
     # Show the keyboard shortcuts
     observeEvent(input$showShortcuts, {
       # If it's an old shiny version that doesn't support modals, use an alert
-      if (packageVersion("shiny") < "0.14") {
+      if (utils::packageVersion("shiny") < "0.14") {
         shinyjs::alert(paste(
           sep = "\n",
           "Left/Right Arrows          Select previous/next colour",

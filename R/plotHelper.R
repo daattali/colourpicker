@@ -294,7 +294,8 @@ plotHelper <- function(code, colours, returnCode = FALSE) {
         cols <- unlist(cols)
       }
 
-      assign("CPCOLS", cols, envir = .GlobalEnv)
+      globalenv <- .GlobalEnv
+      assign("CPCOLS", cols, envir = globalenv)
       shinyjs::js$closeWindow()
 
       # If this was called as a gadget, return the colours as a vector
@@ -304,7 +305,7 @@ plotHelper <- function(code, colours, returnCode = FALSE) {
       # If this was called as an addin, return the code with the colours in it
       else {
         code <- paste0(
-          "CPCOLS <- ", paste(capture.output(dput(cols)), collapse = ""),
+          "CPCOLS <- ", paste(utils::capture.output(dput(cols)), collapse = ""),
           "\n\n", input$code
         )
         stopApp(code)
@@ -477,7 +478,7 @@ plotHelper <- function(code, colours, returnCode = FALSE) {
     # Show the keyboard shortcuts
     observeEvent(input$showShortcuts, {
       # If it's an old shiny version that doesn't support modals, use an alert
-      if (packageVersion("shiny") < "0.14") {
+      if (utils::packageVersion("shiny") < "0.14") {
         shinyjs::alert(paste(
           sep = "\n",
           "Left/Right Arrows          Select previous/next colour",
