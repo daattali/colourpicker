@@ -31,7 +31,7 @@ colour vector gets inserted into the R document. As a side effect,
 selected colours.
 }
 \description{
-Allows you to interactively pick combinations of colours, for helping you
+Allows you to interactively pick combinations of colours, to help you
 choose colours to use in your plots. The plot updates in real-time as you
 pick colours.\cr\cr
 If you often find yourself spending a lot of time re-creating

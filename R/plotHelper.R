@@ -1,6 +1,6 @@
 #' Plot colour helper
 #'
-#' Allows you to interactively pick combinations of colours, for helping you
+#' Allows you to interactively pick combinations of colours, to help you
 #' choose colours to use in your plots. The plot updates in real-time as you
 #' pick colours.\cr\cr
 #' If you often find yourself spending a lot of time re-creating
@@ -76,6 +76,10 @@ plotHelper <- function(code, colours, returnCode = FALSE) {
       code <- paste(deparse(substitute(code)), collapse = " ")
     }
 
+    # If the user selected the code that was inserted from the addin, remove the
+    # CPCOLS first line
+    code <- sub("^(\\s*CPCOLS <-.*\n\n)", code, replacement = "", perl = TRUE)
+
     # If no colours were given, try to guess how many colours are needed by
     # building a ggplot2 plot and seeing if an error about missing colours is
     # thrown
@@ -98,10 +102,6 @@ plotHelper <- function(code, colours, returnCode = FALSE) {
       })
     }
   }
-
-  # If the user selected the code that was inserted from the addin, remove the
-  # CPCOLS first line
-  code <- sub("^(\\s*CPCOLS <-.*\n\n)", code, replacement = "", perl = TRUE)
 
   # If a number of colours was specified, give them default colours
   if (is.numeric(colours)) {
@@ -564,5 +564,8 @@ plotHelperAddin <- function() {
   text <- context$selection[[1]]$text
 
   code <- plotHelper(text, returnCode = TRUE)
+  if (is.null(code)) {
+    return()
+  }
   rstudioapi::insertText(text = code, id = context$id)
 }

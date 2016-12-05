@@ -1,7 +1,9 @@
-# colourpicker 0.2.1.x
+# colourpicker 0.3
 
-- Add an awesome `plotHelper()` gadget+addin that makes it easy to pick colours in a plot and see in real time the updated plot as you choose new colours (#1)
-- add keyboard shortcuts for `colourPicker()` (left/right arrows to navigate the colours, 1-9 to select a colour, spacebar to add a colour...) (#3)
+2016-12-05
+
+- Added an awesome `plotHelper()` gadget+addin that makes it easy to pick colours in a plot and see in real time the updated plot as you choose new colours (#1)
+- Added keyboard shortcuts for `colourPicker()` (left/right arrows to navigate the colours, 1-9 to select a colour, spacebar to add a colour...)
 - don't error out if a HEX value containing alpha transparency is passed to a `colourInput()` (#4 - thanks @ddiez)
 
 # colourpicker 0.2.1
