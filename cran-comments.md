@@ -64,3 +64,21 @@ Fixed typo in DESCRIPTION
 2016-09-06 Kurt Hornik
 
 Thanks, on CRAN now
+
+# Version 0.3
+
+### Test environments
+
+* Windows 7, R 3.3.1 (local)
+* ubuntu 12.04, R 3.3.1 (on travis-ci)
+
+## Round 1
+
+### Submission comments
+
+2016-12-05
+
+No errors, warnings, or notes
+
+### Reviewer comments
+
