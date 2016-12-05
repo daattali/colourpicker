@@ -10,10 +10,11 @@ version](http://www.r-pkg.org/badges/version/colourpicker)](https://cran.r-proje
 > the MIT license.*
 
 `colourpicker` gives you a colour picker widget that can be used in
-different contexts in R. The most common uses of `colourpicker` are to
-use the `colourInput()` function to create a colour input, or to use the
-`plotHelper()` function/RStudio Addin to easily select colours to use in
-a plot.
+different contexts in R.
+
+The most common uses of `colourpicker` are to use the `colourInput()`
+function to create a colour input, or to use the `plotHelper()`
+function/RStudio Addin to easily select colours to use in a plot.
 
 Table of contents
 =================
@@ -31,10 +32,10 @@ Table of contents
 <h2 id="demos">
 Demos
 </h2>
-[Click here](http://daattali.com/shiny/colourInput/) to view a live
-interactive demo of `colourInput()`.
-
-The GIF below shows what the Plot Colour Helpe looks like:
+As mentioned above, the most useful functions are `colourInput()` and
+`plotHelper()`. [Click here](http://daattali.com/shiny/colourInput/) to
+view a live interactive demo the colour input. The GIF below shows what
+the Plot Colour Helper looks like.
 
 ![Plot Colour Helper demo](inst/img/plothelper-demo.gif)
 
@@ -85,7 +86,7 @@ your plot in real-time so you can see the colour changes immediately.
 
 To use this tool, either highlight code for a plot and select the addin
 through the RStudio *Addins* menu, or call the `plotHelper()` function.
-The colours selected are available as a variable named `CPCOLS`.
+The colours selected will be available as a variable named `CPCOLS`.
 
 ![Demo of Plot Colour Helper](inst/img/plothelper-demo.png)
 
