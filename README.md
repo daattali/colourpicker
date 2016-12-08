@@ -5,6 +5,7 @@ colourpicker - A Colour Picker Tool for Shiny and for Selecting Colours in Plots
 status](https://travis-ci.org/daattali/colourpicker.svg?branch=master)](https://travis-ci.org/daattali/colourpicker)
 [![CRAN
 version](http://www.r-pkg.org/badges/version/colourpicker)](https://cran.r-project.org/package=colourpicker)
+[![saythanks](http://i.imgur.com/L88apDa.png)](https://saythanks.io/to/daattali)
 
 > *Copyright 2016 [Dean Attali](http://deanattali.com). Licensed under
 > the MIT license.*
