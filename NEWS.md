@@ -1,3 +1,7 @@
+# colourpicker 0.3.0.9000
+
+- Fix issue #7: setting a colourinput to background-only and then back to text does not let you click into the input
+
 # colourpicker 0.3
 
 2016-12-05

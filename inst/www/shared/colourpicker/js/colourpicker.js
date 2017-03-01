@@ -5,7 +5,7 @@
   * Dean Attali, http://deanattali.com
   * Cory LaViska for A Beautiful Site, LLC: http://www.abeautifulsite.net/
   *
-  * Version: 1.1
+  * Version: 1.2
   *
   * Contribute: https://github.com/daattali/jquery-colourpicker
   *
@@ -37,7 +37,7 @@
         hideSpeed: 100,
         show: null,
         showSpeed: 100,
-		
+
 		    // added by Dean Attali
         showColour: 'both',
         allowTransparent: false,
@@ -157,7 +157,7 @@
 
 	    // Palette type
 	    colourpicker.addClass('palette-' + settings.palette);
-	  
+
 	    // If adding a transparent checkbox, make the parent an input group
       if( settings.allowTransparent ) {
         colourpicker.addClass('input-group');
@@ -172,7 +172,7 @@
       .data('colourpicker-settings', settings)
       .prop('size', 7)
       .wrap(colourpicker);
-	  
+
 	    if( settings.palette == "square" ) {
 	      input
 		    .after(
@@ -200,7 +200,7 @@
                             'style="background-color:' + col + '"></span>';
 		    });
 			  coloursHtml += '</div>';
-        
+
         input
         .after(
 		    '<div class="colourpicker-panel">' +
@@ -210,7 +210,7 @@
 	    } else {
 		    console.log("colourpicker: invalid palette type (" + settings.palette + ")");
 	    }
-      
+
       // If we want to add transparent button, make an input group
       if ( settings.allowTransparent ) {
         input.parent().find('.colourpicker-panel').after(
@@ -223,12 +223,14 @@
       } else {
         input.data('allow-transparent', false);
       }
-      
+
       // If only background colour is shown, don't let the user select the text
       if ( settings.showColour == "background" ) {
         input.attr('readonly', 'readonly');
+      } else {
+        input.removeAttr('readonly');
       }
-      
+
       // Return a colour name instead of HEX when possible
       if ( settings.returnName ) {
         input.data('return-name', true);
@@ -408,7 +410,7 @@
 
       // Handle colours when there is a limited selection of colours
       if( target.is('.cp-list-col') ) {
-        hex = target.data('cp-col'); 
+        hex = target.data('cp-col');
         input.val(hex);
       }
 
@@ -433,8 +435,8 @@
         colourpicker.find('.cp-list-col[data-cp-col="' + hex + '"]')
           .addClass('selected-col')
           .addClass(isColDark(hex) ? 'dark' : 'light');
-      }      
-      
+      }
+
       // Handle change event
       doChange(input, hex, input.data('transparent'));
 
@@ -465,7 +467,7 @@
         hex = getLastVal(input);
       }
       hsb = hex2hsb(hex);
-      
+
       // Update input value
       if( !preserveInputValue ) input.val(hex);
 
@@ -491,7 +493,7 @@
           .addClass('selected-col')
           .addClass(isColDark(hex) ? 'dark' : 'light');
       }
-      
+
       // Set grid position
       x = keepWithin(Math.ceil(hsb.s / (100 / grid.width())), 0, grid.width());
       y = keepWithin(grid.height() - Math.ceil(hsb.b / (100 / grid.height())), 0, grid.height());
@@ -554,7 +556,7 @@
 
     }
 
-    // Parses a valid HEX value from an input 
+    // Parses a valid HEX value from an input
     function parseHexAllowed(input) {
       var string = input.val();
       var settings = input.data('colourpicker-settings');
@@ -564,7 +566,7 @@
       }
       return hex;
     }
-    
+
     // Parses a string and returns a valid hex string when possible
     function parseHex(string) {
       string = string.replace(/[^A-F0-9]/ig, '');
