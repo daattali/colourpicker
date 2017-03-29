@@ -116,7 +116,6 @@ widget.
 <h2 id="colourinput-features">
 Features of 'colourInput()'
 </h2>
-<br/>
 
 ### Simple and familiar
 
@@ -228,7 +227,6 @@ Explorer 8+.
 <h2 id="plothelper-features">
 Features of 'plotHelper()'
 </h2>
-<br/>
 
 ### Addin vs gadget
 
