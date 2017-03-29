@@ -114,7 +114,7 @@ apps and Rmarkdown documents, but it may come in handy if you need a
 widget.
 
 <h2 id="colourinput-features">
-Features of `colourInput()`
+Features of 'colourInput()'
 </h2>
 ### Simple and familiar
 
@@ -224,7 +224,7 @@ viewed on Android cell phones, iPhones, iPads, and even Internet
 Explorer 8+.
 
 <h2 id="plothelper-features">
-Features of `plotHelper()`
+Features of 'plotHelper()'
 </h2>
 ### Addin vs gadget
 

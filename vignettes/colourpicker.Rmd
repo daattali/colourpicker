@@ -101,7 +101,8 @@ To use this tool, either highlight code for a plot and select the addin through 
 
 The colour picker input is also available as an 'htmlwidgets' widget using the `colourWidget()` function. This may not be terribly useful right now since you can use the more powerful `colourInput` in Shiny apps and Rmarkdown documents, but it may come in handy if you need a widget. 
 
-<h2 id="colourinput-features">Features of `colourInput()`</h2>
+<h2 id="colourinput-features">Features of 'colourInput()'</h2>
+
 
 ### Simple and familiar
 
@@ -157,7 +158,8 @@ Specifying a colour to the colour input is made very flexible to allow for easie
 
 If you're worried that maybe someone viewing your Shiny app on a phone won't be able to use this input properly - don't you worry. I haven't quite checked every single device out there, but I did spend extra time making sure the colour selection JavaScript works in most devices I could think of. `colourInput` will work fine in Shiny apps that are viewed on Android cell phones, iPhones, iPads, and even Internet Explorer 8+.
 
-<h2 id="plothelper-features">Features of `plotHelper()`</h2>
+<h2 id="plothelper-features">Features of 'plotHelper()'</h2>
+
 
 ### Addin vs gadget
 

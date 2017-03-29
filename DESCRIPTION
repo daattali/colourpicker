@@ -1,7 +1,7 @@
 Package: colourpicker
 Type: Package
 Title: A Colour Picker Tool for Shiny and for Selecting Colours in Plots
-Version: 0.3.0.9000
+Version: 0.3.0.9001
 Authors@R: person("Dean", "Attali", email = "daattali@gmail.com",
     role = c("aut", "cre"))
 Description: A colour picker that can be used as an input in Shiny apps
