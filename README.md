@@ -116,6 +116,8 @@ widget.
 <h2 id="colourinput-features">
 Features of 'colourInput()'
 </h2>
+<br/>
+
 ### Simple and familiar
 
 Using `colourInput` is extremely trivial if you've used Shiny, and it's
@@ -226,6 +228,8 @@ Explorer 8+.
 <h2 id="plothelper-features">
 Features of 'plotHelper()'
 </h2>
+<br/>
+
 ### Addin vs gadget
 
 The Plot Colour Helper is available as both a gadget and an RStudio
