@@ -2,8 +2,12 @@ Package: colourpicker
 Type: Package
 Title: A Colour Picker Tool for Shiny and for Selecting Colours in Plots
 Version: 0.3.0.9001
-Authors@R: person("Dean", "Attali", email = "daattali@gmail.com",
-    role = c("aut", "cre"))
+Authors@R: c(
+    person("Dean", "Attali", email = "daattali@gmail.com",
+    role = c("aut", "cre")),
+    person("David", "Griswold", email="novachild@gmail.com",
+    role = "ctb")
+  )
 Description: A colour picker that can be used as an input in Shiny apps
     or Rmarkdown documents. A Plot Colour Helper tool is available as an RStudio
     Addin, which helps you pick colours to use in your plots. A more generic

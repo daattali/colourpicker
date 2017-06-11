@@ -72,11 +72,10 @@
 colourInput <- function(inputId, label, value = "white",
                         showColour = c("both", "text", "background"),
                         palette = c("square", "limited"),
-                        allowedCols,
+                        allowedCols, allowAlpha = FALSE,
                         allowTransparent = FALSE, transparentText,
                         returnName = FALSE) {
   # sanitize the arguments
-  value <- formatHEX(value)
   showColour <- match.arg(showColour)
   palette <- match.arg(palette)
 
@@ -127,6 +126,11 @@ colourInput <- function(inputId, label, value = "white",
       inputTag,
       `data-return-name` = "true")
   }
+  if (allowAlpha) {
+    inputTag <- shiny::tagAppendAttributes(
+      inputTag,
+      `data-allow-alpha` = "true")
+  }
 
   inputTag <-
     shiny::div(
@@ -156,6 +160,8 @@ colourInput <- function(inputId, label, value = "white",
 #' @param palette The type of colour palette to allow the user to select colours
 #' from.
 #' @param allowedCols A list of colours that the user can choose from.
+#' @param allowAlpha If \code{TRUE}, enables a slider to choose a transparency amount
+#' for the color. Returns in R-accepted 8-digit hex (or names, if returnName is also \code{TRUE})'
 #' @param allowTransparent If \code{TRUE}, then add a checkbox that allows the
 #' user to select the \code{transparent} colour.
 #' @param transparentText The text to show beside the transparency checkbox
@@ -174,6 +180,7 @@ colourInput <- function(inputId, label, value = "white",
 #'       textInput("text", "New colour: (colour name or HEX value)"),
 #'       selectInput("showColour", "Show colour",
 #'         c("both", "text", "background")),
+#'       checkboxInput("allowAlpha", "Allow alpha", FALSE),
 #'       checkboxInput("allowTransparent", "Allow transparent", FALSE),
 #'       checkboxInput("returnName", "Return R colour name", FALSE),
 #'       actionButton("btn", "Update")
@@ -183,6 +190,7 @@ colourInput <- function(inputId, label, value = "white",
 #'         updateColourInput(session, "col",
 #'           value = input$text, showColour = input$showColour,
 #'           allowTransparent = input$allowTransparent,
+#'           allowAlpha = input$allowAlpha,
 #'           returnName = input$returnName)
 #'       })
 #'       output$value <- renderText(input$col)
@@ -195,56 +203,16 @@ colourInput <- function(inputId, label, value = "white",
 updateColourInput <- function(session, inputId, label = NULL, value = NULL,
                               showColour = NULL, palette = NULL, allowedCols = NULL,
                               allowTransparent = NULL, transparentText = NULL,
-                              returnName = NULL) {
+                              returnName = NULL, allowAlpha = FALSE) {
   message <- dropNulls(list(
     label = label, value = formatHEX(value),
     showColour = showColour, palette = palette,
-    allowedCols = formatHEX(allowedCols),
+    allowedCols = allowedCols,
+    allowAlpha = allowAlpha,
     allowTransparent = allowTransparent, transparentText = transparentText,
     returnName = returnName
   ))
   session$sendInputMessage(inputId, message)
-}
-
-formatHEX <- function(x) {
-  unlist(lapply(x, formatHEXsingle))
-}
-
-formatHEXsingle <- function(x) {
-  if (is.null(x) || x == "") return()
-
-  if (x == "transparent") {
-    return(x)
-  }
-
-  # ensure x is a valid HEX colour or a valid named colour
-  if (x %in% grDevices::colors()) {
-    x <- do.call(grDevices::rgb, as.list(grDevices::col2rgb(x) / 255))
-  }
-  if (!grepl("^#?([[:xdigit:]]{3}|[[:xdigit:]]{6}|[[:xdigit:]]{8})$", x)) {
-    stop(sprintf("%s is not a valid colour", x), call. = FALSE)
-  }
-
-  # ensure x begins with a pound sign
-  if (substr(x, 1, 1) != "#") {
-    x <- paste0("#", x)
-  }
-
-  # check whether it is 6-digit hex code with alpha.
-  if (nchar(x) == 9) {
-    x <- substr(x, 1, 7)
-    warning("colourpicker does not support colours with transparency. Alpha channel information dropped. (If you're skilled in JavaScript and would like to help implement transparency support for this package, please contact me daattali@gmail.com)", call. = FALSE)
-  }
-
-  # expand x to a 6-character HEX colour if it's in shortform
-  # wow this is ugly, think of a nicer solution when it's not 4am
-  if (nchar(x) == 4) {
-    x <- paste0("#", substr(x, 2, 2), substr(x, 2, 2),
-                substr(x, 3, 3), substr(x, 3, 3),
-                substr(x, 4, 4), substr(x, 4, 4))
-  }
-
-  toupper(x)
 }
 
 # copied from shiny since it's not exported
