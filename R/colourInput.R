@@ -26,6 +26,8 @@
 #' @param allowedCols A list of colours that the user can choose from. Only
 #' applicable when \code{palette == "limited"}. The \code{limited} palette
 #' uses a default list of 40 colours if \code{allowedCols} is not defined.
+#' @param allowAlpha If \code{TRUE}, enables a slider to choose a transparency amount
+#' for the color. Returns in R-accepted 8-digit hex (or names, if returnName is also \code{TRUE})'
 #' @param allowTransparent If \code{TRUE}, then add a checkbox that allows the
 #' user to select the \code{transparent} colour.
 #' @param transparentText The text to show beside the transparency checkbox
@@ -42,14 +44,13 @@
 #'   library(shiny)
 #'   shinyApp(
 #'     ui = fluidPage(
-#'       strong("Selected colour:", textOutput("value", inline = TRUE)),
+#'       div("Selected colour:", textOutput("value", inline = TRUE)),
 #'       colourInput("col", "Choose colour", "red"),
 #'       h3("Update colour input"),
 #'       textInput("text", "New colour: (colour name or HEX value)"),
 #'       selectInput("showColour", "Show colour",
 #'         c("both", "text", "background")),
-#'       selectInput("palette", "Colour palette",
-#'         c("square", "limited")),
+#'       checkboxInput("allowAlpha", "Allow alpha", FALSE),
 #'       checkboxInput("allowTransparent", "Allow transparent", FALSE),
 #'       checkboxInput("returnName", "Return R colour name", FALSE),
 #'       actionButton("btn", "Update")
@@ -59,7 +60,7 @@
 #'         updateColourInput(session, "col",
 #'           value = input$text, showColour = input$showColour,
 #'           allowTransparent = input$allowTransparent,
-#'           palette = input$palette,
+#'           allowAlpha = input$allowAlpha,
 #'           returnName = input$returnName)
 #'       })
 #'       output$value <- renderText(input$col)
@@ -90,8 +91,8 @@ colourInput <- function(inputId, label, value = "white",
       script = "input_binding_colour.js"),
     htmltools::htmlDependency(
       "colourpicker-lib", "0.1.0", c(href = "colourpicker-lib"),
-      script = "js/colourpicker.min.js",
-      stylesheet = "css/colourpicker.min.css"
+      script = "js/colourpicker.js",
+      stylesheet = "css/colourpicker.css"
     )
   )
 
@@ -115,7 +116,6 @@ colourInput <- function(inputId, label, value = "white",
                   `data-transparent-text` = transparentText)
   }
   if (!missing(allowedCols)) {
-    allowedCols <- formatHEX(allowedCols)
     allowedCols <- paste(allowedCols, collapse = " ")
     inputTag <- shiny::tagAppendAttributes(
       inputTag,
@@ -202,10 +202,10 @@ colourInput <- function(inputId, label, value = "white",
 #' @export
 updateColourInput <- function(session, inputId, label = NULL, value = NULL,
                               showColour = NULL, palette = NULL, allowedCols = NULL,
-                              allowTransparent = NULL, transparentText = NULL,
-                              returnName = NULL, allowAlpha = FALSE) {
+                              allowAlpha = FALSE, allowTransparent = NULL, transparentText = NULL,
+                              returnName = NULL) {
   message <- dropNulls(list(
-    label = label, value = formatHEX(value),
+    label = label, value = value,
     showColour = showColour, palette = palette,
     allowedCols = allowedCols,
     allowAlpha = allowAlpha,

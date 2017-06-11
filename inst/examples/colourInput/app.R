@@ -90,10 +90,10 @@ shinyApp(
 
     div(
       class = "section",
-      div(class = "title", "Only show background"),
+      div(class = "title", "Background only, allow alpha"),
       div(class = "output", "Selected colour:",
           textOutput("valueBg", inline = TRUE)),
-      colourInput("colBg", NULL, "red", showColour = "background"),
+      colourInput("colBg", NULL, "red", showColour = "background", allowAlpha=T),
       tags$pre(HTML(paste0(
         'colourInput(<br>',
         '  "col", NULL, "red",<br>',
@@ -126,6 +126,7 @@ shinyApp(
                   c("both", "text", "background")),
       shiny::selectInput("palette", "Colour palette",
                          c("square", "limited")),
+      checkboxInput("allowAlpha", "Allow alpha", FALSE),
       checkboxInput("allowTransparent", "Allow transparent", FALSE),
       checkboxInput("returnName", "Return R colour name", FALSE),
       actionButton("update", "Update")
@@ -134,8 +135,8 @@ shinyApp(
     div(
       class = "section",
       div(class = "title", "Use output in a plot"),
-      colourInput("colPlotFill", "Points colour", "purple"),
-      colourInput("colPlotOutline", "Points outline", "black", allowTransparent = TRUE),
+      colourInput("colPlotFill", "Points colour", "purple", allowAlpha=T),
+      colourInput("colPlotOutline", "Points outline", "black", allowTransparent = TRUE, allowAlpha=T),
       plotOutput("plot")
     ),
 
@@ -146,7 +147,7 @@ shinyApp(
           textOutput("valueCustom", inline = TRUE)),
       colourInput("colCustom", NULL, palette = "limited",
                   allowedCols = c("white", "black", "red", "blue", "yellow",
-                                  "purple", "green", "#DDD")),
+                                  "purple", "green", "#DDD", "#FF000080", "#00FF00AA")),
       tags$pre(HTML(paste0(
         'colourInput(<br>',
         '  "col", NULL,<br>',
@@ -154,7 +155,8 @@ shinyApp(
         '  allowedCols = c(<br>',
         '    "white", "black", "red",<br>',
         '    "blue", "yellow", "purple",<br>',
-        '    "green", "#DDD"))'
+        '    "green", "#DDD",<br>',
+        '    "#FF000080", "#00FF00AA"'
       )))
     )
   ),
@@ -172,7 +174,7 @@ shinyApp(
     observeEvent(input$update, {
       updateColourInput(session, "colUpdate",
                         value = input$text, showColour = input$showColour,
-                        palette = input$palette,
+                        palette = input$palette, allowAlpha = input$allowAlpha,
                         allowTransparent = input$allowTransparent,
                         returnName = input$returnName)
     })
