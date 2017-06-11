@@ -61,7 +61,7 @@
 
         switch(method) {
 
-          // Destroy the control
+          // the control
           case 'destroy':
           $(this).each( function() {
             destroy($(this));
@@ -134,6 +134,7 @@
     function init(input, settings) {
 
       var colourpicker = $('<div class="colourpicker" />'),
+      inputwidth = input.css('width'),
       inputcontainer = $('<div class="colourpicker-input-container" />'),
       inputgroup = $('<div class="input-group" />'),
       defaults = $.colourpicker.defaults;
@@ -153,6 +154,7 @@
 
 
 
+
       colourpicker
       .addClass('palette-' + settings.palette)
       .toggleClass('colourpicker-with-alpha',wide);
@@ -160,9 +162,11 @@
        // save some important settings
        input.data('allow-alpha', settings.allowAlpha);
        input.data('palette-type',settings.palette);
+      
+       //set the input container width to the same as the input
+
+      inputcontainer.css('width', inputwidth);
       // The input
-
-
       input
       .prop('spellcheck', false)
       .addClass('colourpicker-input')
@@ -637,7 +641,10 @@
       lastChange = input.data('colourpicker-lastChange'),
       lastTransparent = input.data('colourpicker-lastTransparent'),
       sameAsLast = (rgb.r===lastChange.r && rgb.b===lastChange.b && rgb.g===lastChange.g && rgb.a===lastChange.a);
+      
       // Only run if it actually changed
+
+
       if( !lastChange || !sameAsLast || lastTransparent !== transparent ) {
 
         // Remember last-changed value

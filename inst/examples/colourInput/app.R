@@ -90,16 +90,17 @@ shinyApp(
 
     div(
       class = "section",
-      div(class = "title", "Background only, allow alpha"),
+      div(class = "title", "Background only"),
       div(class = "output", "Selected colour:",
           textOutput("valueBg", inline = TRUE)),
-      colourInput("colBg", NULL, "red", showColour = "background", allowAlpha=T),
+      colourInput("colBg", NULL, "red", showColour = "background"),
       tags$pre(HTML(paste0(
         'colourInput(<br>',
         '  "col", NULL, "red",<br>',
         '  showColour = "background")'
       )))
     ),
+
 
     div(
       class = "section",
@@ -111,6 +112,39 @@ shinyApp(
         'colourInput(<br>',
         '  "col", NULL, "orange",<br>',
         '  allowTransparent = TRUE)'
+      )))
+    ),
+
+    div(
+      class = "section",
+      div(class = "title", "Allow alpha"),
+      div(class = "output", "Selected colour:",
+          textOutput("valueAlpha", inline = TRUE)),
+      colourInput("colAlpha", NULL, "#FF000080", allowAlpha = TRUE),
+      tags$pre(HTML(paste0(
+        'colourInput(<br>',
+        '  "col", NULL, "#FF000080",<br>',
+        '  allowAlpha = TRUE)'
+      )))
+    ),
+
+    div(
+      class = "section",
+      div(class = "title", "Custom colour list"),
+      div(class = "output", "Selected colour:",
+          textOutput("valueCustom", inline = TRUE)),
+      colourInput("colCustom", NULL, palette = "limited",
+                  allowedCols = c("white", "black", "red", "blue", "yellow",
+                                  "purple", "green", "#DDD", "#FF000080", "#00FF00AA")),
+      tags$pre(HTML(paste0(
+        'colourInput(<br>',
+        '  "col", NULL,<br>',
+        '  palette = "limited",<br>',
+        '  allowedCols = c(<br>',
+        '    "white", "black", "red",<br>',
+        '    "blue", "yellow", "purple",<br>',
+        '    "green", "#DDD",<br>',
+        '    "#FF000080", "#00FF00AA"'
       )))
     ),
 
@@ -138,27 +172,9 @@ shinyApp(
       colourInput("colPlotFill", "Points colour", "purple", allowAlpha=T),
       colourInput("colPlotOutline", "Points outline", "black", allowTransparent = TRUE, allowAlpha=T),
       plotOutput("plot")
-    ),
-
-    div(
-      class = "section",
-      div(class = "title", "Custom colour list"),
-      div(class = "output", "Selected colour:",
-          textOutput("valueCustom", inline = TRUE)),
-      colourInput("colCustom", NULL, palette = "limited",
-                  allowedCols = c("white", "black", "red", "blue", "yellow",
-                                  "purple", "green", "#DDD", "#FF000080", "#00FF00AA")),
-      tags$pre(HTML(paste0(
-        'colourInput(<br>',
-        '  "col", NULL,<br>',
-        '  palette = "limited",<br>',
-        '  allowedCols = c(<br>',
-        '    "white", "black", "red",<br>',
-        '    "blue", "yellow", "purple",<br>',
-        '    "green", "#DDD",<br>',
-        '    "#FF000080", "#00FF00AA"'
-      )))
     )
+
+
   ),
   server = function(input, output, session) {
     # show the selected colours
@@ -169,6 +185,7 @@ shinyApp(
     output$valueLimited     <- renderText(input$colLimited)
     output$valueName        <- renderText(input$colName)
     output$valueCustom      <- renderText(input$colCustom)
+    output$valueAlpha       <- renderText(input$colAlpha)
 
     # allow user to update an input control
     observeEvent(input$update, {
