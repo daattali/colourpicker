@@ -539,7 +539,6 @@
       input.data('colour',rgb);
       hex = rgb2hex(rgb);
       hsb = rgb2hsb(rgb);
-      var alpha = allowAlpha ? rgb.a || 1 : false;
 
       // Update text colour and background colour
       switch (settings.showColour) {
@@ -603,7 +602,7 @@
       // Update panel color
       innergrid.css('backgroundColor', rgb2hex(hsb2rgb({ h: hsb.h, s: 100, b: 100, a: 1})));
 
-      if (alpha !== false) {
+      if (rgb.a !== false) {
         var rgbstring = "rgba(" + rgb.r + "," + rgb.g + "," + rgb.b + ",";
         var lgradstring = "linear-gradient(" + rgbstring + "1) 0, " + rgbstring + "0) 100%)";
         var filterstring = "progid:DXImageTransform.Microsoft.gradient( startColorstr=#FF" +
@@ -611,7 +610,7 @@
         alphainnerslider.css('background',lgradstring);
         alphainnerslider.css('filter',filterstring);
         // set alpha slider position
-        y = keepWithin(alphaslider.height() - (alpha / (1 / alphaslider.height())),0,alphaslider.height());
+        y = keepWithin(alphaslider.height() - (rgb.a / (1 / alphaslider.height())),0,alphaslider.height());
         alphapicker.css('top',y+'px');
       }
       // Fire change event, but only if colourpicker is fully initialized
