@@ -91,8 +91,8 @@ colourInput <- function(inputId, label, value = "white",
       script = "input_binding_colour.js"),
     htmltools::htmlDependency(
       "colourpicker-lib", "0.1.0", c(href = "colourpicker-lib"),
-      script = "js/colourpicker.min.js",
-      stylesheet = "css/colourpicker.min.css"
+      script = "js/colourpicker.js",
+      stylesheet = "css/colourpicker.css"
     )
   )
 

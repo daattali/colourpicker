@@ -15,7 +15,6 @@
 .colourpicker-input-container {
   background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAMAAAC67D+PAAAAElBMVEXs7Ozt7e3u7u79/f3+/v7////P4ouPAAAAI0lEQVQIW2NkAAJGZkYQSZAJIcAkC5D4//8/iMkKYv4ligkAoE4PJIKs1ewAAAAASUVORK5CYII=);
   border-radius: 4px;
-  display: inline-block;
 }
 
 .colourpicker.istransparent .input-group .colourpicker-input {

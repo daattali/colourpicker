@@ -134,7 +134,6 @@
     function init(input, settings) {
 
       var colourpicker = $('<div class="colourpicker" />'),
-      inputwidth = input.css('width'),
       inputcontainer = $('<div class="colourpicker-input-container" />'),
       inputgroup = $('<div class="input-group" />'),
       defaults = $.colourpicker.defaults;
@@ -159,13 +158,10 @@
       .addClass('palette-' + settings.palette)
       .toggleClass('colourpicker-with-alpha',wide);
       
-       // save some important settings
-       input.data('allow-alpha', settings.allowAlpha);
-       input.data('palette-type',settings.palette);
-      
-       //set the input container width to the same as the input
+      // save some important settings
+      input.data('allow-alpha', settings.allowAlpha);
+      input.data('palette-type',settings.palette);
 
-      inputcontainer.css('width', inputwidth);
       // The input
       input
       .prop('spellcheck', false)
@@ -265,7 +261,7 @@
       }
 
       // Prevent text selection in IE
-      input.parents('.colourpicker').find('.colourpicker-panel').on('selectstart', function() { return false; }).end();
+      input.closest('.colourpicker').find('.colourpicker-panel').on('selectstart', function() { return false; }).end();
 
       updateFromInput(input, false);
 
@@ -275,7 +271,7 @@
     // Returns the input back to its original state
     function destroy(input) {
 
-      var colourpicker = input.parents('.colourpicker');
+      var colourpicker = input.closest('.colourpicker');
 
       // Revert the input element
       input
@@ -292,7 +288,7 @@
     // Shows the specified dropdown panel
     function show(input) {
 
-      var colourpicker = input.parents('.colourpicker'),
+      var colourpicker = input.closest('.colourpicker'),
       panel = colourpicker.find('.colourpicker-panel'),
       settings = input.data('colourpicker-settings');
 
@@ -334,7 +330,7 @@
     // Moves the selected picker
     function move(target, event, animate) {
 
-      var input = target.parents('.colourpicker').find('.colourpicker-input'),
+      var input = target.closest('.colourpicker').find('.colourpicker-input'),
       settings = input.data('colourpicker-settings'),
       picker = target.find('[class$=-picker]'),
       offsetX = target.offset().left,
@@ -397,7 +393,7 @@
       var hue, saturation, brightness,  rgb, alpha, hex,
 
       // Helpful references
-      colourpicker = input.parents('.colourpicker'),
+      colourpicker = input.closest('.colourpicker'),
       settings = input.data('colourpicker-settings'),
 
       // Panel objects
@@ -512,7 +508,7 @@
       var x, y, hsb, hex,
 
       // Helpful references
-      colourpicker = input.parents('.colourpicker'),
+      colourpicker = input.closest('.colourpicker'),
       settings = input.data('colourpicker-settings'),
 
       // Panel objects
@@ -684,7 +680,7 @@
     // giant list of R color names in hex8 format.
     var colsToNames = {"#00000000":"transparent", "#FFFFFFFF":"white","#F0F8FFFF":"aliceblue","#FAEBD7FF":"antiquewhite","#FFEFDBFF":"antiquewhite1","#EEDFCCFF":"antiquewhite2","#CDC0B0FF":"antiquewhite3","#8B8378FF":"antiquewhite4","#7FFFD4FF":"aquamarine","#76EEC6FF":"aquamarine2","#66CDAAFF":"aquamarine3","#458B74FF":"aquamarine4","#F0FFFFFF":"azure","#E0EEEEFF":"azure2","#C1CDCDFF":"azure3","#838B8BFF":"azure4","#F5F5DCFF":"beige","#FFE4C4FF":"bisque","#EED5B7FF":"bisque2","#CDB79EFF":"bisque3","#8B7D6BFF":"bisque4","#000000FF":"black","#FFEBCDFF":"blanchedalmond","#0000FFFF":"blue","#0000EEFF":"blue2","#0000CDFF":"blue3","#00008BFF":"blue4","#8A2BE2FF":"blueviolet","#A52A2AFF":"brown","#FF4040FF":"brown1","#EE3B3BFF":"brown2","#CD3333FF":"brown3","#8B2323FF":"brown4","#DEB887FF":"burlywood","#FFD39BFF":"burlywood1","#EEC591FF":"burlywood2","#CDAA7DFF":"burlywood3","#8B7355FF":"burlywood4","#5F9EA0FF":"cadetblue","#98F5FFFF":"cadetblue1","#8EE5EEFF":"cadetblue2","#7AC5CDFF":"cadetblue3","#53868BFF":"cadetblue4","#7FFF00FF":"chartreuse","#76EE00FF":"chartreuse2","#66CD00FF":"chartreuse3","#458B00FF":"chartreuse4","#D2691EFF":"chocolate","#FF7F24FF":"chocolate1","#EE7621FF":"chocolate2","#CD661DFF":"chocolate3","#8B4513FF":"chocolate4","#FF7F50FF":"coral","#FF7256FF":"coral1","#EE6A50FF":"coral2","#CD5B45FF":"coral3","#8B3E2FFF":"coral4","#6495EDFF":"cornflowerblue","#FFF8DCFF":"cornsilk","#EEE8CDFF":"cornsilk2","#CDC8B1FF":"cornsilk3","#8B8878FF":"cornsilk4","#00FFFFFF":"cyan","#00EEEEFF":"cyan2","#00CDCDFF":"cyan3","#008B8BFF":"cyan4","#B8860BFF":"darkgoldenrod","#FFB90FFF":"darkgoldenrod1","#EEAD0EFF":"darkgoldenrod2","#CD950CFF":"darkgoldenrod3","#8B6508FF":"darkgoldenrod4","#A9A9A9FF":"darkgray","#006400FF":"darkgreen","#BDB76BFF":"darkkhaki","#8B008BFF":"darkmagenta","#556B2FFF":"darkolivegreen","#CAFF70FF":"darkolivegreen1","#BCEE68FF":"darkolivegreen2","#A2CD5AFF":"darkolivegreen3","#6E8B3DFF":"darkolivegreen4","#FF8C00FF":"darkorange","#FF7F00FF":"darkorange1","#EE7600FF":"darkorange2","#CD6600FF":"darkorange3","#8B4500FF":"darkorange4","#9932CCFF":"darkorchid","#BF3EFFFF":"darkorchid1","#B23AEEFF":"darkorchid2","#9A32CDFF":"darkorchid3","#68228BFF":"darkorchid4","#8B0000FF":"darkred","#E9967AFF":"darksalmon","#8FBC8FFF":"darkseagreen","#C1FFC1FF":"darkseagreen1","#B4EEB4FF":"darkseagreen2","#9BCD9BFF":"darkseagreen3","#698B69FF":"darkseagreen4","#483D8BFF":"darkslateblue","#2F4F4FFF":"darkslategray","#97FFFFFF":"darkslategray1","#8DEEEEFF":"darkslategray2","#79CDCDFF":"darkslategray3","#528B8BFF":"darkslategray4","#00CED1FF":"darkturquoise","#9400D3FF":"darkviolet","#FF1493FF":"deeppink","#EE1289FF":"deeppink2","#CD1076FF":"deeppink3","#8B0A50FF":"deeppink4","#00BFFFFF":"deepskyblue","#00B2EEFF":"deepskyblue2","#009ACDFF":"deepskyblue3","#00688BFF":"deepskyblue4","#696969FF":"dimgray","#1E90FFFF":"dodgerblue","#1C86EEFF":"dodgerblue2","#1874CDFF":"dodgerblue3","#104E8BFF":"dodgerblue4","#B22222FF":"firebrick","#FF3030FF":"firebrick1","#EE2C2CFF":"firebrick2","#CD2626FF":"firebrick3","#8B1A1AFF":"firebrick4","#FFFAF0FF":"floralwhite","#228B22FF":"forestgreen","#DCDCDCFF":"gainsboro","#F8F8FFFF":"ghostwhite","#FFD700FF":"gold","#EEC900FF":"gold2","#CDAD00FF":"gold3","#8B7500FF":"gold4","#DAA520FF":"goldenrod","#FFC125FF":"goldenrod1","#EEB422FF":"goldenrod2","#CD9B1DFF":"goldenrod3","#8B6914FF":"goldenrod4","#BEBEBEFF":"gray","#030303FF":"gray1","#050505FF":"gray2","#080808FF":"gray3","#0A0A0AFF":"gray4","#0D0D0DFF":"gray5","#0F0F0FFF":"gray6","#121212FF":"gray7","#141414FF":"gray8","#171717FF":"gray9","#1A1A1AFF":"gray10","#1C1C1CFF":"gray11","#1F1F1FFF":"gray12","#212121FF":"gray13","#242424FF":"gray14","#262626FF":"gray15","#292929FF":"gray16","#2B2B2BFF":"gray17","#2E2E2EFF":"gray18","#303030FF":"gray19","#333333FF":"gray20","#363636FF":"gray21","#383838FF":"gray22","#3B3B3BFF":"gray23","#3D3D3DFF":"gray24","#404040FF":"gray25","#424242FF":"gray26","#454545FF":"gray27","#474747FF":"gray28","#4A4A4AFF":"gray29","#4D4D4DFF":"gray30","#4F4F4FFF":"gray31","#525252FF":"gray32","#545454FF":"gray33","#575757FF":"gray34","#595959FF":"gray35","#5C5C5CFF":"gray36","#5E5E5EFF":"gray37","#616161FF":"gray38","#636363FF":"gray39","#666666FF":"gray40","#6B6B6BFF":"gray42","#6E6E6EFF":"gray43","#707070FF":"gray44","#737373FF":"gray45","#757575FF":"gray46","#787878FF":"gray47","#7A7A7AFF":"gray48","#7D7D7DFF":"gray49","#7F7F7FFF":"gray50","#828282FF":"gray51","#858585FF":"gray52","#878787FF":"gray53","#8A8A8AFF":"gray54","#8C8C8CFF":"gray55","#8F8F8FFF":"gray56","#919191FF":"gray57","#949494FF":"gray58","#969696FF":"gray59","#999999FF":"gray60","#9C9C9CFF":"gray61","#9E9E9EFF":"gray62","#A1A1A1FF":"gray63","#A3A3A3FF":"gray64","#A6A6A6FF":"gray65","#A8A8A8FF":"gray66","#ABABABFF":"gray67","#ADADADFF":"gray68","#B0B0B0FF":"gray69","#B3B3B3FF":"gray70","#B5B5B5FF":"gray71","#B8B8B8FF":"gray72","#BABABAFF":"gray73","#BDBDBDFF":"gray74","#BFBFBFFF":"gray75","#C2C2C2FF":"gray76","#C4C4C4FF":"gray77","#C7C7C7FF":"gray78","#C9C9C9FF":"gray79","#CCCCCCFF":"gray80","#CFCFCFFF":"gray81","#D1D1D1FF":"gray82","#D4D4D4FF":"gray83","#D6D6D6FF":"gray84","#D9D9D9FF":"gray85","#DBDBDBFF":"gray86","#DEDEDEFF":"gray87","#E0E0E0FF":"gray88","#E3E3E3FF":"gray89","#E5E5E5FF":"gray90","#E8E8E8FF":"gray91","#EBEBEBFF":"gray92","#EDEDEDFF":"gray93","#F0F0F0FF":"gray94","#F2F2F2FF":"gray95","#F5F5F5FF":"gray96","#F7F7F7FF":"gray97","#FAFAFAFF":"gray98","#FCFCFCFF":"gray99","#00FF00FF":"green","#00EE00FF":"green2","#00CD00FF":"green3","#008B00FF":"green4","#ADFF2FFF":"greenyellow","#F0FFF0FF":"honeydew","#E0EEE0FF":"honeydew2","#C1CDC1FF":"honeydew3","#838B83FF":"honeydew4","#FF69B4FF":"hotpink","#FF6EB4FF":"hotpink1","#EE6AA7FF":"hotpink2","#CD6090FF":"hotpink3","#8B3A62FF":"hotpink4","#CD5C5CFF":"indianred","#FF6A6AFF":"indianred1","#EE6363FF":"indianred2","#CD5555FF":"indianred3","#8B3A3AFF":"indianred4","#FFFFF0FF":"ivory","#EEEEE0FF":"ivory2","#CDCDC1FF":"ivory3","#8B8B83FF":"ivory4","#F0E68CFF":"khaki","#FFF68FFF":"khaki1","#EEE685FF":"khaki2","#CDC673FF":"khaki3","#8B864EFF":"khaki4","#E6E6FAFF":"lavender","#FFF0F5FF":"lavenderblush","#EEE0E5FF":"lavenderblush2","#CDC1C5FF":"lavenderblush3","#8B8386FF":"lavenderblush4","#7CFC00FF":"lawngreen","#FFFACDFF":"lemonchiffon","#EEE9BFFF":"lemonchiffon2","#CDC9A5FF":"lemonchiffon3","#8B8970FF":"lemonchiffon4","#ADD8E6FF":"lightblue","#BFEFFFFF":"lightblue1","#B2DFEEFF":"lightblue2","#9AC0CDFF":"lightblue3","#68838BFF":"lightblue4","#F08080FF":"lightcoral","#E0FFFFFF":"lightcyan","#D1EEEEFF":"lightcyan2","#B4CDCDFF":"lightcyan3","#7A8B8BFF":"lightcyan4","#EEDD82FF":"lightgoldenrod","#FFEC8BFF":"lightgoldenrod1","#EEDC82FF":"lightgoldenrod2","#CDBE70FF":"lightgoldenrod3","#8B814CFF":"lightgoldenrod4","#FAFAD2FF":"lightgoldenrodyellow","#D3D3D3FF":"lightgray","#90EE90FF":"lightgreen","#FFB6C1FF":"lightpink","#FFAEB9FF":"lightpink1","#EEA2ADFF":"lightpink2","#CD8C95FF":"lightpink3","#8B5F65FF":"lightpink4","#FFA07AFF":"lightsalmon","#EE9572FF":"lightsalmon2","#CD8162FF":"lightsalmon3","#8B5742FF":"lightsalmon4","#20B2AAFF":"lightseagreen","#87CEFAFF":"lightskyblue","#B0E2FFFF":"lightskyblue1","#A4D3EEFF":"lightskyblue2","#8DB6CDFF":"lightskyblue3","#607B8BFF":"lightskyblue4","#8470FFFF":"lightslateblue","#778899FF":"lightslategray","#B0C4DEFF":"lightsteelblue","#CAE1FFFF":"lightsteelblue1","#BCD2EEFF":"lightsteelblue2","#A2B5CDFF":"lightsteelblue3","#6E7B8BFF":"lightsteelblue4","#FFFFE0FF":"lightyellow","#EEEED1FF":"lightyellow2","#CDCDB4FF":"lightyellow3","#8B8B7AFF":"lightyellow4","#32CD32FF":"limegreen","#FAF0E6FF":"linen","#FF00FFFF":"magenta","#EE00EEFF":"magenta2","#CD00CDFF":"magenta3","#B03060FF":"maroon","#FF34B3FF":"maroon1","#EE30A7FF":"maroon2","#CD2990FF":"maroon3","#8B1C62FF":"maroon4","#BA55D3FF":"mediumorchid","#E066FFFF":"mediumorchid1","#D15FEEFF":"mediumorchid2","#B452CDFF":"mediumorchid3","#7A378BFF":"mediumorchid4","#9370DBFF":"mediumpurple","#AB82FFFF":"mediumpurple1","#9F79EEFF":"mediumpurple2","#8968CDFF":"mediumpurple3","#5D478BFF":"mediumpurple4","#3CB371FF":"mediumseagreen","#7B68EEFF":"mediumslateblue","#00FA9AFF":"mediumspringgreen","#48D1CCFF":"mediumturquoise","#C71585FF":"mediumvioletred","#191970FF":"midnightblue","#F5FFFAFF":"mintcream","#FFE4E1FF":"mistyrose","#EED5D2FF":"mistyrose2","#CDB7B5FF":"mistyrose3","#8B7D7BFF":"mistyrose4","#FFE4B5FF":"moccasin","#FFDEADFF":"navajowhite","#EECFA1FF":"navajowhite2","#CDB38BFF":"navajowhite3","#8B795EFF":"navajowhite4","#000080FF":"navy","#FDF5E6FF":"oldlace","#6B8E23FF":"olivedrab","#C0FF3EFF":"olivedrab1","#B3EE3AFF":"olivedrab2","#9ACD32FF":"olivedrab3","#698B22FF":"olivedrab4","#FFA500FF":"orange","#EE9A00FF":"orange2","#CD8500FF":"orange3","#8B5A00FF":"orange4","#FF4500FF":"orangered","#EE4000FF":"orangered2","#CD3700FF":"orangered3","#8B2500FF":"orangered4","#DA70D6FF":"orchid","#FF83FAFF":"orchid1","#EE7AE9FF":"orchid2","#CD69C9FF":"orchid3","#8B4789FF":"orchid4","#EEE8AAFF":"palegoldenrod","#98FB98FF":"palegreen","#9AFF9AFF":"palegreen1","#7CCD7CFF":"palegreen3","#548B54FF":"palegreen4","#AFEEEEFF":"paleturquoise","#BBFFFFFF":"paleturquoise1","#AEEEEEFF":"paleturquoise2","#96CDCDFF":"paleturquoise3","#668B8BFF":"paleturquoise4","#DB7093FF":"palevioletred","#FF82ABFF":"palevioletred1","#EE799FFF":"palevioletred2","#CD6889FF":"palevioletred3","#8B475DFF":"palevioletred4","#FFEFD5FF":"papayawhip","#FFDAB9FF":"peachpuff","#EECBADFF":"peachpuff2","#CDAF95FF":"peachpuff3","#8B7765FF":"peachpuff4","#CD853FFF":"peru","#FFC0CBFF":"pink","#FFB5C5FF":"pink1","#EEA9B8FF":"pink2","#CD919EFF":"pink3","#8B636CFF":"pink4","#DDA0DDFF":"plum","#FFBBFFFF":"plum1","#EEAEEEFF":"plum2","#CD96CDFF":"plum3","#8B668BFF":"plum4","#B0E0E6FF":"powderblue","#A020F0FF":"purple","#9B30FFFF":"purple1","#912CEEFF":"purple2","#7D26CDFF":"purple3","#551A8BFF":"purple4","#FF0000FF":"red","#EE0000FF":"red2","#CD0000FF":"red3","#BC8F8FFF":"rosybrown","#FFC1C1FF":"rosybrown1","#EEB4B4FF":"rosybrown2","#CD9B9BFF":"rosybrown3","#8B6969FF":"rosybrown4","#4169E1FF":"royalblue","#4876FFFF":"royalblue1","#436EEEFF":"royalblue2","#3A5FCDFF":"royalblue3","#27408BFF":"royalblue4","#FA8072FF":"salmon","#FF8C69FF":"salmon1","#EE8262FF":"salmon2","#CD7054FF":"salmon3","#8B4C39FF":"salmon4","#F4A460FF":"sandybrown","#2E8B57FF":"seagreen","#54FF9FFF":"seagreen1","#4EEE94FF":"seagreen2","#43CD80FF":"seagreen3","#FFF5EEFF":"seashell","#EEE5DEFF":"seashell2","#CDC5BFFF":"seashell3","#8B8682FF":"seashell4","#A0522DFF":"sienna","#FF8247FF":"sienna1","#EE7942FF":"sienna2","#CD6839FF":"sienna3","#8B4726FF":"sienna4","#87CEEBFF":"skyblue","#87CEFFFF":"skyblue1","#7EC0EEFF":"skyblue2","#6CA6CDFF":"skyblue3","#4A708BFF":"skyblue4","#6A5ACDFF":"slateblue","#836FFFFF":"slateblue1","#7A67EEFF":"slateblue2","#6959CDFF":"slateblue3","#473C8BFF":"slateblue4","#708090FF":"slategray","#C6E2FFFF":"slategray1","#B9D3EEFF":"slategray2","#9FB6CDFF":"slategray3","#6C7B8BFF":"slategray4","#FFFAFAFF":"snow","#EEE9E9FF":"snow2","#CDC9C9FF":"snow3","#8B8989FF":"snow4","#00FF7FFF":"springgreen","#00EE76FF":"springgreen2","#00CD66FF":"springgreen3","#008B45FF":"springgreen4","#4682B4FF":"steelblue","#63B8FFFF":"steelblue1","#5CACEEFF":"steelblue2","#4F94CDFF":"steelblue3","#36648BFF":"steelblue4","#D2B48CFF":"tan","#FFA54FFF":"tan1","#EE9A49FF":"tan2","#8B5A2BFF":"tan4","#D8BFD8FF":"thistle","#FFE1FFFF":"thistle1","#EED2EEFF":"thistle2","#CDB5CDFF":"thistle3","#8B7B8BFF":"thistle4","#FF6347FF":"tomato","#EE5C42FF":"tomato2","#CD4F39FF":"tomato3","#8B3626FF":"tomato4","#40E0D0FF":"turquoise","#00F5FFFF":"turquoise1","#00E5EEFF":"turquoise2","#00C5CDFF":"turquoise3","#00868BFF":"turquoise4","#EE82EEFF":"violet","#D02090FF":"violetred","#FF3E96FF":"violetred1","#EE3A8CFF":"violetred2","#CD3278FF":"violetred3","#8B2252FF":"violetred4","#F5DEB3FF":"wheat","#FFE7BAFF":"wheat1","#EED8AEFF":"wheat2","#CDBA96FF":"wheat3","#8B7E66FF":"wheat4","#FFFF00FF":"yellow","#EEEE00FF":"yellow2","#CDCD00FF":"yellow3","#8B8B00FF":"yellow4"};
     
-    // gets a flipped version of colsToNames so that we can search by colors for names
+    // This function creates an object with the property names and values flipped
     function flip(o) {
       var flipped = { };
       for (var i in o) {
@@ -692,7 +688,9 @@
           flipped[o[i]] = i;
         }
       }
-      return flipped;}
+      return flipped;
+    }
+    // so that we can easily go from name to hex value
     var namesToCols = flip(colsToNames);
 
     // Keeps value within min and max
@@ -833,7 +831,7 @@
       var r = Math.round(keepWithin(col.r,0,255));
       var g = Math.round(keepWithin(col.g,0,255));
       var b = Math.round(keepWithin(col.b,0,255));
-      var a = col.a ? roundTo(keepWithin(col.a,0,1),2) : col.a;
+      var a = col.a ? roundTo(keepWithin(col.a,0,1),3) : col.a;
       return {r:r, g:g, b:b, a:a};
     }
     // returns an HSB color with corrected values, or false if broken
@@ -932,7 +930,9 @@
 
     function rgb2hex(rgb, force) {
       if (force === undefined) force = 0;
-      rgb = correctedRGB(rgb);      if (!rgb) return "";      var a;
+      rgb = correctedRGB(rgb);      
+      if (!rgb) return "";      
+      var a;
       if (rgb.a===1 || rgb.a===false || force===6) a=""; else a = Math.round(rgb.a*255).toString(16).toUpperCase();
       if (force===8 && a === '') a = "FF";
       var hex = [
@@ -1087,7 +1087,7 @@
           g = hue2rgb(p, q, h);
           b = hue2rgb(p, q, h - 1/3);
         }
-        return {r: Math.round(r*255), g: Math.round(g*255), b: Math.round(b*255), a: (a ? roundTo(a,4) : a)};
+        return {r: Math.round(r*255), g: Math.round(g*255), b: Math.round(b*255), a: (a ? roundTo(a,3) : a)};
       }
 
     // Determine if the selected colour is dark or not
@@ -1115,7 +1115,7 @@
     function getLastColor(input) {
       if (input.data('colourpicker-lastChange')) {
         return input.data('colourpicker-lastChange');
-      } else if (input.parents('.colourpicker').is('.palette-limited')) {
+      } else if (input.closest('.colourpicker').is('.palette-limited')) {
         var firstCol = input.data('hex8-allowed')[0];
         firstCol = str2rgb(firstCol);
         if (! input.data('allow-alpha')) firstCol.a=false;
@@ -1141,7 +1141,7 @@
         target = target.find('.cp-list-col');
       }
       event.preventDefault();
-      var input = target.parents('.colourpicker').find('.colourpicker-input');
+      var input = target.closest('.colourpicker').find('.colourpicker-input');
       updateFromControl(input, target);
     })
     // Start moving in a palette
