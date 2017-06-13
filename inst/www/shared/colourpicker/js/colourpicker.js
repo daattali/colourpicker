@@ -534,6 +534,9 @@
       if (!rgb) rgb = getLastColor(input);
       // one more safety check: if alpha not allowed, force alpha bit to false.
       if (! allowAlpha) rgb.a=false;
+
+      if (allowAlpha && rgb.a===false) rgb.a=1;
+
       // Update input value with fixed version
       if( !preserveInputValue ) input.val(rgb2str(rgb,fmt,allowAlpha,"hex"));
       input.data('colour',rgb);
