@@ -44,12 +44,14 @@
 #'   library(shiny)
 #'   shinyApp(
 #'     ui = fluidPage(
-#'       div("Selected colour:", textOutput("value", inline = TRUE)),
+#'       strong("Selected colour:", textOutput("value", inline = TRUE)),
 #'       colourInput("col", "Choose colour", "red"),
 #'       h3("Update colour input"),
 #'       textInput("text", "New colour: (colour name or HEX value)"),
 #'       selectInput("showColour", "Show colour",
 #'         c("both", "text", "background")),
+#'       selectInput("palette", "Colour palette",
+#'         c("square", "limited")),
 #'       checkboxInput("allowAlpha", "Allow alpha", FALSE),
 #'       checkboxInput("allowTransparent", "Allow transparent", FALSE),
 #'       checkboxInput("returnName", "Return R colour name", FALSE),
