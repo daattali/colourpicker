@@ -62,6 +62,7 @@
 #'         updateColourInput(session, "col",
 #'           value = input$text, showColour = input$showColour,
 #'           allowTransparent = input$allowTransparent,
+#'           palette = input$palette,
 #'           allowAlpha = input$allowAlpha,
 #'           returnName = input$returnName)
 #'       })
@@ -204,7 +205,7 @@ colourInput <- function(inputId, label, value = "white",
 #' @export
 updateColourInput <- function(session, inputId, label = NULL, value = NULL,
                               showColour = NULL, palette = NULL, allowedCols = NULL,
-                              allowAlpha = FALSE, allowTransparent = NULL, transparentText = NULL,
+                              allowAlpha = NULL, allowTransparent = NULL, transparentText = NULL,
                               returnName = NULL) {
   message <- dropNulls(list(
     label = label, value = value,
