@@ -169,8 +169,8 @@ shinyApp(
     div(
       class = "section",
       div(class = "title", "Use output in a plot"),
-      colourInput("colPlotFill", "Points colour", "purple", allowAlpha=T),
-      colourInput("colPlotOutline", "Points outline", "black", allowTransparent = TRUE, allowAlpha=T),
+      colourInput("colPlotFill", "Points colour", "purple", allowAlpha = TRUE),
+      colourInput("colPlotOutline", "Points outline", "black", allowTransparent = TRUE, allowAlpha = TRUE),
       plotOutput("plot")
     )
 
