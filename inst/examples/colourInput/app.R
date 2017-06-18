@@ -90,7 +90,7 @@ shinyApp(
 
     div(
       class = "section",
-      div(class = "title", "Only show background"),
+      div(class = "title", "Background only"),
       div(class = "output", "Selected colour:",
           textOutput("valueBg", inline = TRUE)),
       colourInput("colBg", NULL, "red", showColour = "background"),
@@ -100,6 +100,7 @@ shinyApp(
         '  showColour = "background")'
       )))
     ),
+
 
     div(
       class = "section",
@@ -116,6 +117,39 @@ shinyApp(
 
     div(
       class = "section",
+      div(class = "title", "Allow alpha"),
+      div(class = "output", "Selected colour:",
+          textOutput("valueAlpha", inline = TRUE)),
+      colourInput("colAlpha", NULL, "#FF000080", allowAlpha = TRUE),
+      tags$pre(HTML(paste0(
+        'colourInput(<br>',
+        '  "col", NULL, "#FF000080",<br>',
+        '  allowAlpha = TRUE)'
+      )))
+    ),
+
+    div(
+      class = "section",
+      div(class = "title", "Custom colour list"),
+      div(class = "output", "Selected colour:",
+          textOutput("valueCustom", inline = TRUE)),
+      colourInput("colCustom", NULL, palette = "limited",
+                  allowedCols = c("white", "black", "red", "blue", "yellow",
+                                  "purple", "green", "#DDD", "#FF000080", "#00FF00AA")),
+      tags$pre(HTML(paste0(
+        'colourInput(<br>',
+        '  "col", NULL,<br>',
+        '  palette = "limited",<br>',
+        '  allowedCols = c(<br>',
+        '    "white", "black", "red",<br>',
+        '    "blue", "yellow", "purple",<br>',
+        '    "green", "#DDD",<br>',
+        '    "#FF000080", "#00FF00AA"'
+      )))
+    ),
+
+    div(
+      class = "section",
       div(class = "title", "Update input control"),
       div(class = "output", "Selected colour:",
           textOutput("valueUpdate", inline = TRUE)),
@@ -126,6 +160,7 @@ shinyApp(
                   c("both", "text", "background")),
       shiny::selectInput("palette", "Colour palette",
                          c("square", "limited")),
+      checkboxInput("allowAlpha", "Allow alpha", FALSE),
       checkboxInput("allowTransparent", "Allow transparent", FALSE),
       checkboxInput("returnName", "Return R colour name", FALSE),
       actionButton("update", "Update")
@@ -134,29 +169,12 @@ shinyApp(
     div(
       class = "section",
       div(class = "title", "Use output in a plot"),
-      colourInput("colPlotFill", "Points colour", "purple"),
-      colourInput("colPlotOutline", "Points outline", "black", allowTransparent = TRUE),
+      colourInput("colPlotFill", "Points colour", "purple", allowAlpha = TRUE),
+      colourInput("colPlotOutline", "Points outline", "black", allowTransparent = TRUE, allowAlpha = TRUE),
       plotOutput("plot")
-    ),
-
-    div(
-      class = "section",
-      div(class = "title", "Custom colour list"),
-      div(class = "output", "Selected colour:",
-          textOutput("valueCustom", inline = TRUE)),
-      colourInput("colCustom", NULL, palette = "limited",
-                  allowedCols = c("white", "black", "red", "blue", "yellow",
-                                  "purple", "green", "#DDD")),
-      tags$pre(HTML(paste0(
-        'colourInput(<br>',
-        '  "col", NULL,<br>',
-        '  palette = "limited",<br>',
-        '  allowedCols = c(<br>',
-        '    "white", "black", "red",<br>',
-        '    "blue", "yellow", "purple",<br>',
-        '    "green", "#DDD"))'
-      )))
     )
+
+
   ),
   server = function(input, output, session) {
     # show the selected colours
@@ -167,12 +185,13 @@ shinyApp(
     output$valueLimited     <- renderText(input$colLimited)
     output$valueName        <- renderText(input$colName)
     output$valueCustom      <- renderText(input$colCustom)
+    output$valueAlpha       <- renderText(input$colAlpha)
 
     # allow user to update an input control
     observeEvent(input$update, {
       updateColourInput(session, "colUpdate",
                         value = input$text, showColour = input$showColour,
-                        palette = input$palette,
+                        palette = input$palette, allowAlpha = input$allowAlpha,
                         allowTransparent = input$allowTransparent,
                         returnName = input$returnName)
     })

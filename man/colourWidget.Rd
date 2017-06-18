@@ -41,4 +41,3 @@ colourWidget()
 colourWidget("red", palette = "limited", allowedCols = c("yellow", "red", "#123ABC"))
 
 }
-

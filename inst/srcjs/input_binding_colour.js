@@ -30,6 +30,7 @@ $.extend(colourBinding, {
       transparentText  : $el.attr('data-transparent-text'),
       palette          : $el.attr('data-palette'),
       allowedCols      : $el.attr('data-allowed-cols'),
+      allowAlpha       : $el.attr('data-allow-alpha'),
       returnName       : $el.attr('data-return-name')
     };
 
@@ -53,6 +54,9 @@ $.extend(colourBinding, {
     }
     if (data.hasOwnProperty('allowTransparent')) {
       $el.colourpicker('settings', { 'allowTransparent' : data.allowTransparent });
+    }
+    if (data.hasOwnProperty('allowAlpha')) {
+      $el.colourpicker('settings', { 'allowAlpha' : data.allowAlpha });
     }
     if (data.hasOwnProperty('transparentText')) {
       $el.colourpicker('settings', { 'transparentText' : data.transparentText });
