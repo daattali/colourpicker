@@ -6,7 +6,8 @@
 \usage{
 colourInput(inputId, label, value = "white", showColour = c("both", "text",
   "background"), palette = c("square", "limited"), allowedCols,
-  allowTransparent = FALSE, transparentText, returnName = FALSE)
+  allowTransparent = FALSE, transparentText, returnName = FALSE,
+  allowAlpha = FALSE)
 }
 \arguments{
 \item{inputId}{The \code{input} slot that will be used to access the value.}
@@ -38,6 +39,9 @@ the input will always return the string "transparent".}
 
 \item{returnName}{If \code{TRUE}, then return the name of an R colour instead
 of a HEX value when possible.}
+
+\item{allowAlpha}{If \code{TRUE}, enables a slider to choose a transparency amount
+for the color. Returns in R-accepted 8-digit hex (or names, if returnName is also \code{TRUE})'}
 }
 \description{
 Create an input control to select a colour.
@@ -72,6 +76,7 @@ if (interactive()) {
         c("both", "text", "background")),
       selectInput("palette", "Colour palette",
         c("square", "limited")),
+      checkboxInput("allowAlpha", "Allow alpha", FALSE),
       checkboxInput("allowTransparent", "Allow transparent", FALSE),
       checkboxInput("returnName", "Return R colour name", FALSE),
       actionButton("btn", "Update")
@@ -82,6 +87,7 @@ if (interactive()) {
           value = input$text, showColour = input$showColour,
           allowTransparent = input$allowTransparent,
           palette = input$palette,
+          allowAlpha = input$allowAlpha,
           returnName = input$returnName)
       })
       output$value <- renderText(input$col)
@@ -93,4 +99,3 @@ if (interactive()) {
 \code{\link[colourpicker]{updateColourInput}}
 \code{\link[colourpicker]{colourPicker}}
 }
-

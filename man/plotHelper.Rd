@@ -60,4 +60,3 @@ if (interactive()) {
                      scale_colour_manual(values = CPCOLS))
 }
 }
-

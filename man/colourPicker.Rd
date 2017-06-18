@@ -27,4 +27,3 @@ if (interactive()) {
   cols <- colourPicker(5)
 }
 }
-
