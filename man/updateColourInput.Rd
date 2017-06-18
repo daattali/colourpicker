@@ -6,7 +6,8 @@
 \usage{
 updateColourInput(session, inputId, label = NULL, value = NULL,
   showColour = NULL, palette = NULL, allowedCols = NULL,
-  allowTransparent = NULL, transparentText = NULL, returnName = NULL)
+  allowTransparent = NULL, transparentText = NULL, returnName = NULL,
+  allowAlpha = NULL)
 }
 \arguments{
 \item{session}{The \code{session} object passed to function given to \code{shinyServer}.}
@@ -32,6 +33,9 @@ when \code{allowTransparent} is \code{TRUE}}
 
 \item{returnName}{If \code{TRUE}, then return the name of an R colour instead
 of a HEX value when possible.}
+
+\item{allowAlpha}{If \code{TRUE}, enables a slider to choose a transparency amount
+for the color. Returns in R-accepted 8-digit hex (or names, if returnName is also \code{TRUE})'}
 }
 \description{
 Change the value of a colour input on the client.
@@ -57,6 +61,7 @@ if (interactive()) {
       textInput("text", "New colour: (colour name or HEX value)"),
       selectInput("showColour", "Show colour",
         c("both", "text", "background")),
+      checkboxInput("allowAlpha", "Allow alpha", FALSE),
       checkboxInput("allowTransparent", "Allow transparent", FALSE),
       checkboxInput("returnName", "Return R colour name", FALSE),
       actionButton("btn", "Update")
@@ -66,6 +71,7 @@ if (interactive()) {
         updateColourInput(session, "col",
           value = input$text, showColour = input$showColour,
           allowTransparent = input$allowTransparent,
+          allowAlpha = input$allowAlpha,
           returnName = input$returnName)
       })
       output$value <- renderText(input$col)
@@ -76,4 +82,3 @@ if (interactive()) {
 \seealso{
 \code{\link[colourpicker]{colourInput}}
 }
-
