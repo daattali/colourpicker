@@ -76,9 +76,9 @@
 colourInput <- function(inputId, label, value = "white",
                         showColour = c("both", "text", "background"),
                         palette = c("square", "limited"),
-                        allowedCols, allowAlpha = FALSE,
+                        allowedCols,
                         allowTransparent = FALSE, transparentText,
-                        returnName = FALSE) {
+                        returnName = FALSE,  allowAlpha = FALSE) {
   # sanitize the arguments
   showColour <- match.arg(showColour)
   palette <- match.arg(palette)
@@ -205,8 +205,8 @@ colourInput <- function(inputId, label, value = "white",
 #' @export
 updateColourInput <- function(session, inputId, label = NULL, value = NULL,
                               showColour = NULL, palette = NULL, allowedCols = NULL,
-                              allowAlpha = NULL, allowTransparent = NULL, transparentText = NULL,
-                              returnName = NULL) {
+                              allowTransparent = NULL, transparentText = NULL,
+                              returnName = NULL,  allowAlpha = NULL) {
   message <- dropNulls(list(
     label = label, value = value,
     showColour = showColour, palette = palette,
