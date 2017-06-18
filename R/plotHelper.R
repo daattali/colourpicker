@@ -110,7 +110,6 @@ plotHelper <- function(code, colours, returnCode = FALSE) {
                  "#a6cee3","#b2df8a","#fb9a99","#fdbf6f","#cab2d6","#ffff99")
     colours <- rep_len(palette, colours)
   }
-  colours <- formatHEX(colours)
 
   resourcePath <- system.file("gadgets", "colourpicker",
                               package = "colourpicker")

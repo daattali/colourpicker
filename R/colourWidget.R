@@ -21,7 +21,6 @@ colourWidget <- function(value = "white",
                          palette = c("square", "limited"), allowedCols,
                          width = "300px", height = "35px", elementId = NULL) {
   # sanitize the arguments
-  value <- formatHEX(value)
   showColour <- match.arg(showColour)
   palette <- match.arg(palette)
 
@@ -33,7 +32,6 @@ colourWidget <- function(value = "white",
   )
 
   if (!missing(allowedCols)) {
-    allowedCols <- formatHEX(allowedCols)
     allowedCols <- paste(allowedCols, collapse = " ")
     x[['allowedCols']] <- allowedCols
   }
