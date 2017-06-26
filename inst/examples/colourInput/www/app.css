@@ -68,16 +68,53 @@ pre {
   width: 300px;
 }
 
+#sections-container {
+  text-align: center;
+}
+#sections-container[data-columns]::before {
+  content: '4 .grid-col.size-1of4';
+}
+@media only screen and (max-width: 1510px) {
+  #sections-container[data-columns]::before {
+    content: '3 .grid-col.size-1of3';
+  }
+}
+@media only screen and (max-width: 1200px) {
+  #sections-container[data-columns]::before {
+    content: '2 .grid-col.size-1of2';
+  }
+}
+@media only screen and (max-width: 780px) {
+  #sections-container[data-columns]::before {
+    content: '1 .grid-col.size-1of1';
+  }
+}
+
+.size-1of4, .size-2of4, .size-3of4, .size-4of4,
+.size-1of3, .size-2of3, .size-3of3, .size-1of2, .size-2of2, .size-1of1 {
+  width: 345px;
+}
+
+.grid-col {
+  display: inline-block;
+  vertical-align: top;
+  margin: 0 10px;
+}
+
 .section {
+  text-align: left;
   border: 1px solid #ccc;
   box-shadow: 0 0 5px #ddd;
   padding: 10px 20px;
   background-color: #fff;
-  float: left;
-  margin-right: 30px;
+  width: 345px;
   border-radius: 5px;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
   min-height: 250px;
+  transition: box-shadow 0.5s;
+}
+.section:hover {
+  box-shadow: 0 0 5px orange;
 }
 
 .section .title {
