@@ -117,14 +117,14 @@ shinyApp(
 
     div(
       class = "section",
-      div(class = "title", "Allow alpha"),
+      div(class = "title", "Allow opacity"),
       div(class = "output", "Selected colour:",
-          textOutput("valueAlpha", inline = TRUE)),
-      colourInput("colAlpha", NULL, "#FF000080", allowAlpha = TRUE),
+          textOutput("valueOpacity", inline = TRUE)),
+      colourInput("colOpacity", NULL, "#FF000080", allowOpacity = TRUE),
       tags$pre(HTML(paste0(
         'colourInput(<br>',
         '  "col", NULL, "#FF000080",<br>',
-        '  allowAlpha = TRUE)'
+        '  allowOpacity = TRUE)'
       )))
     ),
 
@@ -134,17 +134,17 @@ shinyApp(
       div(class = "output", "Selected colour:",
           textOutput("valueCustom", inline = TRUE)),
       colourInput("colCustom", NULL, palette = "limited",
-                  allowedCols = c("white", "black", "red", "blue", "yellow",
-                                  "purple", "green", "#DDD", "#FF000080", "#00FF00AA")),
+                  allowedCols = c("white", "black", "red", "#DDD",
+                                  "blue", "#0000FFA0", "#0000FF30", "rgb(255, 255, 0)")),
       tags$pre(HTML(paste0(
         'colourInput(<br>',
         '  "col", NULL,<br>',
         '  palette = "limited",<br>',
         '  allowedCols = c(<br>',
         '    "white", "black", "red",<br>',
-        '    "blue", "yellow", "purple",<br>',
-        '    "green", "#DDD",<br>',
-        '    "#FF000080", "#00FF00AA"'
+        '    "#DDD", "blue",<br>',
+        '    "#0000FFA0", "#0000FF30",<br>',
+        '    "rgb(255, 255, 0)"'
       )))
     ),
 
@@ -155,12 +155,12 @@ shinyApp(
           textOutput("valueUpdate", inline = TRUE)),
       colourInput("colUpdate", NULL, "brown"),
       tags$hr(),
-      textInput("text", "New colour: (colour name or HEX value)"),
+      textInput("text", "New colour: (colour name or HEX value)", "brown"),
       selectInput("showColour", "Show colour",
                   c("both", "text", "background")),
       shiny::selectInput("palette", "Colour palette",
                          c("square", "limited")),
-      checkboxInput("allowAlpha", "Allow alpha", FALSE),
+      checkboxInput("allowOpacity", "Allow opacity", FALSE),
       checkboxInput("allowTransparent", "Allow transparent", FALSE),
       checkboxInput("returnName", "Return R colour name", FALSE),
       actionButton("update", "Update")
@@ -169,8 +169,8 @@ shinyApp(
     div(
       class = "section",
       div(class = "title", "Use output in a plot"),
-      colourInput("colPlotFill", "Points colour", "purple", allowAlpha = TRUE),
-      colourInput("colPlotOutline", "Points outline", "black", allowTransparent = TRUE, allowAlpha = TRUE),
+      colourInput("colPlotFill", "Points colour", "purple", allowOpacity = TRUE),
+      colourInput("colPlotOutline", "Points outline", "black", allowTransparent = TRUE, allowOpacity = TRUE),
       plotOutput("plot")
     )
 
@@ -185,13 +185,13 @@ shinyApp(
     output$valueLimited     <- renderText(input$colLimited)
     output$valueName        <- renderText(input$colName)
     output$valueCustom      <- renderText(input$colCustom)
-    output$valueAlpha       <- renderText(input$colAlpha)
+    output$valueOpacity       <- renderText(input$colOpacity)
 
     # allow user to update an input control
     observeEvent(input$update, {
       updateColourInput(session, "colUpdate",
                         value = input$text, showColour = input$showColour,
-                        palette = input$palette, allowAlpha = input$allowAlpha,
+                        palette = input$palette, allowOpacity = input$allowOpacity,
                         allowTransparent = input$allowTransparent,
                         returnName = input$returnName)
     })

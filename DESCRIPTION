@@ -1,7 +1,7 @@
 Package: colourpicker
 Type: Package
 Title: A Colour Picker Tool for Shiny and for Selecting Colours in Plots
-Version: 0.3.0.9001
+Version: 0.3.0.9002
 Authors@R: c(
     person("Dean", "Attali", email = "daattali@gmail.com",
     role = c("aut", "cre")),
@@ -21,6 +21,7 @@ Imports:
     ggplot2,
     htmltools,
     htmlwidgets (>= 0.7),
+    jsonlite,
     miniUI (>= 0.1.1),
     shiny (>= 0.11.1),
     shinyjs,

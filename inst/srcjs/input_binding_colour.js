@@ -34,6 +34,10 @@ $.extend(colourBinding, {
       returnName       : $el.attr('data-return-name')
     };
 
+    if (typeof opts.allowedCols !== 'undefined') {
+      opts.allowedCols = JSON.parse(opts.allowedCols);
+    }
+
     // initialize the colour picker
     $el.colourpicker(opts);
 
