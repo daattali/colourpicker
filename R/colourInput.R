@@ -163,23 +163,11 @@ colourInput <- function(inputId, label, value = "white",
 #' This function works similarly to the update functions provided by shiny.\cr
 #' Any argument with \code{NULL} values will be ignored.
 #'
+#' @inheritParams colourInput
 #' @param session The \code{session} object passed to function given to \code{shinyServer}.
 #' @param inputId The id of the colour input object.
 #' @param label The label to set for the input object.
 #' @param value The value to set for the input object.
-#' @param showColour Whether to shoW the chosen colour via text, background, or both.
-#' @param palette The type of colour palette to allow the user to select colours
-#' from.
-#' @param allowedCols A list of colours that the user can choose from.
-#' @param allowTransparent If \code{TRUE}, then add a checkbox that allows the
-#' user to select the \code{transparent} colour.
-#' @param transparentText The text to show beside the transparency checkbox
-#' when \code{allowTransparent} is \code{TRUE}
-#' @param returnName If \code{TRUE}, then return the name of an R colour instead
-#' of a HEX value when possible.
-#' @param allowOpacity If \code{TRUE}, enables a slider to choose an opacity
-#' value for the colour. When a colour with an opacity is chosen, the return
-#' value is an 8-digit HEX code.
 #' @seealso \code{\link[colourpicker]{colourInput}}
 #' @examples
 #' if (interactive()) {
