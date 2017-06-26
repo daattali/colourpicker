@@ -19,21 +19,29 @@
 colourWidget <- function(value = "white",
                          showColour = c("both", "text", "background"),
                          palette = c("square", "limited"), allowedCols,
+                         allowTransparent = FALSE, transparentText,
+                         returnName = FALSE,  allowOpacity = FALSE,
                          width = "300px", height = "35px", elementId = NULL) {
   # sanitize the arguments
   showColour <- match.arg(showColour)
   palette <- match.arg(palette)
 
   # forward options using x
-  x = list(
+  x <- list(
     value = value,
     showColour = showColour,
-    palette = palette
+    palette = palette,
+    allowTransparent = allowTransparent,
+    returnName = returnName,
+    allowAlpha = allowOpacity
   )
 
   if (!missing(allowedCols)) {
-    allowedCols <- paste(allowedCols, collapse = " ")
+    allowedCols <- jsonlite::toJSON(allowedCols)
     x[['allowedCols']] <- allowedCols
+  }
+  if (!missing(transparentText)) {
+    x[['transparentText']] <- transparentText
   }
 
   deps <- list(
@@ -41,14 +49,19 @@ colourWidget <- function(value = "white",
   )
 
   # create widget
-  htmlwidgets::createWidget(
-    name = 'colourWidget',
-    x,
-    width = width,
-    height = height,
-    dependencies = deps,
-    package = 'colourpicker',
-    elementId = elementId
+  htmlwidgets::prependContent(
+    htmlwidgets::createWidget(
+      name = 'colourWidget',
+      x,
+      width = width,
+      height = height,
+      dependencies = deps,
+      package = 'colourpicker',
+      elementId = elementId
+    ),
+    htmltools::tags$style(
+      ".colourpicker-input-container{ display:inline-block; }"
+    )
   )
 }
 
