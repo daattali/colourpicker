@@ -81,6 +81,13 @@ body {
   cursor: default;
   box-shadow: 0 0 0 1px #fafafa, 0 0 0 3px #666;
 }
+.col-transparent-box {
+  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAMAAAC67D+PAAAAElBMVEXs7Ozt7e3u7u79/f3+/v7////P4ouPAAAAI0lEQVQIW2NkAAJGZkYQSZAJIcAkC5D4//8/iMkKYv4ligkAoE4PJIKs1ewAAAAASUVORK5CYII=);
+}
+.selected-col-inner {
+  height: 100%;
+  width: 100%;
+}
 
 .ksh {
   margin: 10px 0;

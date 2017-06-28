@@ -263,7 +263,8 @@ plotHelper <- function(code, colours, returnCode = FALSE) {
     # Initialize the main colour picker to the first colour in the list
     output$anyColInputPlaceholder <- renderUI({
       colourpicker::colourInput(
-        "anyColInput", "Select any colour", colours[1], showColour = "both")
+        "anyColInput", "Select any colour", colours[1], showColour = "both",
+        allowOpacity = TRUE)
     })
     outputOptions(output, "anyColInputPlaceholder", suspendWhenHidden = FALSE)
 
@@ -331,19 +332,22 @@ plotHelper <- function(code, colours, returnCode = FALSE) {
     # Render the chosen colours
     output$selectedCols <- renderUI({
       lapply(seq_along(values$selectedCols), function(colNum) {
+        cls <- "col col-transparent-box"
         if (colNum == values$selectedNum) {
-          cls <- "col selected"
-        } else {
-          cls <- "col"
+          cls <- paste0(cls, " selected")
         }
         if (isColDark(values$selectedCols[colNum])) {
           cls <- paste0(cls, " col-dark")
         }
         div(
-          style = paste0("background:", values$selectedCols[colNum]),
-          `data-colnum` = colNum,
           class = cls,
-          colNum
+          div(
+            style = paste0("background:",
+                           hex2rgba_str(values$selectedCols[colNum])),
+            class = "selected-col-inner",
+            `data-colnum` = colNum,
+            colNum
+          )
         )
       })
     })

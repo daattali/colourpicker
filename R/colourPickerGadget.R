@@ -90,7 +90,7 @@ colourPickerGadget <- function(numCols = 3) {
             br(),
             colourpicker::colourInput(
               "anyColInput", "Select any colour", showColour = "both",
-              value = "white")
+              value = "white", allowOpacity = TRUE)
           )
         )
       ),
@@ -104,7 +104,7 @@ colourPickerGadget <- function(numCols = 3) {
             column(
               6,
               colourpicker::colourInput(
-                "rclosecolInput","Show R colours similar to this colour",
+                "rclosecolInput", "Show R colours similar to this colour",
                 showColour = "both", value = "orange")
             ),
             column(
@@ -188,19 +188,22 @@ colourPickerGadget <- function(numCols = 3) {
     # Render the chosen colours
     output$selectedCols <- renderUI({
       lapply(seq_along(values$selectedCols), function(colNum) {
+        cls <- "col col-transparent-box"
         if (colNum == values$selectedNum) {
-          cls <- "col selected"
-        } else {
-          cls <- "col"
+          cls <- paste0(cls, " selected")
         }
         if (isColDark(values$selectedCols[colNum])) {
           cls <- paste0(cls, " col-dark")
         }
         div(
-          style = paste0("background:", values$selectedCols[colNum]),
-          `data-colnum` = colNum,
           class = cls,
-          colNum
+          div(
+            style = paste0("background:",
+                           hex2rgba_str(values$selectedCols[colNum])),
+            class = "selected-col-inner",
+            `data-colnum` = colNum,
+            colNum
+          )
         )
       })
     })
