@@ -5,8 +5,9 @@
 \title{Create a colour picker htmlwidget}
 \usage{
 colourWidget(value = "white", showColour = c("both", "text", "background"),
-  palette = c("square", "limited"), allowedCols, width = "300px",
-  height = "35px", elementId = NULL)
+  palette = c("square", "limited"), allowedCols, allowTransparent = FALSE,
+  transparentText, returnName = FALSE, allowOpacity = FALSE,
+  width = "300px", height = "35px", elementId = NULL)
 }
 \arguments{
 \item{value}{Initial value (can be a colour name or HEX code)}
@@ -22,6 +23,22 @@ predefined list of colours to choose from.}
 \item{allowedCols}{A list of colours that the user can choose from. Only
 applicable when \code{palette == "limited"}. The \code{limited} palette
 uses a default list of 40 colours if \code{allowedCols} is not defined.}
+
+\item{allowTransparent}{If \code{TRUE}, then add a checkbox that allows the
+user to select the \code{transparent} colour.}
+
+\item{transparentText}{The text to show beside the transparency checkbox
+when \code{allowTransparent} is \code{TRUE}. The default value is
+"Transparent", but you can change it to "None" or any other string. This has
+no effect on the return value from the input; when the checkbox is checked,
+the input will always return the string "transparent".}
+
+\item{returnName}{If \code{TRUE}, then return the name of an R colour instead
+of a HEX value when possible.}
+
+\item{allowOpacity}{If \code{TRUE}, enables a slider to choose an opacity
+value for the colour. When a colour with an opacity is chosen, the return
+value is an 8-digit HEX code.}
 
 \item{width}{Custom width for the input field.}
 

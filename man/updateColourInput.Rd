@@ -7,7 +7,7 @@
 updateColourInput(session, inputId, label = NULL, value = NULL,
   showColour = NULL, palette = NULL, allowedCols = NULL,
   allowTransparent = NULL, transparentText = NULL, returnName = NULL,
-  allowAlpha = NULL)
+  allowOpacity = NULL)
 }
 \arguments{
 \item{session}{The \code{session} object passed to function given to \code{shinyServer}.}
@@ -18,24 +18,33 @@ updateColourInput(session, inputId, label = NULL, value = NULL,
 
 \item{value}{The value to set for the input object.}
 
-\item{showColour}{Whether to shoW the chosen colour via text, background, or both.}
+\item{showColour}{Whether to show the chosen colour as text inside the input,
+as the background colour of the input, or both (default).}
 
 \item{palette}{The type of colour palette to allow the user to select colours
-from.}
+from. \code{square} (default) shows a square colour palette that allows the
+user to choose any colour, while \code{limited} only gives the user a
+predefined list of colours to choose from.}
 
-\item{allowedCols}{A list of colours that the user can choose from.}
+\item{allowedCols}{A list of colours that the user can choose from. Only
+applicable when \code{palette == "limited"}. The \code{limited} palette
+uses a default list of 40 colours if \code{allowedCols} is not defined.}
 
 \item{allowTransparent}{If \code{TRUE}, then add a checkbox that allows the
 user to select the \code{transparent} colour.}
 
 \item{transparentText}{The text to show beside the transparency checkbox
-when \code{allowTransparent} is \code{TRUE}}
+when \code{allowTransparent} is \code{TRUE}. The default value is
+"Transparent", but you can change it to "None" or any other string. This has
+no effect on the return value from the input; when the checkbox is checked,
+the input will always return the string "transparent".}
 
 \item{returnName}{If \code{TRUE}, then return the name of an R colour instead
 of a HEX value when possible.}
 
-\item{allowAlpha}{If \code{TRUE}, enables a slider to choose a transparency amount
-for the color. Returns in R-accepted 8-digit hex (or names, if returnName is also \code{TRUE})'}
+\item{allowOpacity}{If \code{TRUE}, enables a slider to choose an opacity
+value for the colour. When a colour with an opacity is chosen, the return
+value is an 8-digit HEX code.}
 }
 \description{
 Change the value of a colour input on the client.
@@ -61,7 +70,7 @@ if (interactive()) {
       textInput("text", "New colour: (colour name or HEX value)"),
       selectInput("showColour", "Show colour",
         c("both", "text", "background")),
-      checkboxInput("allowAlpha", "Allow alpha", FALSE),
+      checkboxInput("allowOpacity", "Allow opacity", FALSE),
       checkboxInput("allowTransparent", "Allow transparent", FALSE),
       checkboxInput("returnName", "Return R colour name", FALSE),
       actionButton("btn", "Update")
@@ -71,7 +80,7 @@ if (interactive()) {
         updateColourInput(session, "col",
           value = input$text, showColour = input$showColour,
           allowTransparent = input$allowTransparent,
-          allowAlpha = input$allowAlpha,
+          allowOpacity = input$allowOpacity,
           returnName = input$returnName)
       })
       output$value <- renderText(input$col)
