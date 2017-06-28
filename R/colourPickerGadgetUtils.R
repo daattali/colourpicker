@@ -15,7 +15,11 @@ closestColHex <- function(target, n = 3,
 
 # Determine if a colour is dark or light
 isColDark <- function(colhex) {
-  getLuminance(colhex) <= 0.22
+  rgba <- hex2rgba(colhex)
+  if (!is.null(rgba[['a']]) && rgba[['a']] < 0.5) {
+    return(FALSE)
+  }
+  return(getLuminance(colhex) <= 0.22)
 }
 
 # Calculate the luminance of a colour
@@ -29,7 +33,7 @@ getLuminance <- function(colhex) {
       x <- ((x + 0.055) / 1.055)^2.4
     }
   })
-  lum <- lum[[1]]*0.2126 + lum[[2]]*0.7152 + lum[[3]]*0.0722;
+  lum <- lum[[1]]*0.2326 + lum[[2]]*0.6952 + lum[[3]]*0.0722;
   lum
 }
 
@@ -54,5 +58,35 @@ getColNameOrHex <- function(hex) {
     unname(.globals$colsMap[hex])
   } else {
     hex
+  }
+}
+
+# Return a list of numeric rgb (or rgba) values for a HEX code
+# Assumes a 6 or 8 digit HEx code with leading # symbol
+hex2rgba <- function(hex) {
+  hex <- substring(hex, 2)
+
+  result <- list(
+    r = as.integer(as.hexmode(substring(hex, 1, 2))),
+    g = as.integer(as.hexmode(substring(hex, 3, 4))),
+    b = as.integer(as.hexmode(substring(hex, 5, 6)))
+  )
+  if (nchar(hex) == 8) {
+    a <- as.integer(as.hexmode(substring(hex, 7, 8)))
+    if (a < 255) {
+      result[['a']] <- a / 255
+    }
+  }
+  result
+}
+
+# Return a CSS-like rgb() or rgba() value for a HEX code
+# Assumes a 6 or 8 digit HEx code with leading # symbol
+hex2rgba_str <- function(hex) {
+  rgba <- hex2rgba(hex)
+  if (is.null(rgba[['a']]) || rgba[['a']] == 255) {
+    return(sprintf("rgb(%s, %s, %s)", rgba[['r']], rgba[['g']], rgba[['b']]))
+  } else {
+    return(sprintf("rgba(%s, %s, %s, %s)", rgba[['r']], rgba[['g']], rgba[['b']], rgba[['a']]))
   }
 }
