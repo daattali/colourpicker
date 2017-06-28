@@ -7,7 +7,7 @@
 colourInput(inputId, label, value = "white", showColour = c("both", "text",
   "background"), palette = c("square", "limited"), allowedCols,
   allowTransparent = FALSE, transparentText, returnName = FALSE,
-  allowAlpha = FALSE)
+  allowOpacity = FALSE)
 }
 \arguments{
 \item{inputId}{The \code{input} slot that will be used to access the value.}
@@ -40,24 +40,32 @@ the input will always return the string "transparent".}
 \item{returnName}{If \code{TRUE}, then return the name of an R colour instead
 of a HEX value when possible.}
 
-\item{allowAlpha}{If \code{TRUE}, enables a slider to choose a transparency amount
-for the color. Returns in R-accepted 8-digit hex (or names, if returnName is also \code{TRUE})'}
+\item{allowOpacity}{If \code{TRUE}, enables a slider to choose an opacity
+value for the colour. When a colour with an opacity is chosen, the return
+value is an 8-digit HEX code.}
 }
 \description{
 Create an input control to select a colour.
 }
 \details{
 A colour input allows users to select a colour by clicking on the desired
-colour, or by entering a valid HEX colour in the input box. The input can
-be initialized with either a colour name or a HEX value. The return value is
-a HEX value by default, but you can use the \code{returnName = TRUE} parameter
-to get an R colour name instead (only when an R colour exists for the
-selected colour).
+colour, or by entering a valid colour in the input box. Colours can be
+specified as either names ("blue"), HEX codes ("#0000FF"), RGB codes
+("rgb(0, 0, 255)"), or HSL codes ("hsl(240, 100, 50)"). Use
+\code{allowOpacity = TRUE} to allow selecting semi-transparent colours.
+The return value is a HEX value by default, but you can use the
+\code{returnName = TRUE} parameter to get an R colour name instead
+(only when an R colour exists for the selected colour).
+
+When \code{allowOpacity = TRUE}, the user can type into the input field any
+RGBA value, HSLA value, or 8-digit HEX with alpha code. You can also use
+any of these values as the \code{value} argument as the initial value of the
+input.
 
 Since most functions in R that accept colours can also accept the value
 "transparent", \code{colourInput} has an option to allow selecting the
 "transparent" colour. When the user checks the checkbox for this special
-colour, the returned value form the input is "transparent".
+colour, the returned value from the input is "transparent".
 }
 \note{
 See \href{http://daattali.com/shiny/colourInput/}{http://daattali.com/shiny/colourInput/}
@@ -76,7 +84,7 @@ if (interactive()) {
         c("both", "text", "background")),
       selectInput("palette", "Colour palette",
         c("square", "limited")),
-      checkboxInput("allowAlpha", "Allow alpha", FALSE),
+      checkboxInput("allowOpacity", "Allow opacity", FALSE),
       checkboxInput("allowTransparent", "Allow transparent", FALSE),
       checkboxInput("returnName", "Return R colour name", FALSE),
       actionButton("btn", "Update")
@@ -87,7 +95,7 @@ if (interactive()) {
           value = input$text, showColour = input$showColour,
           allowTransparent = input$allowTransparent,
           palette = input$palette,
-          allowAlpha = input$allowAlpha,
+          allowOpacity = input$allowOpacity,
           returnName = input$returnName)
       })
       output$value <- renderText(input$col)
