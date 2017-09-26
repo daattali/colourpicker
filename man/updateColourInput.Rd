@@ -6,8 +6,7 @@
 \usage{
 updateColourInput(session, inputId, label = NULL, value = NULL,
   showColour = NULL, palette = NULL, allowedCols = NULL,
-  allowTransparent = NULL, transparentText = NULL, returnName = NULL,
-  allowOpacity = NULL)
+  allowTransparent = NULL, returnName = NULL)
 }
 \arguments{
 \item{session}{The \code{session} object passed to function given to \code{shinyServer}.}
@@ -30,21 +29,12 @@ predefined list of colours to choose from.}
 applicable when \code{palette == "limited"}. The \code{limited} palette
 uses a default list of 40 colours if \code{allowedCols} is not defined.}
 
-\item{allowTransparent}{If \code{TRUE}, then add a checkbox that allows the
-user to select the \code{transparent} colour.}
-
-\item{transparentText}{The text to show beside the transparency checkbox
-when \code{allowTransparent} is \code{TRUE}. The default value is
-"Transparent", but you can change it to "None" or any other string. This has
-no effect on the return value from the input; when the checkbox is checked,
-the input will always return the string "transparent".}
+\item{allowTransparent}{If \code{TRUE}, enables a slider to choose an alpha
+pacity (transparency) value for the colour. When a colour with an opacity is
+chosen, the return value is an 8-digit HEX code.}
 
 \item{returnName}{If \code{TRUE}, then return the name of an R colour instead
 of a HEX value when possible.}
-
-\item{allowOpacity}{If \code{TRUE}, enables a slider to choose an opacity
-value for the colour. When a colour with an opacity is chosen, the return
-value is an 8-digit HEX code.}
 }
 \description{
 Change the value of a colour input on the client.
@@ -70,7 +60,6 @@ if (interactive()) {
       textInput("text", "New colour: (colour name or HEX value)"),
       selectInput("showColour", "Show colour",
         c("both", "text", "background")),
-      checkboxInput("allowOpacity", "Allow opacity", FALSE),
       checkboxInput("allowTransparent", "Allow transparent", FALSE),
       checkboxInput("returnName", "Return R colour name", FALSE),
       actionButton("btn", "Update")
@@ -80,7 +69,6 @@ if (interactive()) {
         updateColourInput(session, "col",
           value = input$text, showColour = input$showColour,
           allowTransparent = input$allowTransparent,
-          allowOpacity = input$allowOpacity,
           returnName = input$returnName)
       })
       output$value <- renderText(input$col)

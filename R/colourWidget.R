@@ -18,9 +18,8 @@
 #' @export
 colourWidget <- function(value = "white",
                          showColour = c("both", "text", "background"),
-                         palette = c("square", "limited"), allowedCols,
-                         allowTransparent = FALSE, transparentText,
-                         returnName = FALSE,  allowOpacity = FALSE,
+                         palette = c("square", "limited"), allowedCols = NULL,
+                         allowTransparent = FALSE, returnName = FALSE,
                          width = "300px", height = "35px", elementId = NULL) {
   # sanitize the arguments
   showColour <- match.arg(showColour)
@@ -31,17 +30,13 @@ colourWidget <- function(value = "white",
     value = value,
     showColour = showColour,
     palette = palette,
-    allowTransparent = allowTransparent,
     returnName = returnName,
-    allowAlpha = allowOpacity
+    allowAlpha = allowTransparent
   )
 
-  if (!missing(allowedCols)) {
+  if (!is.null(allowedCols)) {
     allowedCols <- jsonlite::toJSON(allowedCols)
     x[['allowedCols']] <- allowedCols
-  }
-  if (!missing(transparentText)) {
-    x[['transparentText']] <- transparentText
   }
 
   deps <- list(

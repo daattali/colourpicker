@@ -79,14 +79,14 @@ shinyApp(
 
       div(
         class = "section",
-        div(class = "title", "Allow opacity"),
+        div(class = "title", "Allow Transparent"),
         div(class = "output", "Selected colour:",
-            textOutput("valueOpacity", inline = TRUE)),
-        colourInput("colOpacity", NULL, "#00FF0080", allowOpacity = TRUE),
+            textOutput("valueTransparent", inline = TRUE)),
+        colourInput("colTransparent", NULL, "#00FF0080", allowTransparent = TRUE),
         tags$pre(HTML(paste0(
           'colourInput(<br>',
           '  "col", NULL, "#00FF0080",<br>',
-          '  allowOpacity = TRUE)'
+          '  allowTransparent = TRUE)'
         )))
       ),
 
@@ -114,19 +114,6 @@ shinyApp(
           'colourInput(<br>',
           '  "col", NULL, "red",<br>',
           '  showColour = "background")'
-        )))
-      ),
-
-      div(
-        class = "section",
-        div(class = "title", "Allow \"transparent\""),
-        div(class = "output", "Selected colour:",
-            textOutput("valueTransparent", inline = TRUE)),
-        colourInput("colTransparent", NULL, "orange", allowTransparent = TRUE),
-        tags$pre(HTML(paste0(
-          'colourInput(<br>',
-          '  "col", NULL, "orange",<br>',
-          '  allowTransparent = TRUE)'
         )))
       ),
 
@@ -162,7 +149,6 @@ shinyApp(
                     c("both", "text", "background")),
         shiny::selectInput("palette", "Colour palette",
                            c("square", "limited")),
-        checkboxInput("allowOpacity", "Allow opacity", FALSE),
         checkboxInput("allowTransparent", "Allow transparent", FALSE),
         checkboxInput("returnName", "Return R colour name", FALSE),
         actionButton("update", "Update")
@@ -171,8 +157,8 @@ shinyApp(
       div(
         class = "section",
         div(class = "title", "Use output in a plot"),
-        colourInput("colPlotFill", "Points colour", "purple", allowOpacity = TRUE),
-        colourInput("colPlotOutline", "Points outline", "black", allowTransparent = TRUE, allowOpacity = TRUE),
+        colourInput("colPlotFill", "Points colour", "purple", allowTransparent = TRUE),
+        colourInput("colPlotOutline", "Points outline", "black", allowTransparent = TRUE),
         plotOutput("plot")
       )
     ),
@@ -188,13 +174,12 @@ shinyApp(
     output$valueLimited     <- renderText(input$colLimited)
     output$valueName        <- renderText(input$colName)
     output$valueCustom      <- renderText(input$colCustom)
-    output$valueOpacity       <- renderText(input$colOpacity)
 
     # allow user to update an input control
     observeEvent(input$update, {
       updateColourInput(session, "colUpdate",
                         value = input$text, showColour = input$showColour,
-                        palette = input$palette, allowOpacity = input$allowOpacity,
+                        palette = input$palette,
                         allowTransparent = input$allowTransparent,
                         returnName = input$returnName)
     })
