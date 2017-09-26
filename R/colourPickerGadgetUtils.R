@@ -64,6 +64,17 @@ getColNameOrHex <- function(hex) {
 # Return a list of numeric rgb (or rgba) values for a HEX code
 # Assumes a 6 or 8 digit HEx code with leading # symbol
 hex2rgba <- function(hex) {
+  # If a colour name instead of hex is given
+  if (substring(hex, 1, 1) != "#") {
+    rgb <- grDevices::col2rgb(hex)
+    return(
+      list(
+        r = rgb[1],
+        g = rgb[2],
+        b = rgb[3]
+      )
+    )
+  }
   hex <- substring(hex, 2)
 
   result <- list(
