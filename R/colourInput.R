@@ -49,6 +49,21 @@
 #' \code{\link[colourpicker]{colourPicker}}
 #' @examples
 #' if (interactive()) {
+#'   # Example 1
+#'   library(shiny)
+#'   shinyApp(
+#'     ui = fluidPage(
+#'       colourInput("col", "Choose colour", "red"),
+#'       plotOutput("plot")
+#'     ),
+#'     server = function(input, output, session) {
+#'       output$plot <- renderPlot({
+#'         plot(1:10, col = input$col)
+#'       })
+#'     }
+#'   )
+#'
+#'   # Example 2
 #'   library(shiny)
 #'   shinyApp(
 #'     ui = fluidPage(
