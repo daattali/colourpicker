@@ -90,7 +90,7 @@ colourPickerGadget <- function(numCols = 3) {
             br(),
             colourpicker::colourInput(
               "anyColInput", "Select any colour", showColour = "both",
-              value = "white", allowOpacity = TRUE)
+              value = "white", allowTransparent = TRUE)
           )
         )
       ),
@@ -320,7 +320,7 @@ colourPickerGadget <- function(numCols = 3) {
           "Numbers 1-9          Select colour 1-9",
           "Spacebar          Add another colour",
           "Delete          Remove selected colour",
-          "Enter          Done (the colour list will be assigned to CPCOLS)",
+          "Enter          Done",
           "Esc          Close the colour helper"
         ))
         return()
@@ -372,7 +372,7 @@ colourPickerGadget <- function(numCols = 3) {
             span(class = "ksh-key", "Enter")
           ),
           span(class = "ksh-right",
-               HTML("Done (the colour list will be assigned to <code>CPCOLS</code>)"))
+               HTML("Done"))
         ),
         div(
           class = "ksh",

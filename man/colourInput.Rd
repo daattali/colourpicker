@@ -5,9 +5,8 @@
 \title{Create a colour input control}
 \usage{
 colourInput(inputId, label, value = "white", showColour = c("both", "text",
-  "background"), palette = c("square", "limited"), allowedCols,
-  allowTransparent = FALSE, transparentText, returnName = FALSE,
-  allowOpacity = FALSE)
+  "background"), palette = c("square", "limited"), allowedCols = NULL,
+  allowTransparent = FALSE, returnName = FALSE)
 }
 \arguments{
 \item{inputId}{The \code{input} slot that will be used to access the value.}
@@ -28,21 +27,12 @@ predefined list of colours to choose from.}
 applicable when \code{palette == "limited"}. The \code{limited} palette
 uses a default list of 40 colours if \code{allowedCols} is not defined.}
 
-\item{allowTransparent}{If \code{TRUE}, then add a checkbox that allows the
-user to select the \code{transparent} colour.}
-
-\item{transparentText}{The text to show beside the transparency checkbox
-when \code{allowTransparent} is \code{TRUE}. The default value is
-"Transparent", but you can change it to "None" or any other string. This has
-no effect on the return value from the input; when the checkbox is checked,
-the input will always return the string "transparent".}
+\item{allowTransparent}{If \code{TRUE}, enables a slider to choose an alpha
+pacity (transparency) value for the colour. When a colour with an opacity is
+chosen, the return value is an 8-digit HEX code.}
 
 \item{returnName}{If \code{TRUE}, then return the name of an R colour instead
 of a HEX value when possible.}
-
-\item{allowOpacity}{If \code{TRUE}, enables a slider to choose an opacity
-value for the colour. When a colour with an opacity is chosen, the return
-value is an 8-digit HEX code.}
 }
 \description{
 Create an input control to select a colour.
@@ -52,20 +42,15 @@ A colour input allows users to select a colour by clicking on the desired
 colour, or by entering a valid colour in the input box. Colours can be
 specified as either names ("blue"), HEX codes ("#0000FF"), RGB codes
 ("rgb(0, 0, 255)"), or HSL codes ("hsl(240, 100, 50)"). Use
-\code{allowOpacity = TRUE} to allow selecting semi-transparent colours.
+\code{allowTransparent = TRUE} to allow selecting semi-transparent colours.
 The return value is a HEX value by default, but you can use the
 \code{returnName = TRUE} parameter to get an R colour name instead
 (only when an R colour exists for the selected colour).
 
-When \code{allowOpacity = TRUE}, the user can type into the input field any
-RGBA value, HSLA value, or 8-digit HEX with alpha code. You can also use
+When \code{allowTransparent = TRUE}, the user can type into the input field
+any RGBA value, HSLA value, or 8-digit HEX with alpha code. You can also use
 any of these values as the \code{value} argument as the initial value of the
 input.
-
-Since most functions in R that accept colours can also accept the value
-"transparent", \code{colourInput} has an option to allow selecting the
-"transparent" colour. When the user checks the checkbox for this special
-colour, the returned value from the input is "transparent".
 }
 \note{
 See \href{http://daattali.com/shiny/colourInput/}{http://daattali.com/shiny/colourInput/}
@@ -73,6 +58,21 @@ for a live demo.
 }
 \examples{
 if (interactive()) {
+  # Example 1
+  library(shiny)
+  shinyApp(
+    ui = fluidPage(
+      colourInput("col", "Choose colour", "red"),
+      plotOutput("plot")
+    ),
+    server = function(input, output, session) {
+      output$plot <- renderPlot({
+        plot(1:10, col = input$col)
+      })
+    }
+  )
+
+  # Example 2
   library(shiny)
   shinyApp(
     ui = fluidPage(
@@ -84,7 +84,6 @@ if (interactive()) {
         c("both", "text", "background")),
       selectInput("palette", "Colour palette",
         c("square", "limited")),
-      checkboxInput("allowOpacity", "Allow opacity", FALSE),
       checkboxInput("allowTransparent", "Allow transparent", FALSE),
       checkboxInput("returnName", "Return R colour name", FALSE),
       actionButton("btn", "Update")
@@ -95,7 +94,6 @@ if (interactive()) {
           value = input$text, showColour = input$showColour,
           allowTransparent = input$allowTransparent,
           palette = input$palette,
-          allowOpacity = input$allowOpacity,
           returnName = input$returnName)
       })
       output$value <- renderText(input$col)

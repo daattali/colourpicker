@@ -4,7 +4,7 @@
 \alias{plotHelper}
 \title{Plot colour helper}
 \usage{
-plotHelper(code, colours, returnCode = FALSE)
+plotHelper(code = "", colours = NULL, returnCode = FALSE)
 }
 \arguments{
 \item{code}{Code for a plot. You can use the variable \code{CPCOLS} in this
@@ -12,8 +12,8 @@ code to refer to the colours that you will pick. If you do not provide any
 code, the plot helper will initialize with sample code. The code can be
 provided as text or as R code.}
 
-\item{colours}{A vector of colours to use as the initial colours in the tool.
-If you provide an integer instead of a vector of colours, the tool will load
+\item{colours}{A vector of colours to use as the initial colours in the tool,
+or an integer. If an integer is provided instead of colours, the tool will load
 with that number of colours, and default colours will be used initially.
 If you do not provide this parameter, the tool will attempt to guess how many
 colours are needed in the \code{code} and initialize that many colours.}
