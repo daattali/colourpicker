@@ -1,10 +1,17 @@
-# colourpicker 0.3.0.xxxx
+# colourpicker 1.0
 
-MAJOR NEW FEATURE
+2017-09-27
 
-- `colourInput()` now supports an alpha channel, to allow selecting semi-transparent colours (using the `allowOpacity` argument)
-- the value of a colour in `colourInput()` can be specified either using a colour name ("blue"), HEX codes ("#0000FF"), RGB codes ("rgb(0, 0, 255)"), or HSL codes ("hsl(240, 100, 50)")
-- it is now possible to type the value of a colour (using any of the above versions) directly into the input field. For example, you can type "rgb(0, 0, 255)" directly into the input field to select the green colour
+MAJOR NEW FEATURES
+
+- `colourInput()` now supports an alpha channel, to allow selecting semi-transparent colours, using the `allowTransparent` boolean parameter. Note that this is a **BREAKING CHANGE** because previously `allowTransparent=TRUE` resulted in a checkbox, and now it displays the alpha opacity selector.  
+- The value of a colour in `colourInput()` can be specified either using a colour name ("blue"), HEX codes ("#0000FF"), RGB codes ("rgb(0, 0, 255)"), or HSL codes ("hsl(240, 100, 50)")
+- It is now possible to type the value of a colour (using any of the above versions) directly into the input field. For example, you can type "rgb(0, 0, 255)" directly into the input field to select the green colour.
+
+BREAKING CHANGES
+
+- The behaviour of `allowTransparent=TRUE` has been modified, as mentioned above
+- The `transparentText` parameter from `colourInput()` has been removed
 
 BUG FIXES
 
