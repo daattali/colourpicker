@@ -22,7 +22,9 @@ knitr::opts_chunk$set(tidy = FALSE, comment = "#>")
 
 `colourpicker` gives you a colour picker widget that can be used in different contexts in R.
 
-The most common uses of `colourpicker` are to use the `colourInput()` function to create a colour input, or to use the `plotHelper()` function/RStudio Addin to easily select colours to use in a plot.
+![colour input image](../inst/img/colourinputnew.PNG)
+
+The most common uses of `colourpicker` are to use the `colourInput()` function to create a [colour input in Shiny](http://daattali.com/shiny/colourInput/), or to use the `plotHelper()` function/RStudio Addin to easily [select colours for a plot](../inst/img/plothelper-demo.gif).
 
 # Table of contents
 
@@ -40,7 +42,7 @@ As mentioned above, the most useful functions are `colourInput()` and `plotHelpe
 
   - [Click here](http://daattali.com/shiny/colourInput/) to view a live
 interactive demo the colour input.
-  - The GIF below shows what the Plot Colour Helper looks like.
+  - The GIF below shows what the Plot Colour Helper looks like (the GIF is from an old version that did not support opacity/transparency for colours, which is now supported).
 
 ![Plot Colour Helper demo](../inst/img/plothelper-demo.gif)
 
@@ -85,7 +87,7 @@ shinyApp(
 
 <h2 id="plothelper">Select colours to use in your plot: `plotHelper()`</h2>
 
-If you've ever had to spend a long time perfecting the colour scheme of a plot, you'd find the Plot Colour Helper handy. It's an RStudio addin that lets you interactively choose colours for your plot while updating your plot in real-time so you can see the colour changes immediately.
+If you've ever had to spend a long time perfecting the colour scheme of a plot, you'd find the Plot Colour Helper handy. It's an RStudio addin that lets you interactively choose colours for your plot while updating your plot in real-time, so you can see the colour changes immediately.
 
 To use this tool, either highlight code for a plot and select the addin through the RStudio *Addins* menu, or call the `plotHelper()` function. The colours selected will be available as a variable named `CPCOLS`.
 
@@ -108,19 +110,35 @@ The colour picker input is also available as an 'htmlwidgets' widget using the `
 
 Using `colourInput` is extremely trivial if you've used Shiny, and it's as easy to use as any other input control.  It was implemented to very closely mimic all other Shiny inputs so that using it will feel very familiar. You can add a simple colour input to your Shiny app with `colourInput("col", "Select colour", value = "red")`. The return value from a `colourInput` is an uppercase HEX colour, so in the previous example the value of `input$col` would be `#FF0000` (#FF0000 is the HEX value of the colour red). The default value at initialization is white (#FFFFFF).
 
-### Allowing "transparent"
+### Retrieving the colour names
 
-Since most functions in R that accept colours can also accept the value "transparent", `colourInput` has an option to allow selecting the "transparent" colour. By default, only real colours can be selected, so you need to use the `allowTransparent = TRUE` parameter. When this feature is turned on, a checkbox appears inside the input box.
+If you use the `returnName = TRUE` parameter, then the return value will be a colour name instead of a HEX value, when possible. For example, if the chosen colour is red, the return value will be `red` instead of `#FF0000`. For any colour that does not have a standard name, its HEX value will be returned.
 
-If the user checks the checkbox for "transparent", then the colour input is grayed out and the returned value of the input is `transparent`. This is the only case when the value returned from a `colourInput` is not a HEX value. When the checkbox is unchecked, the value of the input will be the last selected colour prior to selecting "transparent".
+### Allowing transparent colours
 
-By default, the text of the checkbox reads "Transparent", but you can change that with the `transparentText` parameter. For example, it might be more clear to a user to use the word "None" instead of "Transparent". Note that even if you change the checkbox text, the return value will still be `transparent` since that's the actual colour name in R.
+A simple colour input allow you to choose any opaque colour. If you use the `allowTransparent = TRUE` parameter, the input will display an additional slider that lets you choose a transparency (alpha) value. Using this slider allows you to select semi-transparent colours, of even the fully transparent colour, which is sometimes useful.
 
-This is what a colour input with transparency enabled looks like
+When using transparent colours, the return value will be an 8-digit HEX code instead of 6 digits (the last 2 digits are the transparency value). For example, if you select a 50% transparent red, the return value would be `#FF000080`. Most R plotting functions can accept colours in this format.
 
-![allowTransparent demo](../inst/img/allowTransparent.png)
+### Limited colour selection
 
-### How the chosen colour is shown inside the input
+If you want to only allow the user to select a colour from a specific list of colours, rather than any possible colour, you can use the `palette = "limited"` parameter.  By default, the limited palette will contain 40 common colours, but you can supply your own list of colours using the `allowedCols` parameter. Here is an image of the default `limited` colour palette.
+
+![colourInput demo](../inst/img/limited-palette.png)
+
+### Flexible colour specification
+
+Specifying a colour to the colour input is very flexible to allow for easier use. When providing a colour as the `value` parameter of the input, there are a few ways to specify a colour:
+
+- Using a name of an R colour, such as `red`, `gold`, `blue3`, or any other name that R supports (for a full list of R colours, type `colours()`)
+- Using a 6-character HEX value, either with or without the leading `#`. For example, initializing a `colourInput` with any of the following values will all result in the colour red: `ff0000`, `FF0000`, `#ff0000`. If transparency is allowed, you can use an 8-character HEX value.
+- Using a 3-character HEX value, either with or without the leading `#`. These values will be converted to full HEX values by automatically doubling every character. For example, all the following values would result in the same colour: `1ac`, `#1Ac`, `11aacc`. If transparency is allowed, you can use a 4-character HEX value.
+- Using RGB specification, such as `rgb(0, 0, 255)`. If transparency is allowed, you can use an `rgba()` specification.
+- Using HSL specification, such as `hsl(240, 100, 50)`. If transparency is allowed, you can use an `hsla()` specification.
+
+**Protip:** You can also type in any of these values directly into the input box to select that colour, instead of selecting it from the colour palette with your mouse. For example, you can click on the colour input and literally type the word "blue", and the colour blue will get selected.
+
+### How the chosen colour is shown inside the input box
 
 By default, the colour input's background will match the selected colour and the text inside the input field will be the colour's HEX value. If that's too much for you, you can customize the input with the `showColour` parameter to either only show the text or only show the background colour.
 
@@ -136,23 +154,6 @@ As with all other Shiny inputs, `colourInput` can be updated with the `updateCol
 updateColourInput(session, "col", label = "COLOUR:", value = "orange",
   showColour = "background", allowTransparent = TRUE, transparentText = "None")
 ```
-
-### Limited colour selection
-
-This feature is available in `shinyjs` v0.0.8.0, which is currently only on GitHub and not on CRAN.
-
-If you want to only allow the user to select a colour from a specific list of colours, rather than any possible HEX colour, you can use the `palette = "limited"` parameter.  By default, the limited palette will contain 40 common colours, but you can supply your own list of colours using the `allowedCols` parameter. Here is an image of the default limited colour palette.
-
-![colourInput demo](../inst/img/limited-palette.png)
-
-### Flexible colour specification
-
-Specifying a colour to the colour input is made very flexible to allow for easier use. When giving a colour as the `value` parameter of either `colourInput` or `updateColourInput`, there are a few ways to specify a colour:
-
-- Using a name of an R colour, such as `red`, `gold`, `blue3`, or any other name that R supports (for a full list of R colours, type `colours()`)
-- If transparency is allowed in the `colourInput`, the value `transparent` (lowercase) can be used. This will update the UI to check the checkbox.
-- Using a 6-character HEX value, either with or without the leading `#`.  For example, initializing a `colourInput` with any of the following values will all result in the colour red: `ff0000`, `FF0000`, `#ff0000`.
-- Using a 3-character HEX value, either with or without the leading `#`. These values will be converted to full HEX values by automatically doubling every character. For example, all the following values would result in the same colour: `1ac`, `#1Ac`, `11aacc`.
 
 ### Works on any device
 
