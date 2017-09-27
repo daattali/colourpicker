@@ -30,7 +30,7 @@ applicable when \code{palette == "limited"}. The \code{limited} palette
 uses a default list of 40 colours if \code{allowedCols} is not defined.}
 
 \item{allowTransparent}{If \code{TRUE}, enables a slider to choose an alpha
-pacity (transparency) value for the colour. When a colour with an opacity is
+(transparency) value for the colour. When a colour with opacity is
 chosen, the return value is an 8-digit HEX code.}
 
 \item{returnName}{If \code{TRUE}, then return the name of an R colour instead

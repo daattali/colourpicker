@@ -28,7 +28,7 @@ applicable when \code{palette == "limited"}. The \code{limited} palette
 uses a default list of 40 colours if \code{allowedCols} is not defined.}
 
 \item{allowTransparent}{If \code{TRUE}, enables a slider to choose an alpha
-pacity (transparency) value for the colour. When a colour with an opacity is
+(transparency) value for the colour. When a colour with opacity is
 chosen, the return value is an 8-digit HEX code.}
 
 \item{returnName}{If \code{TRUE}, then return the name of an R colour instead
@@ -48,7 +48,7 @@ The return value is a HEX value by default, but you can use the
 (only when an R colour exists for the selected colour).
 
 When \code{allowTransparent = TRUE}, the user can type into the input field
-any RGBA value, HSLA value, or 8-digit HEX with alpha code. You can also use
+any RGBA value, HSLA value, or 8-digit HEX with alpha channel You can also use
 any of these values as the \code{value} argument as the initial value of the
 input.
 }
