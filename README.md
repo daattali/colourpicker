@@ -88,6 +88,9 @@ Shiny input, here is an example:
 
 ![Demo of colourInput](inst/img/colourinput.png)
 
+Scroll down for [more information about
+`colourInput()`](#colourinput-features).
+
 <h2 id="plothelper">
 Select colours to use in your plot: `plotHelper()`
 </h2>
@@ -102,6 +105,9 @@ through the RStudio *Addins* menu, or call the `plotHelper()` function.
 The colours selected will be available as a variable named `CPCOLS`.
 
 ![Demo of Plot Colour Helper](inst/img/plothelper-demo.png)
+
+Scroll down for [more information about the Plot Colour
+Helper](#plothelper-features).
 
 <h2 id="colourpicker">
 Select colours to use in your R code: `colourPicker()`
@@ -150,10 +156,10 @@ value will be returned.
 
 ### Allowing transparent colours
 
-A simple colour input allow you to choose any opaque colour. If you use
+A simple colour input allows you to choose any opaque colour. If you use
 the `allowTransparent = TRUE` parameter, the input will display an
 additional slider that lets you choose a transparency (alpha) value.
-Using this slider allows you to select semi-transparent colours, of even
+Using this slider allows you to select semi-transparent colours, or even
 the fully transparent colour, which is sometimes useful.
 
 When using transparent colours, the return value will be an 8-digit HEX
@@ -226,7 +232,7 @@ can start with a basic colour input such as
 `colourInput("col", "Select colour")` and completely redesign it with
 
     updateColourInput(session, "col", label = "COLOUR:", value = "orange",
-      showColour = "background", allowTransparent = TRUE, transparentText = "None")
+      showColour = "background", allowTransparent = TRUE)
 
 ### Works on any device
 

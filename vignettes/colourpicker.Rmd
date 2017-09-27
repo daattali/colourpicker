@@ -85,6 +85,8 @@ shinyApp(
 
 ![Demo of colourInput](../inst/img/colourinput.png)
 
+Scroll down for [more information about `colourInput()`](#colourinput-features).
+
 <h2 id="plothelper">Select colours to use in your plot: `plotHelper()`</h2>
 
 If you've ever had to spend a long time perfecting the colour scheme of a plot, you'd find the Plot Colour Helper handy. It's an RStudio addin that lets you interactively choose colours for your plot while updating your plot in real-time, so you can see the colour changes immediately.
@@ -92,6 +94,8 @@ If you've ever had to spend a long time perfecting the colour scheme of a plot, 
 To use this tool, either highlight code for a plot and select the addin through the RStudio *Addins* menu, or call the `plotHelper()` function. The colours selected will be available as a variable named `CPCOLS`.
 
 ![Demo of Plot Colour Helper](../inst/img/plothelper-demo.png)
+
+Scroll down for [more information about the Plot Colour Helper](#plothelper-features).
 
 <h2 id="colourpicker">Select colours to use in your R code: `colourPicker()`</h2>
 
@@ -116,7 +120,7 @@ If you use the `returnName = TRUE` parameter, then the return value will be a co
 
 ### Allowing transparent colours
 
-A simple colour input allow you to choose any opaque colour. If you use the `allowTransparent = TRUE` parameter, the input will display an additional slider that lets you choose a transparency (alpha) value. Using this slider allows you to select semi-transparent colours, of even the fully transparent colour, which is sometimes useful.
+A simple colour input allows you to choose any opaque colour. If you use the `allowTransparent = TRUE` parameter, the input will display an additional slider that lets you choose a transparency (alpha) value. Using this slider allows you to select semi-transparent colours, or even the fully transparent colour, which is sometimes useful.
 
 When using transparent colours, the return value will be an 8-digit HEX code instead of 6 digits (the last 2 digits are the transparency value). For example, if you select a 50% transparent red, the return value would be `#FF000080`. Most R plotting functions can accept colours in this format.
 
@@ -152,7 +156,7 @@ As with all other Shiny inputs, `colourInput` can be updated with the `updateCol
 
 ```
 updateColourInput(session, "col", label = "COLOUR:", value = "orange",
-  showColour = "background", allowTransparent = TRUE, transparentText = "None")
+  showColour = "background", allowTransparent = TRUE)
 ```
 
 ### Works on any device
