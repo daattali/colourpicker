@@ -12,7 +12,7 @@ clean:
 
 README.md : vignettes/colourpicker.Rmd
 #	echo "Rendering the colourpicker vignette"
-	Rscript -e 'rmarkdown::render("vignettes/colourpicker.Rmd", output_format = "md_document")'
+	Rscript -e 'rmarkdown::render("vignettes/colourpicker.Rmd", output_format = "md_document", output_options = list(pandoc_args = c("-t", "commonmark")))'
 #	echo "Correcting image paths"
 #	sed -i -- 's,../inst,inst,g' vignettes/colourpicker.md
 	Rscript -e 'file <- gsub("\\.\\./inst", "inst", readLines("vignettes/colourpicker.md")); writeLines(file, "vignettes/colourpicker.md")'
