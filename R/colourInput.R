@@ -28,8 +28,8 @@
 #' @param allowedCols A list of colours that the user can choose from. Only
 #' applicable when \code{palette == "limited"}. The \code{limited} palette
 #' uses a default list of 40 colours if \code{allowedCols} is not defined. If
-#' colour specified in \code{value} is not on the list, the colour will revert to
-#' black.
+#' the colour specified in \code{value} is not in the list, the default colour
+#' will revert to black.
 #' @param allowTransparent If \code{TRUE}, enables a slider to choose an alpha
 #' (transparency) value for the colour. When a colour with opacity is
 #' chosen, the return value is an 8-digit HEX code.
