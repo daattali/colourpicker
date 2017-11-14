@@ -4,7 +4,7 @@ dependencies:
     src: htmlwidgets/lib/jquery
     script: jquery.min.js
   - name: colourpicker-lib
-    version: 1.3
+    version: 1.4
     src: www/shared/colourpicker
     script: js/colourpicker.min.js
     stylesheet: css/colourpicker.min.css

@@ -1,3 +1,7 @@
+# colourpicker 1.0.xxxx
+
+- colour input now works with all R colour names, including names that have aliases such as "gray" vs "grey" (#25)
+
 # colourpicker 1.0
 
 2017-09-27
