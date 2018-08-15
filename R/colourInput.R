@@ -93,6 +93,8 @@ colourInput <- function(inputId, label, value = "white",
   showColour <- match.arg(showColour)
   palette <- match.arg(palette)
 
+  value <- restoreInput(id = inputId, default = value)
+
   # declare dependencies
   shiny::addResourcePath("colourpicker-binding",
                          system.file("srcjs", package = "colourpicker"))
