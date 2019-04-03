@@ -82,11 +82,13 @@ shinyApp(
         div(class = "title", "Allow Transparent"),
         div(class = "output", "Selected colour:",
             textOutput("valueTransparent", inline = TRUE)),
-        colourInput("colTransparent", NULL, "#00FF0080", allowTransparent = TRUE),
+        colourInput("colTransparent", NULL, "#00FF0080", allowTransparent = TRUE,
+                    closeOnClick = TRUE),
         tags$pre(HTML(paste0(
           'colourInput(<br>',
           '  "col", NULL, "#00FF0080",<br>',
-          '  allowTransparent = TRUE)'
+          '  allowTransparent = TRUE,<br>',
+          '  closeOnClick = TRUE)'
         )))
       ),
 
@@ -95,12 +97,14 @@ shinyApp(
         div(class = "title", "Return colour name"),
         div(class = "output", "Selected colour:",
             textOutput("valueName", inline = TRUE)),
-        colourInput("colName", NULL, "green", returnName = TRUE, palette = "limited"),
+        colourInput("colName", NULL, "green", returnName = TRUE,
+                    palette = "limited", closeOnClick = TRUE),
         tags$pre(HTML(paste0(
           'colourInput(<br>',
           '  "col", NULL, "green",<br>',
           '  returnName = TRUE, <br>',
-          '  palette = "limited")'
+          '  palette = "limited",<br>',
+          '  closeOnClick = TRUE)'
         )))
       ),
 
@@ -133,7 +137,7 @@ shinyApp(
           '    "white", "black", "red",<br>',
           '    "#DDD", "blue",<br>',
           '    "#0000FFA0", "#0000FF30",<br>',
-          '    "rgb(255, 255, 0)"'
+          '    "rgb(255, 255, 0)"))'
         )))
       ),
 
@@ -151,6 +155,7 @@ shinyApp(
                            c("square", "limited")),
         checkboxInput("allowTransparent", "Allow transparent", FALSE),
         checkboxInput("returnName", "Return R colour name", FALSE),
+        checkboxInput("closeOnClick", "Close on click", FALSE),
         actionButton("update", "Update")
       ),
 
@@ -181,7 +186,8 @@ shinyApp(
                         value = input$text, showColour = input$showColour,
                         palette = input$palette,
                         allowTransparent = input$allowTransparent,
-                        returnName = input$returnName)
+                        returnName = input$returnName,
+                        closeOnClick = input$closeOnClick)
     })
 
     # show plot based on colours selected

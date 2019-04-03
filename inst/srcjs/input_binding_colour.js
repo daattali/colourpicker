@@ -29,7 +29,8 @@ $.extend(colourBinding, {
       palette          : $el.attr('data-palette'),
       allowedCols      : $el.attr('data-allowed-cols'),
       allowAlpha       : $el.attr('data-allow-alpha'),
-      returnName       : $el.attr('data-return-name')
+      returnName       : $el.attr('data-return-name'),
+      closeOnClick     : $el.attr('data-close-on-click')
     };
 
     if (typeof opts.allowedCols !== 'undefined') {
@@ -59,6 +60,9 @@ $.extend(colourBinding, {
     }
     if (data.hasOwnProperty('returnName')) {
       $el.colourpicker('settings', { 'returnName' : data.returnName });
+    }
+    if (data.hasOwnProperty('closeOnClick')) {
+      $el.colourpicker('settings', { 'closeOnClick' : data.closeOnClick });
     }
     if (data.hasOwnProperty('value')) {
       this.setValue(el, data.value);

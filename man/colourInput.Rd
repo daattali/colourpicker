@@ -4,9 +4,10 @@
 \alias{colourInput}
 \title{Create a colour input control}
 \usage{
-colourInput(inputId, label, value = "white", showColour = c("both", "text",
-  "background"), palette = c("square", "limited"), allowedCols = NULL,
-  allowTransparent = FALSE, returnName = FALSE)
+colourInput(inputId, label, value = "white", showColour = c("both",
+  "text", "background"), palette = c("square", "limited"),
+  allowedCols = NULL, allowTransparent = FALSE, returnName = FALSE,
+  closeOnClick = FALSE)
 }
 \arguments{
 \item{inputId}{The \code{input} slot that will be used to access the value.}
@@ -26,8 +27,8 @@ predefined list of colours to choose from.}
 \item{allowedCols}{A list of colours that the user can choose from. Only
 applicable when \code{palette == "limited"}. The \code{limited} palette
 uses a default list of 40 colours if \code{allowedCols} is not defined. If
-colour specified in \code{value} is not on the list, the colour will revert to
-black.}
+the colour specified in \code{value} is not in the list, the default colour
+will revert to black.}
 
 \item{allowTransparent}{If \code{TRUE}, enables a slider to choose an alpha
 (transparency) value for the colour. When a colour with opacity is
@@ -35,6 +36,9 @@ chosen, the return value is an 8-digit HEX code.}
 
 \item{returnName}{If \code{TRUE}, then return the name of an R colour instead
 of a HEX value when possible.}
+
+\item{closeOnClick}{If \code{TRUE}, then the colour selection panel will close
+immediately after selecting a colour.}
 }
 \description{
 Create an input control to select a colour.

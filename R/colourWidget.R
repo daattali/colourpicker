@@ -20,6 +20,7 @@ colourWidget <- function(value = "white",
                          showColour = c("both", "text", "background"),
                          palette = c("square", "limited"), allowedCols = NULL,
                          allowTransparent = FALSE, returnName = FALSE,
+                         closeOnClick = FALSE,
                          width = "300px", height = "35px", elementId = NULL) {
   # sanitize the arguments
   showColour <- match.arg(showColour)
@@ -31,7 +32,8 @@ colourWidget <- function(value = "white",
     showColour = showColour,
     palette = palette,
     returnName = returnName,
-    allowAlpha = allowTransparent
+    allowAlpha = allowTransparent,
+    closeOnClick = closeOnClick
   )
 
   if (!is.null(allowedCols)) {

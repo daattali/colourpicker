@@ -35,6 +35,8 @@
 #' chosen, the return value is an 8-digit HEX code.
 #' @param returnName If \code{TRUE}, then return the name of an R colour instead
 #' of a HEX value when possible.
+#' @param closeOnClick If \code{TRUE}, then the colour selection panel will close
+#' immediately after selecting a colour.
 #' @seealso \code{\link[colourpicker]{updateColourInput}}
 #' \code{\link[colourpicker]{colourPicker}}
 #' @examples
@@ -88,7 +90,7 @@ colourInput <- function(inputId, label, value = "white",
                         showColour = c("both", "text", "background"),
                         palette = c("square", "limited"),
                         allowedCols = NULL, allowTransparent = FALSE,
-                        returnName = FALSE) {
+                        returnName = FALSE, closeOnClick = FALSE) {
   # sanitize the arguments
   showColour <- match.arg(showColour)
   palette <- match.arg(palette)
@@ -135,6 +137,11 @@ colourInput <- function(inputId, label, value = "white",
     inputTag <- shiny::tagAppendAttributes(
       inputTag,
       `data-allow-alpha` = "true")
+  }
+  if (closeOnClick) {
+    inputTag <- shiny::tagAppendAttributes(
+      inputTag,
+      `data-close-on-click` = "true")
   }
 
   inputTag <-
@@ -195,14 +202,15 @@ colourInput <- function(inputId, label, value = "white",
 updateColourInput <- function(session, inputId, label = NULL, value = NULL,
                               showColour = NULL, palette = NULL, allowedCols = NULL,
                               allowTransparent = NULL,
-                              returnName = NULL) {
+                              returnName = NULL, closeOnClick = NULL) {
   message <- dropNulls(list(
     label = label, value = value,
     showColour = showColour,
     palette = palette,
     allowedCols = allowedCols,
     allowAlpha = allowTransparent,
-    returnName = returnName
+    returnName = returnName,
+    closeOnClick = closeOnClick
   ))
   session$sendInputMessage(inputId, message)
 }
