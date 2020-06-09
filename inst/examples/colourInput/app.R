@@ -36,6 +36,9 @@ shinyApp(
                src="github-gray-right.png",
                alt="Fork me on GitHub")
     ),
+
+    shinydisconnect::disconnectMessage2(),
+
     div(id = "header",
         div(id = "title",
             "colourInput"
