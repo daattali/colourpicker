@@ -6,7 +6,7 @@
   * Cory LaViska for A Beautiful Site, LLC: http://www.abeautifulsite.net/
   * David Griswold http://davidgriswoldhh.mtbos.org/ (allowing alpha colours)
   *
-  * Version: 1.5
+  * Version: 1.6
   *
   * Contribute: https://github.com/daattali/jquery-colourpicker
   *
@@ -211,13 +211,8 @@
           var backgroundstring = "";
           if (rgb.a===0) {
             backgroundstring = "background-color: transparent";
-          }else if (jQuery.support.opacity || rgb.a === 1 || rgb.a === false) {
+          } else {
             backgroundstring ="background-color: " + rgb2str(rgb,"rgb");
-          }else {
-            // IE8 with alpha.
-            backgroundstring = "background-color: " + rgb2str(rgb,"rgb",false) +
-                                "; -ms-filter: 'progid:DXImageTransform.Microsoft.Alpha(Opacity = " +
-                                Math.round(rgb.a * 100) + ")';";
           }
           coloursHtml += '<span class="cp-list-col-outer"><span class="cp-list-col" data-cp-col="' + hexstring +'" ' +
           'style="' + backgroundstring + '" + ></span></span>';
@@ -465,36 +460,12 @@
         input.css('background-color', '');
         break;
         case "background":
-        if (! jQuery.support.opacity) {
-          if ( rgb.a!==false && rgb.a < 1) {
-            input.css('background-color',rgb2str(rgb,"rgb",false));
-            input.css('color',rgb2str(rgb,"rgb",false));
-            input.css('filter','progid:DXImageTransform.Microsoft.Alpha(Opacity = ' + Math.round(rgb.a*100) + ');');
-          }else {
-            input.css('background-color',rgb2str(rgb,"rgb",false));
-            input.css('color',rgb2str(rgb,"rgb",false));
-            input.css('filter','');
-          }
-        }else {
-          input.css('color', "transparent");
-          input.css('background-color', rgb2str(rgb,"rgb"));
-        }
+        input.css('color', "transparent");
+        input.css('background-color', rgb2str(rgb,"rgb"));
         break;
         default:
         input.css('color', isColDark(rgb) ? '#ddd' : '#000');
-        if (! jQuery.support.opacity) {
-          if (rgb.a===0) {
-            input.css('background-color','transparent');
-          }else if (rgb.a !== false && rgb.a < 1) {
-            input.css('background-color',rgb2str(rgb,"rgb",false));
-            input.css('filter','progid:DXImageTransform.Microsoft.Alpha(Opacity = ' + Math.round(rgb.a*100) + ');');
-          }else {
-            input.css('background-color',rgb2str(rgb,"rgb",false));
-            input.css('filter','');
-          }
-        }else {
-          input.css('background-color', rgb2str(rgb,"rgb"));
-        }
+        input.css('background-color', rgb2str(rgb,"rgb"));
       }      // Handle change event
       if (!rgb) rgb = getLastColor(input);
       doChange(input, rgb, input.data('transparent'));
@@ -549,38 +520,12 @@
         input.css('background-color', '');
         break;
         case "background":
-        if (! jQuery.support.opacity) {
-          if ( rgb.a!==false && rgb.a < 1) {
-            input.css('background-color',rgb2str(rgb,"rgb",false));
-            input.css('color',rgb2str(rgb,"rgb",false));
-            input.css('filter','progid:DXImageTransform.Microsoft.Alpha(Opacity = ' +
-                       Math.round(rgb.a*100) + ');');
-          }else {
-            input.css('background-color',rgb2str(rgb,"rgb",false));
-            input.css('color',rgb2str(rgb,"rgb",false));
-            input.css('filter','');
-          }
-        }else {
-          input.css('color', "transparent");
-          input.css('background-color', rgb2str(rgb,"rgb"));
-        }
+        input.css('color', "transparent");
+        input.css('background-color', rgb2str(rgb,"rgb"));
         break;
         default:
         input.css('color', isColDark(rgb) ? '#ddd' : '#000');
-        if (! jQuery.support.opacity) {
-          if (rgb.a===0) {
-            input.css('background-color','transparent');
-          }else if (rgb.a !== false && rgb.a < 1) {
-            input.css('background-color',rgb2str(rgb,"rgb",false));
-            input.css('filter','progid:DXImageTransform.Microsoft.Alpha(Opacity = ' +
-                       Math.round(rgb.a*100) + ');');
-            input.css('filter','');
-          }else {
-            input.css('background-color',rgb2str(rgb,"rgb",false));
-          }
-        }else {
-          input.css('background-color', rgb2str(rgb,"rgb"));
-        }
+        input.css('background-color', rgb2str(rgb,"rgb"));
       }
       // Update select colour
       if( settings.palette == 'limited') {

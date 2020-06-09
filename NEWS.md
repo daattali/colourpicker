@@ -3,6 +3,7 @@
 - colour input now works with all R colour names, including names that have aliases such as "gray" vs "grey" (#25)
 - add support for bookmarking (restoring state) (#33)
 - added "closeOnClick" parameter that, when `TRUE`, will cause the colour selection panel to close immediately after choosing a colour (#34)
+- Fix issue where ransparent colours no longer showed the background as transparent (#40)
 
 # colourpicker 1.0
 
