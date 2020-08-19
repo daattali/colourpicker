@@ -11,7 +11,7 @@ version](http://www.r-pkg.org/badges/version/colourpicker)](https://cran.r-proje
 `colourpicker` gives you a colour picker widget that can be used in
 different contexts in R.
 
-![colour input image](inst/img/colourinputnew.PNG "fig:")
+![colour input image](inst/img/colourinputnew.PNG)
 
 The most common uses of `colourpicker` are to use the `colourInput()`
 function to create a [colour input in
@@ -30,6 +30,7 @@ plot](inst/img/plothelper-demo.gif).
     `colourPicker()`](#colourpicker)
   - [Features of `colourInput()`](#colourinput-features)
   - [Features of `plotHelper()`](#plothelper-features)
+  - [Sponsors](#sponsors)
 
 <h2 id="demos">
 
@@ -46,7 +47,7 @@ As mentioned above, the most useful functions are `colourInput()` and
     is from an old version that did not support opacity/transparency for
     colours, which is now supported).
 
-![Plot Colour Helper demo](inst/img/plothelper-demo.gif "fig:")
+![Plot Colour Helper demo](inst/img/plothelper-demo.gif)
 
 <h2 id="install">
 
@@ -89,7 +90,7 @@ Shiny input, here is an example:
         }
     )
 
-![Demo of colourInput](inst/img/colourinput.png "fig:")
+![Demo of colourInput](inst/img/colourinput.png)
 
 Scroll down for [more information about
 `colourInput()`](#colourinput-features).
@@ -100,8 +101,8 @@ Select colours to use in your plot: `plotHelper()`
 
 </h2>
 
-If you've ever had to spend a long time perfecting the colour scheme of
-a plot, you'd find the Plot Colour Helper handy. It's an RStudio addin
+If you’ve ever had to spend a long time perfecting the colour scheme of
+a plot, you’d find the Plot Colour Helper handy. It’s an RStudio addin
 that lets you interactively choose colours for your plot while updating
 your plot in real-time, so you can see the colour changes immediately.
 
@@ -109,7 +110,7 @@ To use this tool, either highlight code for a plot and select the addin
 through the RStudio *Addins* menu, or call the `plotHelper()` function.
 The colours selected will be available as a variable named `CPCOLS`.
 
-![Demo of Plot Colour Helper](inst/img/plothelper-demo.png "fig:")
+![Demo of Plot Colour Helper](inst/img/plothelper-demo.png)
 
 Scroll down for [more information about the Plot Colour
 Helper](#plothelper-features).
@@ -126,12 +127,11 @@ access this tool using the *Addins* menu or with `colourPicker()`. You
 can also watch a [short GIF](inst/img/colourPickerGadget.gif) of it
 an action.
 
-![Demo of colour picker addin](inst/img/colourpickerscrnshot.png
-"fig:")
+![Demo of colour picker addin](inst/img/colourpickerscrnshot.png)
 
-## Colour input as an 'htmlwidgets' widget
+## Colour input as an ‘htmlwidgets’ widget
 
-The colour picker input is also available as an 'htmlwidgets' widget
+The colour picker input is also available as an ‘htmlwidgets’ widget
 using the `colourWidget()` function. This may not be terribly useful
 right now since you can use the more powerful `colourInput` in Shiny
 apps and Rmarkdown documents, but it may come in handy if you need a
@@ -139,13 +139,17 @@ widget.
 
 <h2 id="colourinput-features">
 
-Features of 'colourInput()'
+Features of ‘colourInput()’
 
 </h2>
 
+<div>
+
+</div>
+
 ### Simple and familiar
 
-Using `colourInput` is extremely trivial if you've used Shiny, and it's
+Using `colourInput` is extremely trivial if you’ve used Shiny, and it’s
 as easy to use as any other input control. It was implemented to very
 closely mimic all other Shiny inputs so that using it will feel very
 familiar. You can add a simple colour input to your Shiny app with
@@ -186,7 +190,7 @@ contain 40 common colours, but you can supply your own list of colours
 using the `allowedCols` parameter. Here is an image of the default
 `limited` colour palette.
 
-![colourInput demo](inst/img/limited-palette.png "fig:")
+![colourInput demo](inst/img/limited-palette.png)
 
 ### Flexible colour specification
 
@@ -216,21 +220,21 @@ input, there are a few ways to specify a colour:
 **Protip:** You can also type in any of these values directly into the
 input box to select that colour, instead of selecting it from the colour
 palette with your mouse. For example, you can click on the colour input
-and literally type the word "blue", and the colour blue will get
+and literally type the word “blue”, and the colour blue will get
 selected.
 
 ### How the chosen colour is shown inside the input box
 
-By default, the colour input's background will match the selected colour
-and the text inside the input field will be the colour's HEX value. If
-that's too much for you, you can customize the input with the
+By default, the colour input’s background will match the selected colour
+and the text inside the input field will be the colour’s HEX value. If
+that’s too much for you, you can customize the input with the
 `showColour` parameter to either only show the text or only show the
 background colour.
 
 Here is what a colour input with each of the possible values for
 `showColour` looks like
 
-![showColour demo](inst/img/showColour.png "fig:")
+![showColour demo](inst/img/showColour.png)
 
 ### Updating a colourInput
 
@@ -238,16 +242,15 @@ As with all other Shiny inputs, `colourInput` can be updated with the
 `updateColourInput` function. Any parameter that can be used in
 `colourInput` can be used in `updateColourInput`. This means that you
 can start with a basic colour input such as `colourInput("col", "Select
-colour")` and completely redesign it
-    with
+colour")` and completely redesign it with
 
     updateColourInput(session, "col", label = "COLOUR:", value = "orange",
       showColour = "background", allowTransparent = TRUE)
 
 ### Works on any device
 
-If you're worried that maybe someone viewing your Shiny app on a phone
-won't be able to use this input properly - don't you worry. I haven't
+If you’re worried that maybe someone viewing your Shiny app on a phone
+won’t be able to use this input properly - don’t you worry. I haven’t
 quite checked every single device out there, but I did spend extra time
 making sure the colour selection JavaScript works in most devices I
 could think of. `colourInput` will work fine in Shiny apps that are
@@ -256,9 +259,13 @@ Explorer 8+.
 
 <h2 id="plothelper-features">
 
-Features of 'plotHelper()'
+Features of ‘plotHelper()’
 
 </h2>
+
+<div>
+
+</div>
 
 ### Addin vs gadget
 
@@ -308,7 +315,7 @@ You can set the initial colour list by providing a vector of colours as
 the `colours` parameter to `plotHelper()` (eg. `plotHelper(colours =
 c("red", "#123ABC"))`).
 
-Alternatively, if you don't want to initialize to any particular set of
+Alternatively, if you don’t want to initialize to any particular set of
 colours, but you want to initialize with a specific number of colours in
 the list, you can provide an integer as the `colours` parameter (eg.
 `plotHelper(colours = 2)`).
@@ -320,7 +327,7 @@ recycled.
 
 ### Plot Colour Helper tries to guess how many colours are needed
 
-If you don't provide the `colours` parameter, or if you invoke the tool
+If you don’t provide the `colours` parameter, or if you invoke the tool
 as an addin, it will attempt to guess how many colours are needed. For
 example, using the following plot code
 
@@ -360,5 +367,16 @@ Since the plot code requires you to use the variable name `CPCOLS`,
 after closing the plot helper tool, a variable named `CPCOLS` will be
 available in the global environment.
 
-The colours returned can either be in HEX format (eg. "\#0000FF") or be
-named (eg. "blue") - you can choose this option inside the tool.
+The colours returned can either be in HEX format (eg. “\#0000FF”) or be
+named (eg. “blue”) - you can choose this option inside the tool.
+
+<h2 id="sponsors">
+
+Sponsors
+
+</h2>
+
+> There are no sponsors yet
+
+[Become the first sponsor for
+{colourpicker}\!](https://github.com/sponsors/daattali)

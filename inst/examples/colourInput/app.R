@@ -23,7 +23,7 @@ shinyApp(
       tags$meta(property = "og:description", content = share$description),
 
       # Twitter summary cards
-      tags$meta(name = "twitter:card", content = "summary"),
+      tags$meta(name = "twitter:card", content = "summary_large_image"),
       tags$meta(name = "twitter:site", content = paste0("@", share$twitter_user)),
       tags$meta(name = "twitter:creator", content = paste0("@", share$twitter_user)),
       tags$meta(name = "twitter:title", content = share$title),
