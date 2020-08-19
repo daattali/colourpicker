@@ -34,7 +34,7 @@ The most common uses of `colourpicker` are to use the `colourInput()` function t
 - [Select colours to use in your R code: `colourPicker()`](#colourpicker)
 - [Features of `colourInput()`](#colourinput-features)
 - [Features of `plotHelper()`](#plothelper-features)
-- [Sponsors](#sponsors)
+- [Sponsors 🏆](#sponsors)
 
 <h2 id="demos">Demos</h2>
 
@@ -241,7 +241,7 @@ Since the plot code requires you to use the variable name `CPCOLS`, after closin
 
 The colours returned can either be in HEX format (eg. "#0000FF") or be named (eg. "blue") - you can choose this option inside the tool.
 
-<h2 id="sponsors">Sponsors</h2>
+<h2 id="sponsors">Sponsors 🏆</h2>
 
 > There are no sponsors yet
 

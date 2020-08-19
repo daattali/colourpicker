@@ -1,35 +1,23 @@
-# {colourpicker} - A Colour Picker Tool for Shiny and for Selecting Colours in Plots
+# colourpicker - A Colour Picker Tool for Shiny and for Selecting Colours in Plots
 
 [![Build
 status](https://travis-ci.org/daattali/colourpicker.svg?branch=master)](https://travis-ci.org/daattali/colourpicker)
 [![CRAN
 version](http://www.r-pkg.org/badges/version/colourpicker)](https://cran.r-project.org/package=colourpicker)
 
-> [Demo](http://daattali.com/shiny/colourInput/) &middot; Created by [Dean Attali](https://deanattali.com)
+> *Copyright 2016 [Dean Attali](http://deanattali.com). Licensed under
+> the MIT license.*
 
-{colourpicker} gives you a colour picker widget that can be used in
+`colourpicker` gives you a colour picker widget that can be used in
 different contexts in R.
 
 ![colour input image](inst/img/colourinputnew.PNG)
 
-The most common uses of {colourpicker} are to use the `colourInput()`
+The most common uses of `colourpicker` are to use the `colourInput()`
 function to create a [colour input in
 Shiny](http://daattali.com/shiny/colourInput/), or to use the
 `plotHelper()` function/RStudio Addin to easily [select colours for a
 plot](inst/img/plothelper-demo.gif).
-
-**If you find {colourpicker} useful, please consider supporting my work\!**
-
-<p align="center">
-
-<a style="display: inline-block; margin-left: 10px;" href="https://github.com/sponsors/daattali">
-<img height="35" src="https://i.imgur.com/034B8vq.png" /> </a>
-
-<a style="display: inline-block;" href="https://paypal.me/daattali">
-<img height="35" src="https://camo.githubusercontent.com/0e9e5cac101f7093336b4589c380ab5dcfdcbab0/68747470733a2f2f63646e2e6a7364656c6976722e6e65742f67682f74776f6c66736f6e2f70617970616c2d6769746875622d627574746f6e40312e302e302f646973742f627574746f6e2e737667" />
-</a>
-
-</p>
 
 # Table of contents
 
@@ -42,7 +30,7 @@ plot](inst/img/plothelper-demo.gif).
     `colourPicker()`](#colourpicker)
   - [Features of `colourInput()`](#colourinput-features)
   - [Features of `plotHelper()`](#plothelper-features)
-  - [Sponsors](#sponsors)
+  - [Sponsors 🏆](#sponsors)
 
 <h2 id="demos">
 
@@ -67,7 +55,7 @@ Installation
 
 </h2>
 
-{colourpicker} is available through both CRAN and GitHub:
+`colourpicker` is available through both CRAN and GitHub:
 
 To install the stable CRAN version:
 
@@ -133,7 +121,7 @@ Select colours to use in your R code: `colourPicker()`
 
 </h2>
 
-{colourpicker} also provides a more generic RStudio addin that can be
+`colourpicker` also provides a more generic RStudio addin that can be
 used to select colours and save them as a variable in R. You can either
 access this tool using the *Addins* menu or with `colourPicker()`. You
 can also watch a [short GIF](inst/img/colourPickerGadget.gif) of it
@@ -384,7 +372,7 @@ named (eg. “blue”) - you can choose this option inside the tool.
 
 <h2 id="sponsors">
 
-Sponsors
+Sponsors 🏆
 
 </h2>
 
