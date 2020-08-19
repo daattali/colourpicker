@@ -4,9 +4,18 @@
 \alias{updateColourInput}
 \title{Change the value of a colour input}
 \usage{
-updateColourInput(session, inputId, label = NULL, value = NULL,
-  showColour = NULL, palette = NULL, allowedCols = NULL,
-  allowTransparent = NULL, returnName = NULL, closeOnClick = NULL)
+updateColourInput(
+  session,
+  inputId,
+  label = NULL,
+  value = NULL,
+  showColour = NULL,
+  palette = NULL,
+  allowedCols = NULL,
+  allowTransparent = NULL,
+  returnName = NULL,
+  closeOnClick = NULL
+)
 }
 \arguments{
 \item{session}{The \code{session} object passed to function given to \code{shinyServer}.}

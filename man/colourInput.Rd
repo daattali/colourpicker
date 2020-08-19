@@ -4,10 +4,17 @@
 \alias{colourInput}
 \title{Create a colour input control}
 \usage{
-colourInput(inputId, label, value = "white", showColour = c("both",
-  "text", "background"), palette = c("square", "limited"),
-  allowedCols = NULL, allowTransparent = FALSE, returnName = FALSE,
-  closeOnClick = FALSE)
+colourInput(
+  inputId,
+  label,
+  value = "white",
+  showColour = c("both", "text", "background"),
+  palette = c("square", "limited"),
+  allowedCols = NULL,
+  allowTransparent = FALSE,
+  returnName = FALSE,
+  closeOnClick = FALSE
+)
 }
 \arguments{
 \item{inputId}{The \code{input} slot that will be used to access the value.}

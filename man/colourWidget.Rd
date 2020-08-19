@@ -4,10 +4,18 @@
 \alias{colourWidget}
 \title{Create a colour picker htmlwidget}
 \usage{
-colourWidget(value = "white", showColour = c("both", "text",
-  "background"), palette = c("square", "limited"), allowedCols = NULL,
-  allowTransparent = FALSE, returnName = FALSE, closeOnClick = FALSE,
-  width = "300px", height = "35px", elementId = NULL)
+colourWidget(
+  value = "white",
+  showColour = c("both", "text", "background"),
+  palette = c("square", "limited"),
+  allowedCols = NULL,
+  allowTransparent = FALSE,
+  returnName = FALSE,
+  closeOnClick = FALSE,
+  width = "300px",
+  height = "35px",
+  elementId = NULL
+)
 }
 \arguments{
 \item{value}{Initial value (can be a colour name or HEX code)}
