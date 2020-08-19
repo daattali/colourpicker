@@ -2,7 +2,7 @@ library(shiny)
 library(colourpicker)
 
 share <- list(
-  title = "colourInput()",
+  title = "{colourpicker} package",
   url = "http://daattali.com/shiny/colourInput/",
   image = "http://daattali.com/shiny/img/colourinput.png",
   description = "An input control that allows users to select colours in Shiny apps",
@@ -30,18 +30,12 @@ shinyApp(
       tags$meta(name = "twitter:description", content = share$description),
       tags$meta(name = "twitter:image", content = share$image)
     ),
-    tags$a(
-      href="https://github.com/daattali/colourpicker",
-      tags$img(style="position: absolute; top: 0; right: 0; border: 0;",
-               src="github-gray-right.png",
-               alt="Fork me on GitHub")
-    ),
 
     shinydisconnect::disconnectMessage2(),
 
     div(id = "header",
         div(id = "title",
-            "colourInput"
+            "{colourpicker} package"
         ),
         div(id = "subtitle",
             "An input control that allows users to select colours in Shiny apps"),
@@ -49,10 +43,10 @@ shinyApp(
             "By",
             tags$a(href = "http://deanattali.com/", "Dean Attali"),
             HTML("&bull;"),
-            "Package available",
+            "Code",
             tags$a(href = "https://github.com/daattali/colourpicker", "on GitHub"),
             HTML("&bull;"),
-            tags$a(href = "http://daattali.com/shiny/", "More apps"), "by Dean"
+            tags$a(href = "https://github.com/sponsors/daattali", "Support my work"), "❤"
         )
     ),
     div(
