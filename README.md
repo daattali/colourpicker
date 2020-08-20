@@ -19,8 +19,11 @@ Shiny](http://daattali.com/shiny/colourInput/), or to use the
 `plotHelper()` function/RStudio Addin to easily [select colours for a
 plot](inst/img/plothelper-demo.gif).
 
+**Need Shiny help? [I’m available for
+consulting](https://attalitech.com/).**
+
 **If you find {colourpicker} useful, please consider supporting my
-work\!**
+work\! ❤**
 
 <p align="center">
 
