@@ -20,10 +20,8 @@ Shiny](http://daattali.com/shiny/colourInput/), or to use the
 plot](inst/img/plothelper-demo.gif).
 
 **Need Shiny help? [I’m available for
-consulting](https://attalitech.com/).**
-
-**If you find {colourpicker} useful, please consider supporting my
-work\! ❤**
+consulting](https://attalitech.com/).**<br/> **If you find
+{colourpicker} useful, please consider supporting my work\! ❤**
 
 <p align="center">
 
