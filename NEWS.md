@@ -4,6 +4,7 @@
 - add support for bookmarking (restoring state) (#33)
 - added "closeOnClick" parameter that, when `TRUE`, will cause the colour selection panel to close immediately after choosing a colour (#34)
 - Fix issue where transparent colours no longer showed the background as transparent (#40)
+- Fix the colour picker addin and Plot Colour Helper addin that were broken due to web security issues
 - Use {shinydisconnect} for demo app
 
 # colourpicker 1.0 (2017-09-27)

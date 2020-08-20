@@ -111,19 +111,17 @@ plotHelper <- function(code = "", colours = NULL, returnCode = FALSE) {
     colours <- rep_len(palette, colours)
   }
 
-  resourcePath <- system.file("gadgets", "colourpicker",
-                              package = "colourpicker")
-  shiny::addResourcePath("cpg", resourcePath)
+  shiny::addResourcePath("cpg", system.file("gadgets", "colourpicker", package = "colourpicker"))
 
   ui <- miniPage(
     shinyjs::useShinyjs(),
     shinyjs::extendShinyjs(
-      script = file.path(resourcePath, "js", "shinyjs-funcs.js"),
+      script = file.path("cpg", "js", "shinyjs-funcs.js"),
       functions = c("closeWindow")
     ),
     tags$head(
-      includeCSS(file.path(resourcePath, "css", "app.css")),
-      includeCSS(file.path(resourcePath, "css", "plotHelper.css"))
+      tags$link(rel="stylesheet", href = file.path("cpg", "css", "app.css")),
+      tags$link(rel="stylesheet", href = file.path("cpg", "css", "plotHelper.css"))
     ),
 
     gadgetTitleBar(span(strong("Plot Colour Helper"),

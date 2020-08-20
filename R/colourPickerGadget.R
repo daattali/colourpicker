@@ -33,17 +33,17 @@ colourPickerGadget <- function(numCols = 3) {
          call. = FALSE)
   }
 
-  resourcePath <- system.file("gadgets", "colourpicker",
-                              package = "colourpicker")
-  shiny::addResourcePath("cpg", resourcePath)
+  shiny::addResourcePath("cpg", system.file("gadgets", "colourpicker", package = "colourpicker"))
 
   ui <- miniPage(
     shinyjs::useShinyjs(),
     shinyjs::extendShinyjs(
-      script = file.path(resourcePath, "js", "shinyjs-funcs.js"),
+      script = file.path("cpg", "js", "shinyjs-funcs.js"),
       functions = c()
     ),
-    tags$head(includeCSS(file.path(resourcePath, "css", "app.css"))),
+    tags$head(
+      tags$link(rel="stylesheet", href = file.path("cpg", "css", "app.css")),
+    ),
 
     gadgetTitleBar(
       span(strong("Colour Picker"),
