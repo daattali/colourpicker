@@ -22,12 +22,11 @@ plot](inst/img/plothelper-demo.gif).
 **Need Shiny help? [I’m available for
 consulting](https://attalitech.com/).**<br/> **If you find
 {colourpicker} useful, please consider [supporting my
-work](https://github.com/sponsors/daattali/sponsorships?tier_id=39852)
-to unlock rewards\! ❤**
+work](https://github.com/sponsors/daattali) to unlock rewards\! ❤**
 
 <p align="center">
 
-<a style="display: inline-block;" href="https://github.com/sponsors/daattali/sponsorships?tier_id=39852">
+<a style="display: inline-block;" href="https://github.com/sponsors/daattali">
 <img height="35" src="https://i.imgur.com/034B8vq.png" /> </a>
 
 <a style="display: inline-block;" href="https://paypal.me/daattali">
@@ -395,5 +394,5 @@ Sponsors 🏆
 
 > There are no sponsors yet
 
-[Become the first sponsor for
-{colourpicker}\!](https://github.com/sponsors/daattali/sponsorships?tier_id=39856)
+[Become the first sponsor for {colourpicker} and unlock special
+rewards\!](https://github.com/sponsors/daattali/sponsorships?tier_id=39856)
