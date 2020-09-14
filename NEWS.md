@@ -1,10 +1,10 @@
-# colourpicker 1.1.0 (2020-08-19)
+# colourpicker 1.1.0 (2020-09-14)
 
-- `colourInput()` now works with all R colour names, including names that have aliases such as "gray" vs "grey" (#25)
-- add support for bookmarking (restoring state) (#33)
-- added "closeOnClick" parameter that, when `TRUE`, will cause the colour selection panel to close immediately after choosing a colour (#34)
-- Fix issue where transparent colours no longer showed the background as transparent (#40)
-- Fix the colour picker addin and Plot Colour Helper addin that were broken due to web security issues
+- Added support for bookmarking (restoring state) (#33)
+- Added `closeOnClick` parameter that, when `TRUE`, will cause the colour selection panel to close immediately after choosing a colour (#34)
+- Fixed bug: `colourInput()` now works with all R colour names, including names that have aliases such as "gray" vs "grey" (#25)
+- Fixed bug where transparent colours no longer showed the background as transparent (#40)
+- Fixed bug where the colour picker addin and Plot Colour Helper addin that were broken due to web security issues
 - Use {shinydisconnect} for demo app
 
 # colourpicker 1.0 (2017-09-27)
