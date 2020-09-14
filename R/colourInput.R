@@ -83,7 +83,7 @@
 #'     }
 #'   )
 #' }
-#' @note See \href{http://daattali.com/shiny/colourInput/}{http://daattali.com/shiny/colourInput/}
+#' @note See \href{https://daattali.com/shiny/colourInput/}{https://daattali.com/shiny/colourInput/}
 #' for a live demo.
 #' @export
 colourInput <- function(inputId, label, value = "white",
@@ -196,7 +196,7 @@ colourInput <- function(inputId, label, value = "white",
 #'     }
 #'   )
 #' }
-#' @note See \href{http://daattali.com/shiny/colourInput/}{http://daattali.com/shiny/colourInput/}
+#' @note See \href{https://daattali.com/shiny/colourInput/}{https://daattali.com/shiny/colourInput/}
 #' for a live demo.
 #' @export
 updateColourInput <- function(session, inputId, label = NULL, value = NULL,

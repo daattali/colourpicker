@@ -66,7 +66,7 @@ any of these values as the \code{value} argument as the initial value of the
 input.
 }
 \note{
-See \href{http://daattali.com/shiny/colourInput/}{http://daattali.com/shiny/colourInput/}
+See \href{https://daattali.com/shiny/colourInput/}{https://daattali.com/shiny/colourInput/}
 for a live demo.
 }
 \examples{

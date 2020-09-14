@@ -9,7 +9,7 @@ body {
   padding: 20px 5px 30px;
   border-bottom: 1px solid #ddd;
   margin: 0 -15px 20px;
-  /* background taken from http://uigradients.com/ */
+  /* background taken from https://uigradients.com/ */
   background: #FF512F; /* fallback for old browsers */
   background: -webkit-linear-gradient(to left, #FF512F , #DD2476); /* Chrome 10-25, Safari 5.1-6 */
   background: linear-gradient(to left, #FF512F , #DD2476); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */

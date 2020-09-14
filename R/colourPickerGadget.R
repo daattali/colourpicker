@@ -48,7 +48,7 @@ colourPickerGadget <- function(numCols = 3) {
     gadgetTitleBar(
       span(strong("Colour Picker"),
            span(id = "author", "By",
-                a(href = "http://deanattali.com", "Dean Attali")))
+                a(href = "https://deanattali.com", "Dean Attali")))
     ),
 
     # Header section - shows the selected colours

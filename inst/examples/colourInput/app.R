@@ -3,8 +3,8 @@ library(colourpicker)
 
 share <- list(
   title = "{colourpicker} package",
-  url = "http://daattali.com/shiny/colourInput/",
-  image = "http://daattali.com/shiny/img/colourinput.png",
+  url = "https://daattali.com/shiny/colourInput/",
+  image = "https://daattali.com/shiny/img/colourinput.png",
   description = "An input control that allows users to select colours in Shiny apps",
   twitter_user = "daattali"
 )

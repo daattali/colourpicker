@@ -15,15 +15,15 @@ knitr::opts_chunk$set(tidy = FALSE, comment = "#>")
 
 # {colourpicker} - A Colour Picker Tool for Shiny and for Selecting Colours in Plots
 
-[![Build status](https://travis-ci.org/daattali/colourpicker.svg?branch=master)](https://travis-ci.org/daattali/colourpicker) [![CRAN version](http://www.r-pkg.org/badges/version/colourpicker)](https://cran.r-project.org/package=colourpicker)
+[![Build status](https://travis-ci.org/daattali/colourpicker.svg?branch=master)](https://travis-ci.org/daattali/colourpicker) [![CRAN version](https://www.r-pkg.org/badges/version/colourpicker)](https://cran.r-project.org/package=colourpicker)
 
-> [Demo](http://daattali.com/shiny/colourInput/) &middot; Created by [Dean Attali](https://deanattali.com)
+> [Demo](https://daattali.com/shiny/colourInput/) &middot; Created by [Dean Attali](https://deanattali.com)
 
 {colourpicker} gives you a colour picker widget that can be used in different contexts in R.
 
 ![colour input image](../inst/img/colourinputnew.PNG)
 
-The most common uses of {colourpicker} are to use the `colourInput()` function to create a [colour input in Shiny](http://daattali.com/shiny/colourInput/), or to use the `plotHelper()` function/RStudio Addin to easily [select colours for a plot](../inst/img/plothelper-demo.gif).
+The most common uses of {colourpicker} are to use the `colourInput()` function to create a [colour input in Shiny](https://daattali.com/shiny/colourInput/), or to use the `plotHelper()` function/RStudio Addin to easily [select colours for a plot](../inst/img/plothelper-demo.gif).
 
 **Need Shiny help? [I'm available for consulting](https://attalitech.com/).**<br/>
 **If you find {colourpicker} useful, please consider [supporting my work](https://github.com/sponsors/daattali) to unlock rewards\! ❤**
@@ -54,15 +54,13 @@ The most common uses of {colourpicker} are to use the `colourInput()` function t
 
 As mentioned above, the most useful functions are `colourInput()` and `plotHelper()`.
 
-  - [Click here](http://daattali.com/shiny/colourInput/) to view a live
+  - [Click here](https://daattali.com/shiny/colourInput/) to view a live
 interactive demo the colour input.
   - The GIF below shows what the Plot Colour Helper looks like (the GIF is from an old version that did not support opacity/transparency for colours, which is now supported).
 
 ![Plot Colour Helper demo](../inst/img/plothelper-demo.gif)
 
 <h2 id="install">Installation</h2>
-
-{colourpicker} is available through both CRAN and GitHub:
 
 To install the stable CRAN version:
 
@@ -73,13 +71,13 @@ install.packages("colourpicker")
 To install the latest development version from GitHub:
 
 ```
-install.packages("devtools")
-devtools::install_github("daattali/colourpicker")
+install.packages("remotes")
+remotes::install_github("daattali/colourpicker")
 ```
 
 <h2 id="colourinput">Colour input for Shiny apps (or R markdown): `colourInput()`</h2>
 
-You can use `colourInput()` to include a colour picker input in Shiny apps (or in R markdown documents). It works just like any other native Shiny input, here is an example:
+You can use `colourInput()` to include a colour picker input in Shiny apps (or in R markdown documents). It works just like any other native Shiny input:
 
 ```
 library(shiny)

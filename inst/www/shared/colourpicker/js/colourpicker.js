@@ -2,15 +2,15 @@
   * jQuery Colour picker: A tiny colour picker with useful extra features
   *
   * Copyright:
-  * Dean Attali, http://deanattali.com
-  * Cory LaViska for A Beautiful Site, LLC: http://www.abeautifulsite.net/
+  * Dean Attali, https://deanattali.com
+  * Cory LaViska for A Beautiful Site, LLC: https://www.abeautifulsite.net/
   * David Griswold http://davidgriswoldhh.mtbos.org/ (allowing alpha colours)
   *
   * Version: 1.6
   *
   * Contribute: https://github.com/daattali/jquery-colourpicker
   *
-  * @license: http://opensource.org/licenses/MIT
+  * @license: https://opensource.org/licenses/MIT
   */
 (function (factory) {
   /* jshint ignore:start */
@@ -647,10 +647,10 @@
     // regex matchers for str2rgb below
     var matchers = (function() {
 
-      // <http://www.w3.org/TR/css3-values/#integers>
+      // <https://www.w3.org/TR/css3-values/#integers>
       var CSS_INTEGER = "[-\\+]?\\d+%?";
 
-      // <http://www.w3.org/TR/css3-values/#number-value>
+      // <https://www.w3.org/TR/css3-values/#number-value>
       var CSS_NUMBER = "[-\\+]?\\d*\\.\\d+%?";
 
       // Allow positive/negative integer/number.  Don't capture the either/or, just the entire outcome.

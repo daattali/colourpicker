@@ -3,7 +3,7 @@
 #' Launch a \code{colourpicker} example Shiny app that shows how to use the
 #' \code{colourInput} control. \cr
 #' The example is also
-#' \href{http://daattali.com/shiny/colourInput/}{available online}.
+#' \href{https://daattali.com/shiny/colourInput/}{available online}.
 #' @examples
 #' ## Only run this example in interactive R sessions
 #' if (interactive()) {

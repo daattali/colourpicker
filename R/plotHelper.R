@@ -126,7 +126,7 @@ plotHelper <- function(code = "", colours = NULL, returnCode = FALSE) {
 
     gadgetTitleBar(span(strong("Plot Colour Helper"),
                         span(id = "author", "By",
-                             a(href = "http://deanattali.com", "Dean Attali")))
+                             a(href = "https://deanattali.com", "Dean Attali")))
     ),
 
     div(id = "plotArea",

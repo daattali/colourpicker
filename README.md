@@ -3,9 +3,9 @@
 [![Build
 status](https://travis-ci.org/daattali/colourpicker.svg?branch=master)](https://travis-ci.org/daattali/colourpicker)
 [![CRAN
-version](http://www.r-pkg.org/badges/version/colourpicker)](https://cran.r-project.org/package=colourpicker)
+version](https://www.r-pkg.org/badges/version/colourpicker)](https://cran.r-project.org/package=colourpicker)
 
-> [Demo](http://daattali.com/shiny/colourInput/) · Created by [Dean
+> [Demo](https://daattali.com/shiny/colourInput/) · Created by [Dean
 > Attali](https://deanattali.com)
 
 {colourpicker} gives you a colour picker widget that can be used in
@@ -15,7 +15,7 @@ different contexts in R.
 
 The most common uses of {colourpicker} are to use the `colourInput()`
 function to create a [colour input in
-Shiny](http://daattali.com/shiny/colourInput/), or to use the
+Shiny](https://daattali.com/shiny/colourInput/), or to use the
 `plotHelper()` function/RStudio Addin to easily [select colours for a
 plot](inst/img/plothelper-demo.gif).
 
@@ -57,7 +57,7 @@ Demos
 As mentioned above, the most useful functions are `colourInput()` and
 `plotHelper()`.
 
-  - [Click here](http://daattali.com/shiny/colourInput/) to view a live
+  - [Click here](https://daattali.com/shiny/colourInput/) to view a live
     interactive demo the colour input.
   - The GIF below shows what the Plot Colour Helper looks like (the GIF
     is from an old version that did not support opacity/transparency for
@@ -71,16 +71,14 @@ Installation
 
 </h2>
 
-{colourpicker} is available through both CRAN and GitHub:
-
 To install the stable CRAN version:
 
     install.packages("colourpicker")
 
 To install the latest development version from GitHub:
 
-    install.packages("devtools")
-    devtools::install_github("daattali/colourpicker")
+    install.packages("remotes")
+    remotes::install_github("daattali/colourpicker")
 
 <h2 id="colourinput">
 
@@ -90,7 +88,7 @@ Colour input for Shiny apps (or R markdown): `colourInput()`
 
 You can use `colourInput()` to include a colour picker input in Shiny
 apps (or in R markdown documents). It works just like any other native
-Shiny input, here is an example:
+Shiny input:
 
     library(shiny)
     shinyApp(

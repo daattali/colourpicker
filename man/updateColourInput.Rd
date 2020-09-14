@@ -60,7 +60,7 @@ This function works similarly to the update functions provided by shiny.\cr
 Any argument with \code{NULL} values will be ignored.
 }
 \note{
-See \href{http://daattali.com/shiny/colourInput/}{http://daattali.com/shiny/colourInput/}
+See \href{https://daattali.com/shiny/colourInput/}{https://daattali.com/shiny/colourInput/}
 for a live demo.
 }
 \examples{
