@@ -255,6 +255,6 @@ The colours returned can either be in HEX format (eg. "#0000FF") or be named (eg
 
 <h2 id="sponsors">Sponsors 🏆</h2>
 
-> There are no sponsors yet
+- [Thomas Carmichael](https://github.com/tommykins)
 
-[Become the first sponsor for {colourpicker} and unlock special rewards!](https://github.com/sponsors/daattali/sponsorships?tier_id=39856)
+[Become a sponsor for {colourpicker} and unlock special rewards!](https://github.com/sponsors/daattali/sponsorships?tier_id=39856)

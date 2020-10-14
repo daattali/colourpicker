@@ -390,7 +390,7 @@ Sponsors 🏆
 
 </h2>
 
-> There are no sponsors yet
+  - [Thomas Carmichael](https://github.com/tommykins)
 
-[Become the first sponsor for {colourpicker} and unlock special
+[Become a sponsor for {colourpicker} and unlock special
 rewards\!](https://github.com/sponsors/daattali/sponsorships?tier_id=39856)
