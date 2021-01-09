@@ -27,13 +27,13 @@ The most common uses of {colourpicker} are to use the `colourInput()` function t
 # Table of contents
 
 - [Demos](#demos)
+- [Sponsors 🏆](#sponsors)
 - [Installation](#install)
 - [Colour input for Shiny apps (or R markdown): `colourInput()`](#colourinput)
 - [Select colours to use in your plot: `plotHelper()`](#plothelper)
 - [Select colours to use in your R code: `colourPicker()`](#colourpicker)
 - [Features of `colourInput()`](#colourinput-features)
 - [Features of `plotHelper()`](#plothelper-features)
-- [Sponsors 🏆](#sponsors)
 
 <h2 id="demos">Demos</h2>
 
@@ -44,6 +44,12 @@ interactive demo the colour input.
   - The GIF below shows what the Plot Colour Helper looks like (the GIF is from an old version that did not support opacity/transparency for colours, which is now supported).
 
 ![Plot Colour Helper demo](inst/img/plothelper-demo.gif)
+
+<h2 id="sponsors">Sponsors 🏆</h2>
+
+- [Thomas Carmichael](https://github.com/tommykins)
+
+[Become a sponsor for {colourpicker} and unlock special rewards!](https://github.com/sponsors/daattali/sponsorships?tier_id=39856)
 
 <h2 id="install">Installation</h2>
 
@@ -237,9 +243,3 @@ If the tool is called with `plotHelper()`, then the return value is simply the v
 Since the plot code requires you to use the variable name `CPCOLS`, after closing the plot helper tool, a variable named `CPCOLS` will be available in the global environment.
 
 The colours returned can either be in HEX format (eg. "#0000FF") or be named (eg. "blue") - you can choose this option inside the tool.
-
-<h2 id="sponsors">Sponsors 🏆</h2>
-
-- [Thomas Carmichael](https://github.com/tommykins)
-
-[Become a sponsor for {colourpicker} and unlock special rewards!](https://github.com/sponsors/daattali/sponsorships?tier_id=39856)
