@@ -1,6 +1,6 @@
 # {colourpicker} - A Colour Picker Tool for Shiny and for Selecting Colours in Plots
 
-[![Build status](https://travis-ci.org/daattali/colourpicker.svg?branch=master)](https://travis-ci.org/daattali/colourpicker) [![CRAN version](https://www.r-pkg.org/badges/version/colourpicker)](https://cran.r-project.org/package=colourpicker)
+[![R Build status](https://github.com/daattali/colourpicker/workflows/R-CMD-check/badge.svg)](https://github.com/daattali/colourpicker/actions) [![CRAN version](https://www.r-pkg.org/badges/version/colourpicker)](https://cran.r-project.org/package=colourpicker)
 
 > [Demo](https://daattali.com/shiny/colourInput/) &middot; Created by [Dean Attali](https://deanattali.com)
 
