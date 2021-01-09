@@ -1,10 +1,12 @@
 Package: colourpicker
 Type: Package
 Title: A Colour Picker Tool for Shiny and for Selecting Colours in Plots
-Version: 1.1.0
+Version: 1.1.0.9000
 Authors@R: c(
-    person("Dean", "Attali", email = "daattali@gmail.com",
-    role = c("aut", "cre")),
+    person("Dean", "Attali", 
+        email = "daattali@gmail.com",
+        role = c("aut", "cre"),
+        comment= c(ORCID="0000-0002-5645-3493")),
     person("David", "Griswold", email="novachild@gmail.com",
     role = "ctb")
   )
@@ -35,5 +37,4 @@ Suggests:
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
-VignetteBuilder: knitr
 RoxygenNote: 7.1.1
