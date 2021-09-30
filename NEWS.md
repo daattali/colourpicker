@@ -1,3 +1,7 @@
+# colourpicker 1.1.1 (2021-09-30)
+
+- Fix plotHelper() to work with new ggplot that complained about CPCOLS variable not existing
+
 # colourpicker 1.1.0 (2020-09-14)
 
 - Added support for bookmarking (restoring state) (#33)
