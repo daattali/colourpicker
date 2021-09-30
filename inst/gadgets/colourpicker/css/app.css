@@ -184,3 +184,8 @@ body {
   left: 50%;
   margin-left: -33px;
 }
+
+.nav>li>a {
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
