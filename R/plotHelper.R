@@ -57,7 +57,8 @@ plotHelper <- function(code = "", colours = NULL, returnCode = FALSE) {
   ggdetach <- FALSE
 
   # Use default code if none was given
-  if (trimws(code) == "") {
+  code_local <- code
+  if (is.character(substitute(code_local)) && trimws(code) == "") {
     code <- "ggplot(iris, aes(Sepal.Length, Petal.Length)) +
       geom_point(aes(col = Species)) +
       scale_colour_manual(values = CPCOLS)"
@@ -73,7 +74,7 @@ plotHelper <- function(code = "", colours = NULL, returnCode = FALSE) {
   }
   # If code was given, parse it and save it
   else {
-    if (!is.character(code)) {
+    if (!is.character(substitute(code_local))) {
       code <- paste(deparse(substitute(code)), collapse = " ")
     }
 
