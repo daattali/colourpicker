@@ -158,7 +158,7 @@ plotHelper <- function(code = "", colours = NULL, returnCode = FALSE) {
             title = "Add another colour"
         ),
         div(id = "removeColBtn",
-            icon("trash-o"),
+            icon("trash-alt"),
             title = "Remove selected colour"
         ),
         uiOutput("selectedCols", inline = TRUE)

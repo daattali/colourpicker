@@ -65,7 +65,7 @@ colourPickerGadget <- function(numCols = 3) {
             title = "Add another colour"
         ),
         div(id = "removeColBtn",
-            icon("trash-o"),
+            icon("trash-alt"),
             title = "Remove selected colour"
         ),
         uiOutput("selectedCols", inline = TRUE)
