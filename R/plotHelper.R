@@ -572,5 +572,5 @@ plotHelperAddin <- function() {
   if (is.null(code)) {
     return()
   }
-  rstudioapi::insertText(text = code, id = context$id)
+  invisible(rstudioapi::insertText(text = code, id = context$id))
 }

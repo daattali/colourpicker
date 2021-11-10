@@ -21,7 +21,7 @@ colourPicker <- function(numCols = 3) {
 colourPickerAddin <- function() {
   col <- colourPickerGadget()
   text <- paste0("c(\"", paste(col, collapse = "\", \""), "\")")
-  rstudioapi::insertText(text = text)
+  invisible(rstudioapi::insertText(text = text))
 }
 
 
