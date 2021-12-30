@@ -148,7 +148,7 @@ colourInput <- function(inputId, label, value = "white",
     shiny::div(
       class = "form-group shiny-input-container",
       `data-shiny-input-type` = "colour",
-      label %AND% shiny::tags$label(label, `for` = inputId),
+      label %AND% shiny::tags$label(label, class = "control-label", `for` = inputId),
       inputTag
     )
 
