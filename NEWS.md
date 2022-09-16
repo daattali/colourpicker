@@ -2,6 +2,7 @@
 
 - Add CSS class to input label (#48)
 - Don't output side-effect text to the console when closing the gadget/addin
+- Upgrade jQuery to version latest version 3.6.1 (#53)
 
 # colourpicker 1.1.1 (2021-09-30)
 
