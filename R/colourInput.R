@@ -100,16 +100,19 @@ colourInput <- function(inputId, label, value = "white",
   value <- restoreInput(id = inputId, default = value)
 
   # declare dependencies
-  shiny::addResourcePath("colourpicker-binding",
-                         system.file("srcjs", package = "colourpicker"))
-  shiny::addResourcePath("colourpicker-lib",
-                         system.file("www", "shared", "colourpicker", package = "colourpicker"))
   deps <- list(
     htmltools::htmlDependency(
-      "colourpicker-binding", "0.1.0", c(href = "colourpicker-binding"),
-      script = "input_binding_colour.js"),
+      name = "colourpicker-binding",
+      version = as.character(utils::packageVersion("colourpicker")),
+      package = "colourpicker",
+      src = "srcjs",
+      script = "input_binding_colour.js"
+    ),
     htmltools::htmlDependency(
-      "colourpicker-lib", "0.1.0", c(href = "colourpicker-lib"),
+      name = "colourpicker-lib",
+      version = "1.6",
+      package = "colourpicker",
+      src = "www/shared/colourpicker",
       script = "js/colourpicker.min.js",
       stylesheet = "css/colourpicker.min.css"
     )
