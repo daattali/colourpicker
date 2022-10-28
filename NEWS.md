@@ -1,3 +1,7 @@
+# Unreleased version
+
+- Add `width` parameter to `colourInput()` (#52)
+
 # colourpicker 1.2.0 (2022-10-28)
 
 - Add CSS class to input label (#48)

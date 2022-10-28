@@ -37,6 +37,7 @@
 #' of a HEX value when possible.
 #' @param closeOnClick If \code{TRUE}, then the colour selection panel will close
 #' immediately after selecting a colour.
+#' @param width The width of the input, e.g. `"400px"` or `"100%"`
 #' @seealso \code{\link[colourpicker]{updateColourInput}}
 #' \code{\link[colourpicker]{colourPicker}}
 #' @examples
@@ -90,7 +91,8 @@ colourInput <- function(inputId, label, value = "white",
                         showColour = c("both", "text", "background"),
                         palette = c("square", "limited"),
                         allowedCols = NULL, allowTransparent = FALSE,
-                        returnName = FALSE, closeOnClick = FALSE) {
+                        returnName = FALSE, closeOnClick = FALSE,
+                        width = NULL) {
   # sanitize the arguments
   showColour <- match.arg(showColour)
   palette <- match.arg(palette)
@@ -147,6 +149,7 @@ colourInput <- function(inputId, label, value = "white",
   inputTag <-
     shiny::div(
       class = "form-group shiny-input-container",
+      style = htmltools::css(width = htmltools::validateCssUnit(width)),
       `data-shiny-input-type` = "colour",
       label %AND% shiny::tags$label(label, class = "control-label", `for` = inputId),
       inputTag

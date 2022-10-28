@@ -1,7 +1,6 @@
 Package: colourpicker
-Type: Package
 Title: A Colour Picker Tool for Shiny and for Selecting Colours in Plots
-Version: 1.2.0
+Version: 1.2.0.9000
 Authors@R: c(
     person("Dean", "Attali", 
         email = "daattali@gmail.com",
@@ -16,7 +15,7 @@ Description: A colour picker that can be used as an input in 'Shiny' apps
     available as an 'RStudio' Addin, which helps you pick colours to use in your
     plots. A more generic Colour Picker 'RStudio' Addin is also provided to let 
     you select colours to use in your R code.
-URL: https://github.com/daattali/colourpicker
+URL: https://github.com/daattali/colourpicker, https://daattali.com/shiny/colourInput/
 BugReports: https://github.com/daattali/colourpicker/issues
 Depends:
     R (>= 3.1.0)
@@ -36,4 +35,5 @@ Suggests:
     shinydisconnect
 License: MIT + file LICENSE
 Encoding: UTF-8
-RoxygenNote: 7.1.1
+RoxygenNote: 7.2.1
+Roxygen: list(markdown = TRUE)

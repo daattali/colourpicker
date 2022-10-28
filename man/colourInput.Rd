@@ -13,7 +13,8 @@ colourInput(
   allowedCols = NULL,
   allowTransparent = FALSE,
   returnName = FALSE,
-  closeOnClick = FALSE
+  closeOnClick = FALSE,
+  width = NULL
 )
 }
 \arguments{
@@ -46,6 +47,8 @@ of a HEX value when possible.}
 
 \item{closeOnClick}{If \code{TRUE}, then the colour selection panel will close
 immediately after selecting a colour.}
+
+\item{width}{The width of the input, e.g. \code{"400px"} or \code{"100\%"}}
 }
 \description{
 Create an input control to select a colour.
