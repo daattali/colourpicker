@@ -1,4 +1,4 @@
-# Unreleased version
+# colourpicker 1.2.0 (2022-10-28)
 
 - Add CSS class to input label (#48)
 - Don't output side-effect text to the console when closing the gadget/addin
