@@ -1,9 +1,22 @@
-# {colourpicker} - A Colour Picker Tool for Shiny and for Selecting Colours in Plots
+<h3 align="center">colourpicker</h3>
+<h4 align="center">
+  🎨 A colour picker tool for Shiny and for selecting colours in plots (in R)
+  <br><br>
+  <a href="https://daattali.com/shiny/colourInput/">Demo</a>
+  &middot;
+  by <a href="https://deanattali.com">Dean Attali</a>
+</h4>
 
+<p align="center">
+  <a href="https://github.com/daattali/colourpicker/actions">
+    <img src="https://github.com/daattali/colourpicker/workflows/R-CMD-check/badge.svg" alt="R build status" />
+  </a> 
+  <a href="https://cran.r-project.org/package=colourpicker">
+    <img src="https://www.r-pkg.org/badges/version/colourpicker" alt="CRAN version" />
+  </a>
+</p>
 
-[![R Build status](https://github.com/daattali/colourpicker/workflows/R-CMD-check/badge.svg)](https://github.com/daattali/colourpicker/actions) [![CRAN version](https://www.r-pkg.org/badges/version/colourpicker)](https://cran.r-project.org/package=colourpicker)
-
-> [Demo](https://daattali.com/shiny/colourInput/) &middot; Created by [Dean Attali](https://deanattali.com)
+---
 
 {colourpicker} gives you a colour picker widget that can be used in different contexts in R.
 
@@ -12,20 +25,18 @@
 The most common uses of {colourpicker} are to use the `colourInput()` function to create a [colour input in Shiny](https://daattali.com/shiny/colourInput/), or to use the `plotHelper()` function/RStudio Addin to easily [select colours for a plot](inst/img/plothelper-demo.gif).
 
 **Need Shiny help? [I'm available for consulting](https://attalitech.com/).**<br/>
-**If you find {colourpicker} useful, please consider [supporting my work](https://github.com/sponsors/daattali) to unlock rewards\! ❤**
+**If you find {colourpicker} useful, please consider [supporting my work](https://github.com/sponsors/daattali)! ❤**
 
 <p align="center">
-
-<a style="display: inline-block;" href="https://github.com/sponsors/daattali">
-<img height="35" src="https://i.imgur.com/034B8vq.png" /> </a>
-
-<a style="display: inline-block;" href="https://paypal.me/daattali">
-<img height="35" src="https://camo.githubusercontent.com/0e9e5cac101f7093336b4589c380ab5dcfdcbab0/68747470733a2f2f63646e2e6a7364656c6976722e6e65742f67682f74776f6c66736f6e2f70617970616c2d6769746875622d627574746f6e40312e302e302f646973742f627574746f6e2e737667" />
-</a>
-
+  <a style="display: inline-block;" href="https://github.com/sponsors/daattali">
+    <img height="35" src="https://i.imgur.com/034B8vq.png" />
+  </a>
+  <a style="display: inline-block;" href="https://paypal.me/daattali">
+    <img height="35" src="https://camo.githubusercontent.com/0e9e5cac101f7093336b4589c380ab5dcfdcbab0/68747470733a2f2f63646e2e6a7364656c6976722e6e65742f67682f74776f6c66736f6e2f70617970616c2d6769746875622d627574746f6e40312e302e302f646973742f627574746f6e2e737667" />
+  </a>
 </p>
 
-> This package is part of a larger ecosystem of packages with a shared vision: solving common Shiny issues and improving Shiny apps with minimal effort, minimal code changes, and straightforward documentation. Other packages for your Shiny apps:
+> This package is part of a larger ecosystem of packages with a shared vision: solving common Shiny issues and improving Shiny apps with minimal effort, minimal code changes, and clear documentation. Other packages for your Shiny apps:
 
 | Package | Description | Demo |
 |---|---|---|
@@ -36,9 +47,9 @@ The most common uses of {colourpicker} are to use the `colourInput()` function t
 | [shinycssloaders](https://github.com/daattali/shinycssloaders/) | ⌛ Add loading animations to a Shiny output while it's recalculating | [🔗](https://daattali.com/shiny/shinycssloaders-demo/) |
 | [shinybrowser](https://github.com/daattali/shinybrowser/) | 🌐 Find out information about a user's web browser in Shiny apps | [🔗](https://daattali.com/shiny/shinybrowser-demo/) |
 | [shinydisconnect](https://github.com/daattali/shinydisconnect/) | 🔌 Show a nice message when a Shiny app disconnects or errors | [🔗](https://daattali.com/shiny/shinydisconnect-demo/) |
+| [shinytip](https://github.com/daattali/shinytip/) | 💬 Simple flexible tooltips for Shiny apps | WIP |
+| [shinymixpanel](https://github.com/daattali/shinymixpanel/) | 🔍 Track user interactions with Mixpanel in Shiny apps or R scripts | WIP |
 | [shinyforms](https://github.com/daattali/shinyforms/) | 📝 Easily create questionnaire-type forms with Shiny | WIP |
-
-
 
 # Table of contents
 
@@ -69,15 +80,15 @@ interactive demo the colour input.
 
 <h2 id="install">Installation</h2>
 
-To install the stable CRAN version:
+**For most users:** To install the stable CRAN version:
 
-```
+```r
 install.packages("colourpicker")
 ```
 
-To install the latest development version from GitHub:
+**For advanced users:** To install the latest development version from GitHub:
 
-```
+```r
 install.packages("remotes")
 remotes::install_github("daattali/colourpicker")
 ```
