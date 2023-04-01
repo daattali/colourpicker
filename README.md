@@ -274,3 +274,7 @@ If the tool is called with `plotHelper()`, then the return value is simply the v
 Since the plot code requires you to use the variable name `CPCOLS`, after closing the plot helper tool, a variable named `CPCOLS` will be available in the global environment.
 
 The colours returned can either be in HEX format (eg. "#0000FF") or be named (eg. "blue") - you can choose this option inside the tool.
+
+<h2>Credits</h2>
+
+Logo design by [Alfredo Hernández](https://aldomann.com/).
