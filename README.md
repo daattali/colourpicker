@@ -16,13 +16,17 @@
   </a>
 </p>
 
+<br/>
+
 ---
+
+<img src="inst/img/hex.png" width="170" align="right"/>
 
 {colourpicker} gives you a colour picker widget that can be used in different contexts in R.
 
-![colour input image](inst/img/colourinputnew.PNG)
-
 The most common uses of {colourpicker} are to use the `colourInput()` function to create a [colour input in Shiny](https://daattali.com/shiny/colourInput/), or to use the `plotHelper()` function/RStudio Addin to easily [select colours for a plot](inst/img/plothelper-demo.gif).
+
+![colour input image](inst/img/colourinputnew.PNG)
 
 **Need Shiny help? [I'm available for consulting](https://attalitech.com/).**<br/>
 **If you find {colourpicker} useful, please consider [supporting my work](https://github.com/sponsors/daattali)! ❤**
