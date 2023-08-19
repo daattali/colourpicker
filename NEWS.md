@@ -1,4 +1,4 @@
-# Unreleased version
+# colourpicker 1.3.0 (2023-08-19)
 
 - Add `width` parameter to `colourInput()` (#52)
 - Don't use `addResourcePath()` and instead use `htmlDependency()` (#43)
